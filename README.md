@@ -1,4 +1,4 @@
-# SushiBelt
+<img src="https://github.com/daangn/SushiBelt/blob/master/screenshots/logo.png" />
 
 [![Version](https://img.shields.io/cocoapods/v/SushiBelt.svg?style=flat)](https://cocoapods.org/pods/SushiBelt)
 [![License](https://img.shields.io/cocoapods/l/SushiBelt.svg?style=flat)](https://cocoapods.org/pods/SushiBelt)
@@ -7,7 +7,23 @@
 ## Basic Concept
 The SushiBelt can be used to measure exposure according to the ratio for all views on the UIScrollView.
 
-👨‍🔧 Under construction 🧑‍🔧
+There are many characteristics of SushiBelt.
+
+First of all, The impression ratio can be set differently for each UIView.
+
+<img src="https://github.com/daangn/SushiBelt/blob/master/screenshots/objective_ratio.png" />
+
+In the context of online advertisingm An impression is when an ad is fetched from its source, and is countable. Whether the ad is clicked is not taken into account. Each time an ad is fetched, it is counted as one impression. So, In SushiBelt case, you can measure the impression according to the ratio for each UIView.
+
+<img src="https://github.com/daangn/SushiBelt/blob/master/screenshots/ratio.png" />
+
+- Green Area means a measurable range.
+- Red line means a calculated visible ratio from SushiBelt.
+- Blue line means a objective visible ratio for impression.
+
+also, SushiBelt calculates visible ratio as the scroll direction changes.
+
+<img src="https://github.com/daangn/SushiBelt/blob/master/screenshots/scroll_direction.png" />
 
 ## Features
 [x] Support a measurement of exposure ratio for each view.
