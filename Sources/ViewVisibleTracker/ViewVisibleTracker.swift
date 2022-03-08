@@ -16,6 +16,7 @@ public final class ViewVisibleTracker {
   
   public var defaultVisibleRatio: CGFloat = 0.0
   public var defaultScrollDirection: ViewVisibleTrackerScrollDirection = .up
+  private var prevScrollDirection: ViewVisibleTrackerScrollDirection?
   
   private var cachedItems: Set<ViewVisibleTrackingItem> = .init()
   private var debugger: ViewVisibleTrackerDebuggerLogic?
@@ -46,6 +47,9 @@ public final class ViewVisibleTracker {
     self.removeEndTrackingItemsOnCache(items: endTrackingItems)
     self.checkBeginTrackingItems(items: self.cachedItems)
     self.didEndTracking(items: endTrackingItems)
+    guard let scrollDirection = self.scrollDrection() else { return }
+    self.prevScrollDirection = scrollDirection
+  }
   
   public func registerDebugger(debugger: ViewVisibleTrackerDebuggerLogic) {
     self.debugger = debugger
