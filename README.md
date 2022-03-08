@@ -13,7 +13,7 @@ First of all, The impression ratio can be set differently for each UIView.
 
 <img src="https://github.com/daangn/SushiBelt/blob/master/screenshots/objective_ratio.png" />
 
-In the context of online advertisingm An impression is when an ad is fetched from its source, and is countable. Whether the ad is clicked is not taken into account. Each time an ad is fetched, it is counted as one impression. 
+In the context of online advertising, An impression is when an ad is fetched from its source, and is countable. Whether the ad is clicked is not taken into account. Each time an ad is fetched, it is counted as one impression. 
 
 In Summary, SushiBelt can measure the impression according to the objective visible ratio for each UIView.
 
