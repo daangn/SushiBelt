@@ -47,6 +47,7 @@ public final class ViewVisibleTracker {
     self.removeEndTrackingItemsOnCache(items: endTrackingItems)
     self.checkBeginTrackingItems(items: self.cachedItems)
     self.didEndTracking(items: endTrackingItems)
+    self.debuggingIfNeeded()
     guard let scrollDirection = self.scrollDrection() else { return }
     self.prevScrollDirection = scrollDirection
   }
@@ -59,6 +60,16 @@ public final class ViewVisibleTracker {
     items.forEach { item in
       self.cachedItems.remove(item)
     }
+  }
+  
+  private func debuggingIfNeeded() {
+    guard let debugger = self.debugger else {
+      return
+    }
+    debugger.update(
+      items: self.cachedItems,
+      scrollDirection: self.prevScrollDirection
+    )
   }
   
   private func updateCachedItemsIfNeeded(items: [ViewVisibleTrackingItem]) {
