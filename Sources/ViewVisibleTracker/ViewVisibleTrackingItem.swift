@@ -42,10 +42,14 @@ public struct ViewVisibleTrackingItem {
   
   var frameInWindow: CGRect
   var isTracked: Bool = false
+  var currentVisibleRatio: CGFloat = 0.0
+  var objectiveVisibleRatio: CGFloat = 0.0
+  var timestamp: Date
   
   public init(id: Identifier, view: UIView) {
     self.id = id
     self.frameInWindow = view.convert(view.bounds, to: nil)
+    self.timestamp = Date()
   }
   
 }
