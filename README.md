@@ -53,8 +53,9 @@ dependencies: [
 
 ## Author
 
-Geektree0101, h2s1880@gmail.com
-ElonPark, https://medium.com/@Elon_Park
+- Geektree0101, h2s1880@gmail.com
+- ElonPark, https://medium.com/@Elon_Park
+- jinsu3758, jinsu3758@naver.com
 
 ## License
 
