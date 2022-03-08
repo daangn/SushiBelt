@@ -1,11 +1,11 @@
-# ViewVisibleTracker
+# SushiBelt
 
-[![Version](https://img.shields.io/cocoapods/v/ViewVisibleTracker.svg?style=flat)](https://cocoapods.org/pods/ViewVisibleTracker)
-[![License](https://img.shields.io/cocoapods/l/ViewVisibleTracker.svg?style=flat)](https://cocoapods.org/pods/ViewVisibleTracker)
-[![Platform](https://img.shields.io/cocoapods/p/ViewVisibleTracker.svg?style=flat)](https://cocoapods.org/pods/ViewVisibleTracker)
+[![Version](https://img.shields.io/cocoapods/v/SushiBelt.svg?style=flat)](https://cocoapods.org/pods/SushiBelt)
+[![License](https://img.shields.io/cocoapods/l/SushiBelt.svg?style=flat)](https://cocoapods.org/pods/SushiBelt)
+[![Platform](https://img.shields.io/cocoapods/p/SushiBelt.svg?style=flat)](https://cocoapods.org/pods/SushiBelt)
 
 ## Basic Concept
-The ViewVisibleTracker can be used to measure exposure according to the ratio for all views on the UIScrollView.
+The SushiBelt can be used to measure exposure according to the ratio for all views on the UIScrollView.
 
 👨‍🔧 Under construction 🧑‍🔧
 
@@ -33,21 +33,21 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ### CocoaPods
 
-ViewVisibleTracker is available through [CocoaPods](https://cocoapods.org). To install
+SushiBelt is available through [CocoaPods](https://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'ViewVisibleTracker'
+pod 'SushiBelt'
 ```
 
 ### Swift Package Manager
 
 The Swift Package Manager is a tool for automating the distribution of Swift code and is integrated into the swift compiler.
-Once you have your Swift package set up, adding ViewVisibleTracker as a dependency is as easy as adding it to the dependencies value of your Package.swift.
+Once you have your Swift package set up, adding SushiBelt as a dependency is as easy as adding it to the dependencies value of your Package.swift.
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com:daangn/ViewVisibleTracker.git", .upToNextMajor(from: "0.1.0"))
+    .package(url: "https://github.com:daangn/SushiBelt.git", .upToNextMajor(from: "0.1.0"))
 ]
 ```
 
@@ -59,4 +59,4 @@ dependencies: [
 
 ## License
 
-ViewVisibleTracker is available under the MIT license. See the LICENSE file for more info.
+SushiBelt is available under the MIT license. See the LICENSE file for more info.
