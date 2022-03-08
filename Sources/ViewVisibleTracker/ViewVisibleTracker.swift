@@ -85,17 +85,34 @@ public final class ViewVisibleTracker {
   
   private func checkBeginTrackingItems(items: Set<ViewVisibleTrackingItem>) {
     items.forEach { item in
-      guard !item.isTracked,
-            let trackingItemPoint = self.trackingItemPoint(item: item),
-            self.calculatedTrackingRect(item: item).contains(trackingItemPoint)
-      else {
+      // early exit
+      if !item.isTracked && self.debugger == nil {
         return
       }
       
+      guard let currentVisibleRatio = self.calculateVisibleRatio(item: item) else {
+        return
+      }
+      
+      let objectiveVisibleRatio = self.dataSource?.visibleRatioForItem(self, item: item) ?? self.defaultVisibleRatio
+      
       var mutableItem = item
-      mutableItem.isTracked = true
+      var shouldUpdate: Bool = false
+      
+      if !mutableItem.isTracked && currentVisibleRatio >= objectiveVisibleRatio {
+        mutableItem.isTracked = true
+        shouldUpdate = true
+        self.delegate?.willBeginTracking(self, item: item)
+      }
+      
+      if self.debugger != nil {
+        mutableItem.currentVisibleRatio = currentVisibleRatio
+        mutableItem.objectiveVisibleRatio = objectiveVisibleRatio
+        shouldUpdate = true
+      }
+      
+      guard shouldUpdate else { return }
       self.cachedItems.update(with: mutableItem)
-      self.delegate?.willBeginTracking(self, item: item)
     }
   }
   
@@ -105,33 +122,8 @@ public final class ViewVisibleTracker {
     }
   }
   
-  private func trackingItemPoint(item: ViewVisibleTrackingItem) -> CGPoint? {
-    guard let direction = self.scrollDrection() else { return nil }
-    switch direction {
-    case .up:
-      return CGPoint(
-        x: item.frameInWindow.origin.x,
-        y: item.frameInWindow.origin.y
-      )
-    case .down:
-      return CGPoint(
-        x: item.frameInWindow.origin.x,
-        y: item.frameInWindow.origin.y + item.frameInWindow.height
-      )
-    case .left:
-      return CGPoint(
-        x: item.frameInWindow.origin.x,
-        y: item.frameInWindow.origin.y
-      )
-    case .right:
-      return CGPoint(
-        x: item.frameInWindow.origin.x + item.frameInWindow.width,
-        y: item.frameInWindow.origin.y
-      )
-    }
-  }
-  
-  private func calculatedTrackingRect(item: ViewVisibleTrackingItem) -> CGRect {
+  private func calculatedTrackingRect(item: ViewVisibleTrackingItem,
+                                      objectiveVisibleRatio: CGFloat) -> CGRect {
     guard let trackingRect = self.dataSource?.trackingRect(self) else {
       assertionFailure("You must inherit ViewVisibleTrackerDataSource")
       return .zero
@@ -141,11 +133,9 @@ public final class ViewVisibleTracker {
       return .zero
     }
     
-    let ratio = self.dataSource?.visibleRatioForItem(self, item: item) ?? self.defaultVisibleRatio
-    
     switch scrollDirection {
     case .up:
-      let height = item.frameInWindow.height * ratio
+      let height = item.frameInWindow.height * objectiveVisibleRatio
       return CGRect(
         x: trackingRect.origin.x,
         y: trackingRect.origin.y,
@@ -153,7 +143,7 @@ public final class ViewVisibleTracker {
         height: trackingRect.height - height
       )
     case .down:
-      let height = item.frameInWindow.height * ratio
+      let height = item.frameInWindow.height * objectiveVisibleRatio
       return CGRect(
         x: trackingRect.origin.x,
         y: trackingRect.origin.y + height,
@@ -161,7 +151,7 @@ public final class ViewVisibleTracker {
         height: trackingRect.height - height
       )
     case .left:
-      let width = item.frameInWindow.width * ratio
+      let width = item.frameInWindow.width * objectiveVisibleRatio
       return CGRect(
         x: trackingRect.origin.x,
         y: trackingRect.origin.y,
@@ -169,7 +159,7 @@ public final class ViewVisibleTracker {
         height: trackingRect.height
       )
     case .right:
-      let width = item.frameInWindow.width * ratio
+      let width = item.frameInWindow.width * objectiveVisibleRatio
       return CGRect(
         x: trackingRect.origin.x + width,
         y: trackingRect.origin.y,
@@ -180,13 +170,14 @@ public final class ViewVisibleTracker {
   }
   
   private func scrollDrection() -> ViewVisibleTrackerScrollDirection? {
-    guard let velocity = self.scrollView?.panGestureRecognizer.velocity(in: nil) else {
+    guard let velocity = self.scrollView?.panGestureRecognizer.velocity(in: nil)
+    else {
       assertionFailure("scrollView must not be null")
       return nil
     }
     
     if velocity.x == 0.0 && velocity.y == 0.0 {
-      return self.defaultScrollDirection
+      return self.prevScrollDirection ?? self.defaultScrollDirection
     } else if velocity.x == 0.0 && velocity.y < 0.0 {
       return .up
     } else if velocity.x == 0.0 && velocity.y > 0.0 {
@@ -199,5 +190,25 @@ public final class ViewVisibleTracker {
     
     // unsupported diagonal scroll tracking
     return nil
+  }
+  
+  private func calculateVisibleRatio(
+    item: ViewVisibleTrackingItem
+  ) -> CGFloat? {
+    guard let trackingRect = self.dataSource?.trackingRect(self)
+    else {
+      return nil
+    }
+    
+    let visibleRect = trackingRect.intersection(item.frameInWindow)
+    
+    switch self.scrollDrection() {
+    case .up, .down:
+      return min(1.0, visibleRect.height / item.frameInWindow.height)
+    case .left, .right:
+      return min(1.0, visibleRect.width / item.frameInWindow.width)
+    default:
+      return nil
+    }
   }
 }
