@@ -7,14 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		30AE681BF8E781D0EF75F8D0 /* Pods_ViewVisibleTracker_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91A558918D02FB4DEE7C79A4 /* Pods_ViewVisibleTracker_Tests.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
-		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
-		BEB61223E96B0956B2B00D54 /* Pods_ViewVisibleTracker_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D7051AD9D39938DAEDBB71 /* Pods_ViewVisibleTracker_Example.framework */; };
+		64124CB3B1A70B8895D6CFC3 /* Pods_ViewVisibleTracker_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 549A69A85E1A3E5CDD18BAB3 /* Pods_ViewVisibleTracker_Tests.framework */; };
+		96837B9D5AAEC5191BD928C6 /* Pods_ViewVisibleTracker_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9582B77D1A71BE86C93C42A2 /* Pods_ViewVisibleTracker_Example.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		549A69A85E1A3E5CDD18BAB3 /* Pods_ViewVisibleTracker_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ViewVisibleTracker_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* ViewVisibleTracker_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ViewVisibleTracker_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -37,15 +37,13 @@
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* ViewVisibleTracker_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ViewVisibleTracker_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		75900424683F94C20A7CCC6A /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		75900424683F94C20A7CCC6A /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		842B83AA3961CCC887E18551 /* Pods-ViewVisibleTracker_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViewVisibleTracker_Tests.release.xcconfig"; path = "Target Support Files/Pods-ViewVisibleTracker_Tests/Pods-ViewVisibleTracker_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		91A558918D02FB4DEE7C79A4 /* Pods_ViewVisibleTracker_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ViewVisibleTracker_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9582B77D1A71BE86C93C42A2 /* Pods_ViewVisibleTracker_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ViewVisibleTracker_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A564884983B69ADDE850A8D4 /* Pods-ViewVisibleTracker_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViewVisibleTracker_Example.debug.xcconfig"; path = "Target Support Files/Pods-ViewVisibleTracker_Example/Pods-ViewVisibleTracker_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		B02261DBB2A57BF6129AC662 /* Pods-ViewVisibleTracker_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViewVisibleTracker_Example.release.xcconfig"; path = "Target Support Files/Pods-ViewVisibleTracker_Example/Pods-ViewVisibleTracker_Example.release.xcconfig"; sourceTree = "<group>"; };
-		B68B22AAA5B547085CE405E2 /* ViewVisibleTracker.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = ViewVisibleTracker.podspec; path = ../ViewVisibleTracker.podspec; sourceTree = "<group>"; };
-		D9D7051AD9D39938DAEDBB71 /* Pods_ViewVisibleTracker_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ViewVisibleTracker_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DB7092A0FDCB7C88E6905DF4 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		B68B22AAA5B547085CE405E2 /* ViewVisibleTracker.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ViewVisibleTracker.podspec; path = ../ViewVisibleTracker.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		DB7092A0FDCB7C88E6905DF4 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		FA8C675D3183BDFA470795FB /* Pods-ViewVisibleTracker_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViewVisibleTracker_Tests.debug.xcconfig"; path = "Target Support Files/Pods-ViewVisibleTracker_Tests/Pods-ViewVisibleTracker_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -54,7 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BEB61223E96B0956B2B00D54 /* Pods_ViewVisibleTracker_Example.framework in Frameworks */,
+				96837B9D5AAEC5191BD928C6 /* Pods_ViewVisibleTracker_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,7 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30AE681BF8E781D0EF75F8D0 /* Pods_ViewVisibleTracker_Tests.framework in Frameworks */,
+				64124CB3B1A70B8895D6CFC3 /* Pods_ViewVisibleTracker_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,7 +75,6 @@
 				FA8C675D3183BDFA470795FB /* Pods-ViewVisibleTracker_Tests.debug.xcconfig */,
 				842B83AA3961CCC887E18551 /* Pods-ViewVisibleTracker_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -127,7 +124,6 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				607FACEB1AFB9204008FA782 /* Tests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
 			path = Tests;
@@ -154,8 +150,8 @@
 		7D09CED6F804D2CF94A439E1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D9D7051AD9D39938DAEDBB71 /* Pods_ViewVisibleTracker_Example.framework */,
-				91A558918D02FB4DEE7C79A4 /* Pods_ViewVisibleTracker_Tests.framework */,
+				9582B77D1A71BE86C93C42A2 /* Pods_ViewVisibleTracker_Example.framework */,
+				549A69A85E1A3E5CDD18BAB3 /* Pods_ViewVisibleTracker_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -171,7 +167,7 @@
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				EDDB5F726D61E6D7C7E067C7 /* [CP] Embed Pods Frameworks */,
+				B81B7A3E050FA5193E9D8391 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -190,7 +186,6 @@
 				607FACE11AFB9204008FA782 /* Sources */,
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
-				6435D50919AC64583B0BE518 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -215,6 +210,7 @@
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
 						LastSwiftMigration = 0900;
+						ProvisioningStyle = Automatic;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -228,6 +224,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -263,24 +260,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6435D50919AC64583B0BE518 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ViewVisibleTracker_Tests/Pods-ViewVisibleTracker_Tests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/FBSnapshotTestCase/FBSnapshotTestCase.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSnapshotTestCase.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ViewVisibleTracker_Tests/Pods-ViewVisibleTracker_Tests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		A1DD1842E4CDC0F0C0502C13 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -303,7 +282,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EDDB5F726D61E6D7C7E067C7 /* [CP] Embed Pods Frameworks */ = {
+		B81B7A3E050FA5193E9D8391 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -359,7 +338,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,7 +416,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -484,7 +462,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -497,11 +475,15 @@
 			baseConfigurationReference = A564884983B69ADDE850A8D4 /* Pods-ViewVisibleTracker_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ViewVisibleTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
@@ -512,11 +494,15 @@
 			baseConfigurationReference = B02261DBB2A57BF6129AC662 /* Pods-ViewVisibleTracker_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ViewVisibleTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};

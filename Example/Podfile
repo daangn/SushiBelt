@@ -1,13 +1,11 @@
 use_frameworks!
 
-platform :ios, '9.0'
+platform :ios, '11.0'
 
 target 'ViewVisibleTracker_Example' do
   pod 'ViewVisibleTracker', :path => '../'
 
   target 'ViewVisibleTracker_Tests' do
     inherit! :search_paths
-
-    pod 'FBSnapshotTestCase' , '~> 2.1.4'
   end
 end

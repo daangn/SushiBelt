@@ -1,0 +1,16 @@
+PODS:
+  - ViewVisibleTracker (0.1.0)
+
+DEPENDENCIES:
+  - ViewVisibleTracker (from `../`)
+
+EXTERNAL SOURCES:
+  ViewVisibleTracker:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  ViewVisibleTracker: 09cee9e8fdcedc6b8f19b19d6c3222e5361d0ea7
+
+PODFILE CHECKSUM: bfa47be6d0a90b7f3091857e0ed58bc23163d5c6
+
+COCOAPODS: 1.11.2
