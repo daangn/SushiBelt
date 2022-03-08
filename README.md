@@ -28,9 +28,10 @@ Also, SushiBelt calculates visible ratio as the scroll direction changes.
 <img src="https://github.com/daangn/SushiBelt/blob/master/screenshots/scroll_direction.png" />
 
 ## Features
-[x] Support a measurement of exposure ratio for each view.
-[x] Support a various item identifiers such as integer index, IndexPath, and user-defined identifier.
-[x] Visibility Debugger.
+
+- [x] Support a measurement of exposure ratio for each view.
+- [x] Support a various item identifiers such as integer index, IndexPath, and user-defined identifier.
+- [x] Visibility Debugger.
 
 ## Basic usages
 
