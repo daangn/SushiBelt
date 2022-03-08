@@ -72,9 +72,9 @@ dependencies: [
 
 ## Author
 
-- Geektree0101, h2s1880@gmail.com
-- ElonPark, https://medium.com/@Elon_Park
-- jinsu3758, jinsu3758@naver.com
+- [Geektree0101](https://www.github.com/Geektree0101)
+- [ElonPark](https://www.github.com/ElonPark)
+- [jinsu3758](https://www.github.com/jinsu3758)
 
 ## License
 
