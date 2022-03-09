@@ -17,11 +17,11 @@ final class SushiBeltTrackerTests: XCTestCase {
   }
   
   private func createTracker() -> SushiBeltTracker {
-    return SushiBeltTracker(
-      scrollView: self.scrollView,
-      dataSource: self.sushiBeltTrackerDataSource,
-      delegate: self.sushiBeltTrackerDelegate
-    )
+    let tracker = SushiBeltTracker()
+    tracker.scrollView = self.scrollView
+    tracker.delegate = self.sushiBeltTrackerDelegate
+    tracker.dataSource = self.sushiBeltTrackerDataSource
+    return tracker
   }
 }
 

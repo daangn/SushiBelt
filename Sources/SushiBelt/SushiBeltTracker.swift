@@ -10,37 +10,27 @@ import UIKit
 
 public final class SushiBeltTracker {
   
+  // MARK: - Dependencies
   public weak var delegate:  SushiBeltTrackerDelegate?
   public weak var dataSource: SushiBeltTrackerDataSource?
   public weak var scrollView: UIScrollView?
+  private let visibleRatioCalculator: VisibleRatioCalculator
+  private var debugger: SushiBeltDebuggerLogic?
   
-  private var visibleRatioCalculator: VisibleRatioCalculator = DefaultVisibleRatioCalculator()
-  
+  // MARK: - State
   public var defaultVisibleRatio: CGFloat = 0.0
   public var defaultScrollDirection: SushiBeltTrackerScrollDirection = .up
   internal var recentScrollDirection: SushiBeltTrackerScrollDirection?
-  
   private var cachedItems: Set<SushiBeltTrackerItem> = .init()
-  private var debugger: SushiBeltDebuggerLogic?
   
-  public init() {
-    
+  // MARK: - Constructor
+  
+  public convenience init() {
+    self.init(visibleRatioCalculator: nil)
   }
   
-  public convenience init(scrollView: UIScrollView) {
-    self.init()
-    self.scrollView = scrollView
-  }
-  
-  public convenience init(
-    scrollView: UIScrollView,
-    dataSource: SushiBeltTrackerDataSource,
-    delegate:  SushiBeltTrackerDelegate
-  ) {
-    self.init()
-    self.scrollView = scrollView
-    self.dataSource = dataSource
-    self.delegate = delegate
+  public init(visibleRatioCalculator: VisibleRatioCalculator? = nil) {
+    self.visibleRatioCalculator = visibleRatioCalculator ?? DefaultVisibleRatioCalculator()
   }
   
   public func calculateItemsIfNeeded(items: [SushiBeltTrackerItem]) {
@@ -57,6 +47,41 @@ public final class SushiBeltTracker {
   public func registerDebugger(debugger: SushiBeltDebuggerLogic) {
     self.debugger = debugger
   }
+  
+}
+
+// MARK: - SushiBeltTracker Internal Extension
+
+extension SushiBeltTracker {
+  
+  internal func scrollDrection() -> SushiBeltTrackerScrollDirection? {
+    guard let velocity = self.scrollView?.panGestureRecognizer.velocity(in: nil)
+    else {
+      assertionFailure("scrollView must not be null")
+      return nil
+    }
+    
+    if velocity.x == 0.0 && velocity.y == 0.0 {
+      return self.recentScrollDirection ?? self.defaultScrollDirection
+    } else if velocity.x == 0.0 && velocity.y < 0.0 {
+      return .up
+    } else if velocity.x == 0.0 && velocity.y > 0.0 {
+      return .down
+    } else if velocity.x < 0.0 && velocity.y == 0.0 {
+      return .right
+    } else if velocity.x > 0.0 && velocity.y == 0.0 {
+      return .left
+    }
+    
+    // unsupported diagonal scroll tracking
+    return nil
+  }
+  
+}
+
+// MARK: - SushiBeltTracker Private Extension
+
+extension SushiBeltTracker {
   
   private func removeEndTrackingItemsOnCache(items: Set<SushiBeltTrackerItem>) {
     items.forEach { item in
@@ -130,29 +155,6 @@ public final class SushiBeltTracker {
     items.forEach {
       self.delegate?.didEndTracking(self, item: $0)
     }
-  }
-  
-  internal func scrollDrection() -> SushiBeltTrackerScrollDirection? {
-    guard let velocity = self.scrollView?.panGestureRecognizer.velocity(in: nil)
-    else {
-      assertionFailure("scrollView must not be null")
-      return nil
-    }
-    
-    if velocity.x == 0.0 && velocity.y == 0.0 {
-      return self.recentScrollDirection ?? self.defaultScrollDirection
-    } else if velocity.x == 0.0 && velocity.y < 0.0 {
-      return .up
-    } else if velocity.x == 0.0 && velocity.y > 0.0 {
-      return .down
-    } else if velocity.x < 0.0 && velocity.y == 0.0 {
-      return .right
-    } else if velocity.x > 0.0 && velocity.y == 0.0 {
-      return .left
-    }
-    
-    // unsupported diagonal scroll tracking
-    return nil
   }
   
 }
