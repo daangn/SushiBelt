@@ -73,7 +73,7 @@ extension SushiBeltTracker {
             
     items.forEach { item in
       // early exit
-      if !item.isTracked && self.debugger == nil {
+      if item.isTracked && self.debugger == nil {
         return
       }
       
@@ -87,22 +87,21 @@ extension SushiBeltTracker {
       
       let objectiveVisibleRatio = self.objectiveVisibleRatio(item: item)
       
+      let isTracked: Bool = currentVisibleRatio >= objectiveVisibleRatio
+      let shouldSendWillBeginTracking: Bool = !item.isTracked && isTracked
+      
       var mutableItem = item
-      var shouldUpdate: Bool = false
+      mutableItem.currentVisibleRatio = currentVisibleRatio
+      mutableItem.objectiveVisibleRatio = objectiveVisibleRatio
       
-      if !mutableItem.isTracked && currentVisibleRatio >= objectiveVisibleRatio {
+      /// delegate willBeginTracking
+      if shouldSendWillBeginTracking {
         mutableItem.isTracked = true
-        shouldUpdate = true
-        self.delegate?.willBeginTracking(self, item: item)
+        self.delegate?.willBeginTracking(self, item: mutableItem)
       }
       
-      if self.debugger != nil {
-        mutableItem.currentVisibleRatio = currentVisibleRatio
-        mutableItem.objectiveVisibleRatio = objectiveVisibleRatio
-        shouldUpdate = true
-      }
-      
-      guard shouldUpdate else { return }
+      /// update cached item
+      guard shouldSendWillBeginTracking || self.debugger != nil else { return }
       self.cachedItems.update(with: mutableItem)
     }
   }

@@ -18,8 +18,14 @@ final class SushiBeltTrackerTests: XCTestCase {
     self.debugger = SushiBeltDebuggerSpy()
   }
   
-  private func createTracker() -> SushiBeltTracker {
-    let tracker = SushiBeltTracker()
+  private func createTracker(
+    visibleRatioCalculator: VisibleRatioCalculator? = nil,
+    trackerItemDiffChecker: SushiBeltTrackerItemDiffChecker? = nil
+  ) -> SushiBeltTracker {
+    let tracker = SushiBeltTracker(
+      visibleRatioCalculator: visibleRatioCalculator,
+      trackerItemDiffChecker: trackerItemDiffChecker
+    )
     tracker.scrollView = self.scrollView
     tracker.delegate = self.sushiBeltTrackerDelegate
     tracker.dataSource = self.sushiBeltTrackerDataSource
@@ -171,5 +177,126 @@ extension SushiBeltTrackerTests {
     // then
     XCTAssertNil(self.debugger.updateItems)
     XCTAssertNil(self.debugger.updateScrollDirection)
+  }
+}
+
+// MARK: - checkBeginTrackingItems
+
+extension SushiBeltTrackerTests {
+  
+  func test_checkBeginTrackingItems_check_tracked_items() {
+    // given
+    let tracker = self.createTracker()
+    let items = [
+      SushiBeltTrackerItem(
+        id: .index(1),
+        view: UIView(frame: .zero)
+      ).frameInWindow(CGRect(x: 0.0, y: -100.0, width: 100.0, height: 100.0)),
+      SushiBeltTrackerItem(
+        id: .index(2),
+        view: UIView(frame: .zero)
+      ).frameInWindow(CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0)),
+      SushiBeltTrackerItem(
+        id: .index(3),
+        view: UIView(frame: .zero)
+      ).frameInWindow(CGRect(x: 0.0, y: 100.0, width: 100.0, height: 100.0))
+    ]
+    
+    tracker.cachedItems = .init(items)
+    
+    self.sushiBeltTrackerDataSource.trackingRectStub = .init(
+      x: 0.0,
+      y: 0.0,
+      width: 100.0,
+      height: 100.0
+    )
+    
+    self.sushiBeltTrackerDataSource.visibleRatioForItemStub = 0.5
+    
+    // when
+    tracker.checkBeginTrackingItems(items: .init(items))
+    
+    // then
+    let trackedItems = tracker.cachedItems.filter({ $0.isTracked })
+    XCTAssertEqual(trackedItems.count, 1)
+  }
+  
+  func test_checkBeginTrackingItems_should_call_willBeginTracking() {
+    // given
+    let tracker = self.createTracker()
+    let items = [
+      SushiBeltTrackerItem(
+        id: .index(1),
+        view: UIView(frame: .zero)
+      ).frameInWindow(CGRect(x: 0.0, y: -100.0, width: 100.0, height: 100.0)),
+      SushiBeltTrackerItem(
+        id: .index(2),
+        view: UIView(frame: .zero)
+      ).frameInWindow(CGRect(x: 0.0, y: -20.0, width: 100.0, height: 100.0)),
+      SushiBeltTrackerItem(
+        id: .index(3),
+        view: UIView(frame: .zero)
+      ).frameInWindow(CGRect(x: 0.0, y: 100.0, width: 100.0, height: 100.0))
+    ]
+    
+    tracker.cachedItems = .init(items)
+    
+    self.sushiBeltTrackerDataSource.trackingRectStub = .init(
+      x: 0.0,
+      y: 0.0,
+      width: 100.0,
+      height: 100.0
+    )
+    
+    self.sushiBeltTrackerDataSource.visibleRatioForItemStub = 0.5
+    
+    // when
+    tracker.checkBeginTrackingItems(items: .init(items))
+    
+    // then
+    let trackedItems = tracker.cachedItems.filter({ $0.isTracked })
+    XCTAssertEqual(trackedItems.count, 1)
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.willBeginTrackingItem?.currentVisibleRatio, 0.8)
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.willBeginTrackingItem?.objectiveVisibleRatio, 0.5)
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.willBeginTrackingItem?.isTracked, true)
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.willBeginTrackingItem?.id, .index(2))
+  }
+  
+  func test_checkBeginTrackingItems_should_not_call_willBeginTracking_on_already_tracked() {
+    // given
+    let tracker = self.createTracker()
+    let items = [
+      SushiBeltTrackerItem(
+        id: .index(1),
+        view: UIView(frame: .zero)
+      ).frameInWindow(CGRect(x: 0.0, y: -100.0, width: 100.0, height: 100.0)),
+      SushiBeltTrackerItem(
+        id: .index(2),
+        view: UIView(frame: .zero)
+      ).tracked().frameInWindow(CGRect(x: 0.0, y: -20.0, width: 100.0, height: 100.0)),
+      SushiBeltTrackerItem(
+        id: .index(3),
+        view: UIView(frame: .zero)
+      ).frameInWindow(CGRect(x: 0.0, y: 100.0, width: 100.0, height: 100.0))
+    ]
+    
+    tracker.cachedItems = .init(items)
+    
+    self.sushiBeltTrackerDataSource.trackingRectStub = .init(
+      x: 0.0,
+      y: 0.0,
+      width: 100.0,
+      height: 100.0
+    )
+    
+    self.sushiBeltTrackerDataSource.visibleRatioForItemStub = 0.5
+    
+    // when
+    tracker.checkBeginTrackingItems(items: .init(items))
+    
+    // then
+    let trackedItems = tracker.cachedItems.filter({ $0.isTracked })
+    XCTAssertEqual(trackedItems.count, 1)
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.willBeginTrackingItem, nil)
   }
 }
