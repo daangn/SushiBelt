@@ -31,6 +31,10 @@
 		6354B6C627D84DCE00567EFF /* VisibleRatioCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6354B6C527D84DCE00567EFF /* VisibleRatioCalculatorTests.swift */; };
 		6354B6C827D8AD9300567EFF /* UIPanGestureRecognizerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6354B6C727D8AD9300567EFF /* UIPanGestureRecognizerStub.swift */; };
 		6354B6CA27D8B26900567EFF /* SushiBeltDebuggerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6354B6C927D8B26900567EFF /* SushiBeltDebuggerSpy.swift */; };
+		6354B6CC27D8B5EB00567EFF /* SushiBeltTrackerItemDiffChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6354B6CB27D8B5EB00567EFF /* SushiBeltTrackerItemDiffChecker.swift */; };
+		6354B6D027D8B63E00567EFF /* SushiBeltTrackerItemDiffResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6354B6CF27D8B63E00567EFF /* SushiBeltTrackerItemDiffResult.swift */; };
+		6354B6D227D8B7E700567EFF /* SushiBeltTrackerItemDiffCheckerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6354B6D127D8B7E700567EFF /* SushiBeltTrackerItemDiffCheckerSpy.swift */; };
+		6354B6D427D8B82C00567EFF /* SushiBeltTrackerItemDiffCheckerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6354B6D327D8B82C00567EFF /* SushiBeltTrackerItemDiffCheckerTests.swift */; };
 		OBJ_38 /* SushiBeltDebugItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* SushiBeltDebugItemView.swift */; };
 		OBJ_39 /* SushiBeltDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* SushiBeltDebugView.swift */; };
 		OBJ_40 /* SushiBeltDebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* SushiBeltDebugViewController.swift */; };
@@ -76,6 +80,10 @@
 		6354B6C527D84DCE00567EFF /* VisibleRatioCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibleRatioCalculatorTests.swift; sourceTree = "<group>"; };
 		6354B6C727D8AD9300567EFF /* UIPanGestureRecognizerStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPanGestureRecognizerStub.swift; sourceTree = "<group>"; };
 		6354B6C927D8B26900567EFF /* SushiBeltDebuggerSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SushiBeltDebuggerSpy.swift; sourceTree = "<group>"; };
+		6354B6CB27D8B5EB00567EFF /* SushiBeltTrackerItemDiffChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SushiBeltTrackerItemDiffChecker.swift; sourceTree = "<group>"; };
+		6354B6CF27D8B63E00567EFF /* SushiBeltTrackerItemDiffResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SushiBeltTrackerItemDiffResult.swift; sourceTree = "<group>"; };
+		6354B6D127D8B7E700567EFF /* SushiBeltTrackerItemDiffCheckerSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SushiBeltTrackerItemDiffCheckerSpy.swift; sourceTree = "<group>"; };
+		6354B6D327D8B82C00567EFF /* SushiBeltTrackerItemDiffCheckerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SushiBeltTrackerItemDiffCheckerTests.swift; sourceTree = "<group>"; };
 		OBJ_10 /* SushiBeltDebugItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SushiBeltDebugItemView.swift; sourceTree = "<group>"; };
 		OBJ_11 /* SushiBeltDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SushiBeltDebugView.swift; sourceTree = "<group>"; };
 		OBJ_12 /* SushiBeltDebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SushiBeltDebugViewController.swift; sourceTree = "<group>"; };
@@ -128,6 +136,7 @@
 				6354B6B927D8476100567EFF /* SushiBeltTrackerDelegateSpy.swift */,
 				6354B6BE27D84A9D00567EFF /* SushiBeltTrackerIdentifierStub.swift */,
 				6354B6C227D84D6600567EFF /* VisibleRatioCalculatorSpy.swift */,
+				6354B6D127D8B7E700567EFF /* SushiBeltTrackerItemDiffCheckerSpy.swift */,
 			);
 			path = TestDoubles;
 			sourceTree = "<group>";
@@ -136,6 +145,8 @@
 			isa = PBXGroup;
 			children = (
 				6354B6C027D84C9500567EFF /* VisibleRatioCalculator.swift */,
+				6354B6CB27D8B5EB00567EFF /* SushiBeltTrackerItemDiffChecker.swift */,
+				6354B6CF27D8B63E00567EFF /* SushiBeltTrackerItemDiffResult.swift */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -144,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				6354B6C527D84DCE00567EFF /* VisibleRatioCalculatorTests.swift */,
+				6354B6D327D8B82C00567EFF /* SushiBeltTrackerItemDiffCheckerTests.swift */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -323,8 +335,10 @@
 				OBJ_45 /* SushiBeltTrackerDelegate.swift in Sources */,
 				OBJ_46 /* SushiBeltTrackerItem.swift in Sources */,
 				OBJ_47 /* SushiBeltTrackerScrollDirection.swift in Sources */,
+				6354B6D027D8B63E00567EFF /* SushiBeltTrackerItemDiffResult.swift in Sources */,
 				6354B6C127D84C9500567EFF /* VisibleRatioCalculator.swift in Sources */,
 				OBJ_48 /* SushiBeltTrackingItemStatus.swift in Sources */,
+				6354B6CC27D8B5EB00567EFF /* SushiBeltTrackerItemDiffChecker.swift in Sources */,
 				OBJ_49 /* SushiBeltTrakerItem+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -341,6 +355,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				6354B6D427D8B82C00567EFF /* SushiBeltTrackerItemDiffCheckerTests.swift in Sources */,
 				OBJ_67 /* SushiBeltTrackerTests.swift in Sources */,
 				6354B6BA27D8476100567EFF /* SushiBeltTrackerDelegateSpy.swift in Sources */,
 				6354B6C827D8AD9300567EFF /* UIPanGestureRecognizerStub.swift in Sources */,
@@ -349,6 +364,7 @@
 				6354B6C327D84D6600567EFF /* VisibleRatioCalculatorSpy.swift in Sources */,
 				6354B6BF27D84A9D00567EFF /* SushiBeltTrackerIdentifierStub.swift in Sources */,
 				6354B6B827D8471A00567EFF /* UIScrollViewStub.swift in Sources */,
+				6354B6D227D8B7E700567EFF /* SushiBeltTrackerItemDiffCheckerSpy.swift in Sources */,
 				6354B6CA27D8B26900567EFF /* SushiBeltDebuggerSpy.swift in Sources */,
 				6354B6BD27D848DA00567EFF /* SushiBeltTrackerItemTests.swift in Sources */,
 			);
