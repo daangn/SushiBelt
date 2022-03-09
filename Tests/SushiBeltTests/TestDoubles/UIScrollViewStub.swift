@@ -10,4 +10,10 @@ import UIKit
 
 final class UIScrollViewStub: UIScrollView {
   
+  var panGestureRecognizerStub: UIPanGestureRecognizer = UIPanGestureRecognizer()
+  
+  override var panGestureRecognizer: UIPanGestureRecognizer {
+    return self.panGestureRecognizerStub
+  }
+  
 }

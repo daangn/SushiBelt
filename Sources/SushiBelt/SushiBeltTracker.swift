@@ -18,7 +18,7 @@ public final class SushiBeltTracker {
   
   public var defaultVisibleRatio: CGFloat = 0.0
   public var defaultScrollDirection: SushiBeltTrackerScrollDirection = .up
-  private var recentScrollDirection: SushiBeltTrackerScrollDirection?
+  internal var recentScrollDirection: SushiBeltTrackerScrollDirection?
   
   private var cachedItems: Set<SushiBeltTrackerItem> = .init()
   private var debugger: SushiBeltDebuggerLogic?
@@ -132,7 +132,7 @@ public final class SushiBeltTracker {
     }
   }
   
-  private func scrollDrection() -> SushiBeltTrackerScrollDirection? {
+  internal func scrollDrection() -> SushiBeltTrackerScrollDirection? {
     guard let velocity = self.scrollView?.panGestureRecognizer.velocity(in: nil)
     else {
       assertionFailure("scrollView must not be null")

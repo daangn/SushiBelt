@@ -29,6 +29,7 @@
 		6354B6C127D84C9500567EFF /* VisibleRatioCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6354B6C027D84C9500567EFF /* VisibleRatioCalculator.swift */; };
 		6354B6C327D84D6600567EFF /* VisibleRatioCalculatorSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6354B6C227D84D6600567EFF /* VisibleRatioCalculatorSpy.swift */; };
 		6354B6C627D84DCE00567EFF /* VisibleRatioCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6354B6C527D84DCE00567EFF /* VisibleRatioCalculatorTests.swift */; };
+		6354B6C827D8AD9300567EFF /* UIPanGestureRecognizerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6354B6C727D8AD9300567EFF /* UIPanGestureRecognizerStub.swift */; };
 		OBJ_38 /* SushiBeltDebugItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* SushiBeltDebugItemView.swift */; };
 		OBJ_39 /* SushiBeltDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* SushiBeltDebugView.swift */; };
 		OBJ_40 /* SushiBeltDebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* SushiBeltDebugViewController.swift */; };
@@ -72,6 +73,7 @@
 		6354B6C027D84C9500567EFF /* VisibleRatioCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibleRatioCalculator.swift; sourceTree = "<group>"; };
 		6354B6C227D84D6600567EFF /* VisibleRatioCalculatorSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibleRatioCalculatorSpy.swift; sourceTree = "<group>"; };
 		6354B6C527D84DCE00567EFF /* VisibleRatioCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibleRatioCalculatorTests.swift; sourceTree = "<group>"; };
+		6354B6C727D8AD9300567EFF /* UIPanGestureRecognizerStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPanGestureRecognizerStub.swift; sourceTree = "<group>"; };
 		OBJ_10 /* SushiBeltDebugItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SushiBeltDebugItemView.swift; sourceTree = "<group>"; };
 		OBJ_11 /* SushiBeltDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SushiBeltDebugView.swift; sourceTree = "<group>"; };
 		OBJ_12 /* SushiBeltDebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SushiBeltDebugViewController.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				6354B6B427D846E700567EFF /* UIScrollViewStub.swift */,
+				6354B6C727D8AD9300567EFF /* UIPanGestureRecognizerStub.swift */,
 				6354B6B627D8471500567EFF /* SushiBeltTrackerDataSourceStub.swift */,
 				6354B6B927D8476100567EFF /* SushiBeltTrackerDelegateSpy.swift */,
 				6354B6BE27D84A9D00567EFF /* SushiBeltTrackerIdentifierStub.swift */,
@@ -171,7 +174,7 @@
 			name = Products;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -184,7 +187,6 @@
 				OBJ_31 /* SushiBelt.podspec */,
 				OBJ_32 /* README.md */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
@@ -290,7 +292,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_25 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -338,6 +340,7 @@
 			files = (
 				OBJ_67 /* SushiBeltTrackerTests.swift in Sources */,
 				6354B6BA27D8476100567EFF /* SushiBeltTrackerDelegateSpy.swift in Sources */,
+				6354B6C827D8AD9300567EFF /* UIPanGestureRecognizerStub.swift in Sources */,
 				6354B6C627D84DCE00567EFF /* VisibleRatioCalculatorTests.swift in Sources */,
 				6354B6B727D8471500567EFF /* SushiBeltTrackerDataSourceStub.swift in Sources */,
 				6354B6C327D84D6600567EFF /* VisibleRatioCalculatorSpy.swift in Sources */,
