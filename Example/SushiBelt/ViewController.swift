@@ -9,15 +9,51 @@
 import UIKit
 import SushiBelt
 
+struct Sushi {
+  
+  enum Kind: String, CaseIterable {
+    case red = "red_sushi"
+    case orange = "orange_sushi"
+    case egg = "egg_sushi"
+    
+    var visibleRatio: CGFloat {
+      switch self {
+      case .red:
+        return 0.2
+      case .orange:
+        return 0.5
+      case .egg:
+        return 0.8
+      }
+    }
+  }
+  
+  let tag: Int
+  let kind: Kind
+  let image: UIImage?
+  
+  static func いらっしゃいませ(count: Int) -> [Sushi] {
+    return (0 ..< count).map { index in
+      let kind = Kind.allCases.randomElement() ?? .red
+      return Sushi(
+        tag: index,
+        kind: kind,
+        image: UIImage(named: kind.rawValue)
+      )
+    }
+  }
+}
+
 final class TestCell: UICollectionViewCell {
   
   static let identifier = "TestCell"
   
-  private let label = UILabel()
+  private let imageView = UIImageView()
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    self.contentView.addSubview(self.label)
+    self.contentView.addSubview(self.imageView)
+    self.contentView.backgroundColor = UIColor(red: 1.0, green: 0.83, blue: 0.47, alpha: 1.0)
   }
   
   required init?(coder: NSCoder) {
@@ -26,24 +62,18 @@ final class TestCell: UICollectionViewCell {
   
   override func prepareForReuse() {
     super.prepareForReuse()
-    self.label.text = nil
+    self.imageView.image = nil
   }
   
   override func layoutSubviews() {
     super.layoutSubviews()
-    self.label.sizeToFit()
-    self.label.center = self.contentView.center
+    self.imageView.frame.size = CGSize(width: 200.0, height: 200.0)
+    self.imageView.center = self.contentView.center
+    self.contentView.layer.cornerRadius = 24.0
   }
   
-  func configure(indexPath: IndexPath) {
-    self.label.text = "\(indexPath.item)"
-    self.label.font = UIFont.boldSystemFont(ofSize: 36.0)
-    self.label.textColor = UIColor.white
-    if indexPath.item % 2 == 0 {
-      self.backgroundColor = UIColor.gray
-    } else {
-      self.backgroundColor = UIColor.darkGray
-    }
+  func configure(sushi: Sushi) {
+    self.imageView.image = sushi.image
   }
 }
 
@@ -62,6 +92,8 @@ class ViewController: UIViewController {
   
   private let tracker = SushiBeltTracker()
   private let debugger = SushiBeltDebugger.shared
+  
+  private let sushis = Sushi.いらっしゃいませ(count: 200)
   
   override func loadView() {
     self.view = self.collectionView
@@ -87,14 +119,15 @@ class ViewController: UIViewController {
 extension ViewController: UICollectionViewDataSource {
   
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 100
+    return self.sushis.count
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TestCell.identifier, for: indexPath) as? TestCell else {
       fatalError()
     }
-    cell.configure(indexPath: indexPath)
+    let sushi = self.sushis[indexPath.item]
+    cell.configure(sushi: sushi)
     return cell
   }
   
@@ -104,6 +137,10 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDelegateFlow
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     return CGSize(width: collectionView.bounds.width, height: 300.0)
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    return 24.0
   }
   
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -131,7 +168,8 @@ extension ViewController: SushiBeltTrackerDataSource {
   }
   
   func visibleRatioForItem(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) -> CGFloat {
-    return 0.5
+    guard case let .indexPath(indexPath) = item.id else { return 0.0 }
+    return self.sushis[indexPath.item].kind.visibleRatio
   }
 }
 
