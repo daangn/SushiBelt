@@ -22,7 +22,7 @@ public final class SushiBeltTracker {
   public var defaultVisibleRatio: CGFloat = 0.0
   public var defaultScrollDirection: SushiBeltTrackerScrollDirection = .up
   internal var recentScrollDirection: SushiBeltTrackerScrollDirection?
-  private var cachedItems: Set<SushiBeltTrackerItem> = .init()
+  internal var cachedItems: Set<SushiBeltTrackerItem> = .init()
   
   // MARK: - Constructor
   
@@ -66,6 +66,47 @@ public final class SushiBeltTracker {
 
 extension SushiBeltTracker {
   
+  internal func checkBeginTrackingItems(items: Set<SushiBeltTrackerItem>) {
+    guard let trackingRect = self.dataSource?.trackingRect(self) else {
+      return
+    }
+            
+    items.forEach { item in
+      // early exit
+      if !item.isTracked && self.debugger == nil {
+        return
+      }
+      
+      guard let currentVisibleRatio = self.visibleRatioCalculator.visibleRatio(
+        item: item,
+        trackingRect: trackingRect,
+        scrollDirection: self.scrollDrection()
+      ) else {
+        return
+      }
+      
+      let objectiveVisibleRatio = self.dataSource?.visibleRatioForItem(self, item: item) ?? self.defaultVisibleRatio
+      
+      var mutableItem = item
+      var shouldUpdate: Bool = false
+      
+      if !mutableItem.isTracked && currentVisibleRatio >= objectiveVisibleRatio {
+        mutableItem.isTracked = true
+        shouldUpdate = true
+        self.delegate?.willBeginTracking(self, item: item)
+      }
+      
+      if self.debugger != nil {
+        mutableItem.currentVisibleRatio = currentVisibleRatio
+        mutableItem.objectiveVisibleRatio = objectiveVisibleRatio
+        shouldUpdate = true
+      }
+      
+      guard shouldUpdate else { return }
+      self.cachedItems.update(with: mutableItem)
+    }
+  }
+  
   internal func scrollDrection() -> SushiBeltTrackerScrollDirection? {
     guard let velocity = self.scrollView?.panGestureRecognizer.velocity(in: nil)
     else {
@@ -108,47 +149,6 @@ extension SushiBeltTracker {
       items: self.cachedItems,
       scrollDirection: self.recentScrollDirection
     )
-  }
-  
-  private func checkBeginTrackingItems(items: Set<SushiBeltTrackerItem>) {
-    guard let trackingRect = self.dataSource?.trackingRect(self) else {
-      return
-    }
-            
-    items.forEach { item in
-      // early exit
-      if !item.isTracked && self.debugger == nil {
-        return
-      }
-      
-      guard let currentVisibleRatio = self.visibleRatioCalculator.visibleRatio(
-        item: item,
-        trackingRect: trackingRect,
-        scrollDirection: self.scrollDrection()
-      ) else {
-        return
-      }
-      
-      let objectiveVisibleRatio = self.dataSource?.visibleRatioForItem(self, item: item) ?? self.defaultVisibleRatio
-      
-      var mutableItem = item
-      var shouldUpdate: Bool = false
-      
-      if !mutableItem.isTracked && currentVisibleRatio >= objectiveVisibleRatio {
-        mutableItem.isTracked = true
-        shouldUpdate = true
-        self.delegate?.willBeginTracking(self, item: item)
-      }
-      
-      if self.debugger != nil {
-        mutableItem.currentVisibleRatio = currentVisibleRatio
-        mutableItem.objectiveVisibleRatio = objectiveVisibleRatio
-        shouldUpdate = true
-      }
-      
-      guard shouldUpdate else { return }
-      self.cachedItems.update(with: mutableItem)
-    }
   }
   
   private func didEndTracking(items: Set<SushiBeltTrackerItem>) {
