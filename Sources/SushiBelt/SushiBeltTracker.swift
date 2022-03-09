@@ -53,8 +53,7 @@ public final class SushiBeltTracker {
     self.didEndTracking(items: result.endedItems)
     
     self.debuggingIfNeeded()
-    guard let scrollDirection = self.scrollDrection() else { return }
-    self.recentScrollDirection = scrollDirection
+    self.cachingRecentScrollDirectionIfNeeded()
   }
   
   public func registerDebugger(debugger: SushiBeltDebuggerLogic) {
@@ -95,6 +94,11 @@ extension SushiBeltTracker {
 // MARK: - SushiBeltTracker Private Extension
 
 extension SushiBeltTracker {
+  
+  private func cachingRecentScrollDirectionIfNeeded() {
+    guard let scrollDirection = self.scrollDrection() else { return }
+    self.recentScrollDirection = scrollDirection
+  }
   
   private func debuggingIfNeeded() {
     guard let debugger = self.debugger else {
