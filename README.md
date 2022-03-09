@@ -35,11 +35,89 @@ Also, SushiBelt calculates visible ratio as the scroll direction changes.
 
 ## Basic usages
 
-👨‍🔧 Under construction 🧑‍🔧
+### 1. Create a SushiBeltTracker
+
+```swift
+let tracker = SushiBeltTracker()
+
+tracker.delegate = someObject
+tracker.dataSource = someObject
+tracker.scrollView = someScrollView
+```
+
+
+### 2. Inherits a SushiBeltTrackerDataSource
+```swift
+extension SomeObject: SushiBeltTrackerDataSource {
+  
+  func trackingRect(_ tracker: SushiBeltTracker) -> CGRect {
+    return CGRect(...) // tracking area rect
+  }
+  
+  func visibleRatioForItem(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) -> CGFloat {
+    return 0.0 // default is zero, return visible ratio for item
+  }
+}
+```
+
+### 3. Inherits a SushiBeltTrackerDelegate 
+```swift
+extension SomeObject: SushiBeltTrackerDelegate {
+  
+  func willBeginTracking(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {
+    // begin tracking
+  }
+  
+  func didEndTracking(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {
+    // did end tracking
+  }
+}
+```
 
 ## Advanced
 
-👨‍🔧 Under construction 🧑‍🔧
+### Custom Identifier
+If you cannot use identifier base on index or IndexPath, you can make a custom identifier with SushiBeltTrackerIdentifier!
+```swift
+struct SomeData: SushiBeltTrackerIdentifier {
+
+  let id: Int
+
+  var var trackingIdentifer: String { 
+    return "SomeData-\(id)"
+  }
+}
+```
+
+### SushiBeltTrackerItemDiffChecker
+Default sushiBeltTrackerItem diff checker will update frameInWindow(CGRect) each overlaped items. also, it will decides ended items too. If you wanna to hook a diff mechanism then you can make a custom diff checker with SushiBeltTrackerItemDiffChecker interface.
+
+```swift
+final class CustomSushiBeltTrackerItemDiffChecker: SushiBeltTrackerItemDiffChecker { ... }
+```
+
+and you can injects a custom diff checker at making a SushiBeltTracker constructor.
+
+```swift
+let tracker = SushiBeltTracker(
+ trackerItemDiffChecker: CustomSushiBeltTrackerItemDiffChecker()
+)
+```
+
+### VisibleRatioCalculator
+Default visible ratio clculator will calculate with CGRect.intersection with scrollDirection. If you wanna make a custom visible ratio calculation logics. you can make a custom visible ratio calculator with SushiBeltTrackerItemDiffChecker interface. you just inherts it!
+
+```swift
+final class CustomVisibleRatioCalculator: VisibleRatioCalculator { ... }
+```
+
+and you can injects a custom visible ratio calculator at making a SushiBeltTracker constructor.
+
+```swift
+let tracker = SushiBeltTracker(
+ visibleRatioCalculator: CustomVisibleRatioCalculator()
+)
+```
 
 ## Example
 
