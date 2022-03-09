@@ -18,8 +18,35 @@ public final class DefaultSushiBeltTrackerItemDiffChecker: SushiBeltTrackerItemD
     old oldItems: Set<SushiBeltTrackerItem>,
     new newItems: Set<SushiBeltTrackerItem>
   ) -> SushiBeltTrackerItemDiffResult {
+    let updatedItems: Set<SushiBeltTrackerItem> = self.union(
+      oldItems: oldItems,
+      newItems: newItems
+    )
     
-    fatalError()
+    let endedItems = updatedItems.subtracting(newItems)
+    
+    return SushiBeltTrackerItemDiffResult(
+      calculationTargetedItems: updatedItems.subtracting(endedItems),
+      endedItems: endedItems
+    )
+  }
+  
+  private func union(
+    oldItems: Set<SushiBeltTrackerItem>,
+    newItems: Set<SushiBeltTrackerItem>
+  ) -> Set<SushiBeltTrackerItem> {
+    var updatedItems: Set<SushiBeltTrackerItem> = oldItems
+    
+    newItems.forEach { newItem in
+      if var mutableItem = oldItems.first(where: { $0.hashValue == newItem.hashValue }) {
+        mutableItem.frameInWindow = newItem.frameInWindow
+        updatedItems.update(with: mutableItem)
+      } else {
+        updatedItems.insert(newItem)
+      }
+    }
+    
+    return updatedItems
   }
   
 }
