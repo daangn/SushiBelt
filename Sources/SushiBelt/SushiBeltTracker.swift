@@ -132,53 +132,6 @@ public final class SushiBeltTracker {
     }
   }
   
-  private func calculatedTrackingRect(item: SushiBeltTrackerItem,
-                                      objectiveVisibleRatio: CGFloat) -> CGRect {
-    guard let trackingRect = self.dataSource?.trackingRect(self) else {
-      assertionFailure("You must inherit SushiBeltTrackerDataSource")
-      return .zero
-    }
-    
-    guard let scrollDirection = self.scrollDrection() else {
-      return .zero
-    }
-    
-    switch scrollDirection {
-    case .up:
-      let height = item.frameInWindow.height * objectiveVisibleRatio
-      return CGRect(
-        x: trackingRect.origin.x,
-        y: trackingRect.origin.y,
-        width: trackingRect.width,
-        height: trackingRect.height - height
-      )
-    case .down:
-      let height = item.frameInWindow.height * objectiveVisibleRatio
-      return CGRect(
-        x: trackingRect.origin.x,
-        y: trackingRect.origin.y + height,
-        width: trackingRect.width,
-        height: trackingRect.height - height
-      )
-    case .left:
-      let width = item.frameInWindow.width * objectiveVisibleRatio
-      return CGRect(
-        x: trackingRect.origin.x,
-        y: trackingRect.origin.y,
-        width: trackingRect.width - width,
-        height: trackingRect.height
-      )
-    case .right:
-      let width = item.frameInWindow.width * objectiveVisibleRatio
-      return CGRect(
-        x: trackingRect.origin.x + width,
-        y: trackingRect.origin.y,
-        width: trackingRect.width - width,
-        height: trackingRect.height
-      )
-    }
-  }
-  
   private func scrollDrection() -> SushiBeltTrackerScrollDirection? {
     guard let velocity = self.scrollView?.panGestureRecognizer.velocity(in: nil)
     else {
