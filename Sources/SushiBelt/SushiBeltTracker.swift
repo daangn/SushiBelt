@@ -85,7 +85,7 @@ extension SushiBeltTracker {
         return
       }
       
-      let objectiveVisibleRatio = self.dataSource?.visibleRatioForItem(self, item: item) ?? self.defaultVisibleRatio
+      let objectiveVisibleRatio = self.objectiveVisibleRatio(item: item)
       
       var mutableItem = item
       var shouldUpdate: Bool = false
@@ -157,4 +157,8 @@ extension SushiBeltTracker {
     }
   }
   
+  private func objectiveVisibleRatio(item: SushiBeltTrackerItem) -> CGFloat {
+    return self.dataSource?.visibleRatioForItem(self, item: item)
+    ?? self.defaultVisibleRatio
+  }
 }
