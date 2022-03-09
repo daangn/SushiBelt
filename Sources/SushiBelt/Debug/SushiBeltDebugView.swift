@@ -1,6 +1,6 @@
 //
-//  ViewVisibleTrackerDebugView.swift
-//  ViewVisibleTracker
+//  SushiBeltDebugView.swift
+//  SushiBelt
 //
 //  Created by david on 2022/03/08.
 //
@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-final class ViewVisibleTrackerDebugView: UIView {
+final class SushiBeltDebugView: UIView {
   
-  private var itemViews: [ViewVisibleTrackerDebugItemView] = []
+  private var itemViews: [SushiBeltDebugItemView] = []
   
   override func layoutSubviews() {
     super.layoutSubviews()
@@ -19,14 +19,14 @@ final class ViewVisibleTrackerDebugView: UIView {
     }
   }
   
-  func reload(items: [ViewVisibleTrackerDebugItemView.ViewModel],
-              configuration: ViewVisibleTrackerDebuggerConfiguration) {
+  func reload(items: [SushiBeltDebugItemView.ViewModel],
+              configuration: SushiBeltDebuggerConfiguration) {
     self.itemViews.forEach {
       $0.removeFromSuperview()
     }
     
     self.itemViews = items.map {
-      let view = ViewVisibleTrackerDebugItemView(
+      let view = SushiBeltDebugItemView(
         font: configuration.font,
         textColor: configuration.textColor,
         numberOfLine: configuration.numberOfLine,

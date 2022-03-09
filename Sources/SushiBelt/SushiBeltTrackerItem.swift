@@ -1,6 +1,6 @@
 //
-//  ViewVisibleTrackingItem.swift
-//  ViewVisibleTracker
+//  SushiBeltTrackerItem.swift
+//  SushiBelt
 //
 //  Created by david on 2022/03/07.
 //
@@ -8,19 +8,19 @@
 import Foundation
 import UIKit
 
-public protocol ViewVisibleTrackingIdentifier {
+public protocol SushiBeltTrackerIdentifier {
   var trackingIdentifer: String { get }
 }
 
-public struct ViewVisibleTrackingItem {
+public struct SushiBeltTrackerItem {
   
   public enum Identifier: Equatable {
     case index(Int)
     case indexPath(IndexPath)
-    case trackingIdentifier(ViewVisibleTrackingIdentifier)
+    case trackingIdentifier(SushiBeltTrackerIdentifier)
     
-    public static func == (lhs: ViewVisibleTrackingItem.Identifier,
-                           rhs: ViewVisibleTrackingItem.Identifier) -> Bool {
+    public static func == (lhs: SushiBeltTrackerItem.Identifier,
+                           rhs: SushiBeltTrackerItem.Identifier) -> Bool {
       switch (lhs, rhs) {
       case let (.index(lhsIndex), .index(rhsIndex)):
         return lhsIndex == rhsIndex
@@ -36,7 +36,7 @@ public struct ViewVisibleTrackingItem {
   }
   
   public let id: Identifier
-  public var status: ViewVisibleTrackingItemStatus {
+  public var status: SushiBeltTrackerItemStatus {
     return self.isTracked ? .tracked : .tracking
   }
   
@@ -56,7 +56,7 @@ public struct ViewVisibleTrackingItem {
 
 // MARK: - CustomDebugStringConvertible
 
-extension ViewVisibleTrackingItem: CustomDebugStringConvertible {
+extension SushiBeltTrackerItem: CustomDebugStringConvertible {
   
   public var debugDescription: String {
     switch self.id {
@@ -72,7 +72,7 @@ extension ViewVisibleTrackingItem: CustomDebugStringConvertible {
 
 // MARK: - Hashable
 
-extension ViewVisibleTrackingItem: Hashable {
+extension SushiBeltTrackerItem: Hashable {
   
   public func hash(into hasher: inout Hasher) {
     switch self.id {
@@ -88,7 +88,7 @@ extension ViewVisibleTrackingItem: Hashable {
 
 // MARK: - Equatable
 
-extension ViewVisibleTrackingItem: Equatable {
+extension SushiBeltTrackerItem: Equatable {
   
   public static func == (lhs: Self, rhs: Self) -> Bool {
     return lhs.hashValue == rhs.hashValue

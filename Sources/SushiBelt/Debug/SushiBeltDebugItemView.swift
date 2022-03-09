@@ -1,19 +1,19 @@
 //
-//  ViewVisibleTrackerDebugItemView.swift
-//  ViewVisibleTracker
+//  SushiBeltDebugItemView.swift
+//  SushiBelt
 //
 //  Created by david on 2022/03/08.
 //
 
 import Foundation
 
-final class ViewVisibleTrackerDebugItemView: UIView {
+final class SushiBeltDebugItemView: UIView {
   
   struct ViewModel {
-    let status: ViewVisibleTrackingItemStatus
+    let status: SushiBeltTrackerItemStatus
     let description: String
     let frameInWindow: CGRect
-    let scrollDirection: ViewVisibleTrackerScrollDirection?
+    let scrollDirection: SushiBeltTrackerScrollDirection?
   }
   
   // MARK: - UI
@@ -23,14 +23,14 @@ final class ViewVisibleTrackerDebugItemView: UIView {
   // MARK: - Prop
   
   private var viewModel: ViewModel?
-  private var statusBackgroundColor: ((ViewVisibleTrackingItemStatus) -> UIColor)?
+  private var statusBackgroundColor: ((SushiBeltTrackerItemStatus) -> UIColor)?
   private let labelMargin: UIEdgeInsets
   
   init(
     font: UIFont,
     textColor: UIColor,
     numberOfLine: Int,
-    statusBackgroundColor: ((ViewVisibleTrackingItemStatus) -> UIColor)?,
+    statusBackgroundColor: ((SushiBeltTrackerItemStatus) -> UIColor)?,
     labelMargin: UIEdgeInsets
   ) {
     self.labelMargin = labelMargin
@@ -85,7 +85,7 @@ final class ViewVisibleTrackerDebugItemView: UIView {
     self.backgroundColor = self.statusBackgroundColor(status: viewModel.status)
   }
   
-  private func statusBackgroundColor(status: ViewVisibleTrackingItemStatus) -> UIColor {
+  private func statusBackgroundColor(status: SushiBeltTrackerItemStatus) -> UIColor {
     if let color = self.statusBackgroundColor?(status) {
       return color
     }

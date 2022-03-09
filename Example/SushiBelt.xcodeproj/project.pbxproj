@@ -12,8 +12,8 @@
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
-		64124CB3B1A70B8895D6CFC3 /* Pods_ViewVisibleTracker_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 549A69A85E1A3E5CDD18BAB3 /* Pods_ViewVisibleTracker_Tests.framework */; };
-		96837B9D5AAEC5191BD928C6 /* Pods_ViewVisibleTracker_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9582B77D1A71BE86C93C42A2 /* Pods_ViewVisibleTracker_Example.framework */; };
+		64124CB3B1A70B8895D6CFC3 /* Pods_SushiBelt_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 549A69A85E1A3E5CDD18BAB3 /* Pods_SushiBelt_Tests.framework */; };
+		96837B9D5AAEC5191BD928C6 /* Pods_SushiBelt_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9582B77D1A71BE86C93C42A2 /* Pods_SushiBelt_Example.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -22,29 +22,29 @@
 			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 607FACCF1AFB9204008FA782;
-			remoteInfo = ViewVisibleTracker;
+			remoteInfo = SushiBelt;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		549A69A85E1A3E5CDD18BAB3 /* Pods_ViewVisibleTracker_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ViewVisibleTracker_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		607FACD01AFB9204008FA782 /* ViewVisibleTracker_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ViewVisibleTracker_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		549A69A85E1A3E5CDD18BAB3 /* Pods_SushiBelt_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SushiBelt_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		607FACD01AFB9204008FA782 /* SushiBelt_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SushiBelt_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		607FACD71AFB9204008FA782 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		607FACDA1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		607FACE51AFB9204008FA782 /* ViewVisibleTracker_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ViewVisibleTracker_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		607FACE51AFB9204008FA782 /* SushiBelt_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SushiBelt_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		75900424683F94C20A7CCC6A /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		842B83AA3961CCC887E18551 /* Pods-ViewVisibleTracker_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViewVisibleTracker_Tests.release.xcconfig"; path = "Target Support Files/Pods-ViewVisibleTracker_Tests/Pods-ViewVisibleTracker_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		9582B77D1A71BE86C93C42A2 /* Pods_ViewVisibleTracker_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ViewVisibleTracker_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A564884983B69ADDE850A8D4 /* Pods-ViewVisibleTracker_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViewVisibleTracker_Example.debug.xcconfig"; path = "Target Support Files/Pods-ViewVisibleTracker_Example/Pods-ViewVisibleTracker_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		B02261DBB2A57BF6129AC662 /* Pods-ViewVisibleTracker_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViewVisibleTracker_Example.release.xcconfig"; path = "Target Support Files/Pods-ViewVisibleTracker_Example/Pods-ViewVisibleTracker_Example.release.xcconfig"; sourceTree = "<group>"; };
-		B68B22AAA5B547085CE405E2 /* ViewVisibleTracker.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ViewVisibleTracker.podspec; path = ../ViewVisibleTracker.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		842B83AA3961CCC887E18551 /* Pods-SushiBelt_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SushiBelt_Tests.release.xcconfig"; path = "Target Support Files/Pods-SushiBelt_Tests/Pods-SushiBelt_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		9582B77D1A71BE86C93C42A2 /* Pods_SushiBelt_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SushiBelt_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A564884983B69ADDE850A8D4 /* Pods-SushiBelt_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SushiBelt_Example.debug.xcconfig"; path = "Target Support Files/Pods-SushiBelt_Example/Pods-SushiBelt_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		B02261DBB2A57BF6129AC662 /* Pods-SushiBelt_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SushiBelt_Example.release.xcconfig"; path = "Target Support Files/Pods-SushiBelt_Example/Pods-SushiBelt_Example.release.xcconfig"; sourceTree = "<group>"; };
+		B68B22AAA5B547085CE405E2 /* SushiBelt.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SushiBelt.podspec; path = ../SushiBelt.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		DB7092A0FDCB7C88E6905DF4 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		FA8C675D3183BDFA470795FB /* Pods-ViewVisibleTracker_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViewVisibleTracker_Tests.debug.xcconfig"; path = "Target Support Files/Pods-ViewVisibleTracker_Tests/Pods-ViewVisibleTracker_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		FA8C675D3183BDFA470795FB /* Pods-SushiBelt_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SushiBelt_Tests.debug.xcconfig"; path = "Target Support Files/Pods-SushiBelt_Tests/Pods-SushiBelt_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96837B9D5AAEC5191BD928C6 /* Pods_ViewVisibleTracker_Example.framework in Frameworks */,
+				96837B9D5AAEC5191BD928C6 /* Pods_SushiBelt_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,7 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				64124CB3B1A70B8895D6CFC3 /* Pods_ViewVisibleTracker_Tests.framework in Frameworks */,
+				64124CB3B1A70B8895D6CFC3 /* Pods_SushiBelt_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,10 +70,10 @@
 		512AC7FF5E341FAD2F72F144 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A564884983B69ADDE850A8D4 /* Pods-ViewVisibleTracker_Example.debug.xcconfig */,
-				B02261DBB2A57BF6129AC662 /* Pods-ViewVisibleTracker_Example.release.xcconfig */,
-				FA8C675D3183BDFA470795FB /* Pods-ViewVisibleTracker_Tests.debug.xcconfig */,
-				842B83AA3961CCC887E18551 /* Pods-ViewVisibleTracker_Tests.release.xcconfig */,
+				A564884983B69ADDE850A8D4 /* Pods-SushiBelt_Example.debug.xcconfig */,
+				B02261DBB2A57BF6129AC662 /* Pods-SushiBelt_Example.release.xcconfig */,
+				FA8C675D3183BDFA470795FB /* Pods-SushiBelt_Tests.debug.xcconfig */,
+				842B83AA3961CCC887E18551 /* Pods-SushiBelt_Tests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -82,7 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
-				607FACD21AFB9204008FA782 /* Example for ViewVisibleTracker */,
+				607FACD21AFB9204008FA782 /* Example for SushiBelt */,
 				607FACE81AFB9204008FA782 /* Tests */,
 				607FACD11AFB9204008FA782 /* Products */,
 				512AC7FF5E341FAD2F72F144 /* Pods */,
@@ -93,13 +93,13 @@
 		607FACD11AFB9204008FA782 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				607FACD01AFB9204008FA782 /* ViewVisibleTracker_Example.app */,
-				607FACE51AFB9204008FA782 /* ViewVisibleTracker_Tests.xctest */,
+				607FACD01AFB9204008FA782 /* SushiBelt_Example.app */,
+				607FACE51AFB9204008FA782 /* SushiBelt_Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		607FACD21AFB9204008FA782 /* Example for ViewVisibleTracker */ = {
+		607FACD21AFB9204008FA782 /* Example for SushiBelt */ = {
 			isa = PBXGroup;
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
@@ -109,8 +109,8 @@
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 			);
-			name = "Example for ViewVisibleTracker";
-			path = ViewVisibleTracker;
+			name = "Example for SushiBelt";
+			path = SushiBelt;
 			sourceTree = "<group>";
 		};
 		607FACD31AFB9204008FA782 /* Supporting Files */ = {
@@ -140,7 +140,7 @@
 		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				B68B22AAA5B547085CE405E2 /* ViewVisibleTracker.podspec */,
+				B68B22AAA5B547085CE405E2 /* SushiBelt.podspec */,
 				75900424683F94C20A7CCC6A /* README.md */,
 				DB7092A0FDCB7C88E6905DF4 /* LICENSE */,
 			);
@@ -150,8 +150,8 @@
 		7D09CED6F804D2CF94A439E1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9582B77D1A71BE86C93C42A2 /* Pods_ViewVisibleTracker_Example.framework */,
-				549A69A85E1A3E5CDD18BAB3 /* Pods_ViewVisibleTracker_Tests.framework */,
+				9582B77D1A71BE86C93C42A2 /* Pods_SushiBelt_Example.framework */,
+				549A69A85E1A3E5CDD18BAB3 /* Pods_SushiBelt_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -159,9 +159,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		607FACCF1AFB9204008FA782 /* ViewVisibleTracker_Example */ = {
+		607FACCF1AFB9204008FA782 /* SushiBelt_Example */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "ViewVisibleTracker_Example" */;
+			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "SushiBelt_Example" */;
 			buildPhases = (
 				F05E6C3FBF8A2E4EEF796F9B /* [CP] Check Pods Manifest.lock */,
 				607FACCC1AFB9204008FA782 /* Sources */,
@@ -173,14 +173,14 @@
 			);
 			dependencies = (
 			);
-			name = ViewVisibleTracker_Example;
-			productName = ViewVisibleTracker;
-			productReference = 607FACD01AFB9204008FA782 /* ViewVisibleTracker_Example.app */;
+			name = SushiBelt_Example;
+			productName = SushiBelt;
+			productReference = 607FACD01AFB9204008FA782 /* SushiBelt_Example.app */;
 			productType = "com.apple.product-type.application";
 		};
-		607FACE41AFB9204008FA782 /* ViewVisibleTracker_Tests */ = {
+		607FACE41AFB9204008FA782 /* SushiBelt_Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "ViewVisibleTracker_Tests" */;
+			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "SushiBelt_Tests" */;
 			buildPhases = (
 				A1DD1842E4CDC0F0C0502C13 /* [CP] Check Pods Manifest.lock */,
 				607FACE11AFB9204008FA782 /* Sources */,
@@ -192,9 +192,9 @@
 			dependencies = (
 				607FACE71AFB9204008FA782 /* PBXTargetDependency */,
 			);
-			name = ViewVisibleTracker_Tests;
+			name = SushiBelt_Tests;
 			productName = Tests;
-			productReference = 607FACE51AFB9204008FA782 /* ViewVisibleTracker_Tests.xctest */;
+			productReference = 607FACE51AFB9204008FA782 /* SushiBelt_Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -219,7 +219,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "ViewVisibleTracker" */;
+			buildConfigurationList = 607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "SushiBelt" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -233,8 +233,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				607FACCF1AFB9204008FA782 /* ViewVisibleTracker_Example */,
-				607FACE41AFB9204008FA782 /* ViewVisibleTracker_Tests */,
+				607FACCF1AFB9204008FA782 /* SushiBelt_Example */,
+				607FACE41AFB9204008FA782 /* SushiBelt_Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -275,7 +275,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ViewVisibleTracker_Tests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-SushiBelt_Tests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -288,16 +288,16 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ViewVisibleTracker_Example/Pods-ViewVisibleTracker_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/ViewVisibleTracker/ViewVisibleTracker.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-SushiBelt_Example/Pods-SushiBelt_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SushiBelt/SushiBelt.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ViewVisibleTracker.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SushiBelt.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ViewVisibleTracker_Example/Pods-ViewVisibleTracker_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SushiBelt_Example/Pods-SushiBelt_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F05E6C3FBF8A2E4EEF796F9B /* [CP] Check Pods Manifest.lock */ = {
@@ -315,7 +315,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ViewVisibleTracker_Example-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-SushiBelt_Example-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -346,7 +346,7 @@
 /* Begin PBXTargetDependency section */
 		607FACE71AFB9204008FA782 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 607FACCF1AFB9204008FA782 /* ViewVisibleTracker_Example */;
+			target = 607FACCF1AFB9204008FA782 /* SushiBelt_Example */;
 			targetProxy = 607FACE61AFB9204008FA782 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -472,13 +472,13 @@
 		};
 		607FACF01AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A564884983B69ADDE850A8D4 /* Pods-ViewVisibleTracker_Example.debug.xcconfig */;
+			baseConfigurationReference = A564884983B69ADDE850A8D4 /* Pods-SushiBelt_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = ViewVisibleTracker/Info.plist;
+				INFOPLIST_FILE = SushiBelt/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
@@ -491,13 +491,13 @@
 		};
 		607FACF11AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B02261DBB2A57BF6129AC662 /* Pods-ViewVisibleTracker_Example.release.xcconfig */;
+			baseConfigurationReference = B02261DBB2A57BF6129AC662 /* Pods-SushiBelt_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = ViewVisibleTracker/Info.plist;
+				INFOPLIST_FILE = SushiBelt/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
@@ -510,7 +510,7 @@
 		};
 		607FACF31AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FA8C675D3183BDFA470795FB /* Pods-ViewVisibleTracker_Tests.debug.xcconfig */;
+			baseConfigurationReference = FA8C675D3183BDFA470795FB /* Pods-SushiBelt_Tests.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
@@ -526,13 +526,13 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ViewVisibleTracker_Example.app/ViewVisibleTracker_Example";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SushiBelt_Example.app/SushiBelt_Example";
 			};
 			name = Debug;
 		};
 		607FACF41AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 842B83AA3961CCC887E18551 /* Pods-ViewVisibleTracker_Tests.release.xcconfig */;
+			baseConfigurationReference = 842B83AA3961CCC887E18551 /* Pods-SushiBelt_Tests.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
@@ -544,14 +544,14 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ViewVisibleTracker_Example.app/ViewVisibleTracker_Example";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SushiBelt_Example.app/SushiBelt_Example";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "ViewVisibleTracker" */ = {
+		607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "SushiBelt" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				607FACED1AFB9204008FA782 /* Debug */,
@@ -560,7 +560,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "ViewVisibleTracker_Example" */ = {
+		607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "SushiBelt_Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				607FACF01AFB9204008FA782 /* Debug */,
@@ -569,7 +569,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "ViewVisibleTracker_Tests" */ = {
+		607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "SushiBelt_Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				607FACF31AFB9204008FA782 /* Debug */,

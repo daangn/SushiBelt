@@ -1,16 +1,16 @@
 PODS:
-  - ViewVisibleTracker (0.1.0)
+  - SushiBelt (0.1.0)
 
 DEPENDENCIES:
-  - ViewVisibleTracker (from `../`)
+  - SushiBelt (from `../`)
 
 EXTERNAL SOURCES:
-  ViewVisibleTracker:
+  SushiBelt:
     :path: "../"
 
 SPEC CHECKSUMS:
-  ViewVisibleTracker: 09cee9e8fdcedc6b8f19b19d6c3222e5361d0ea7
+  SushiBelt: 7910d6f34a1b99cd11b7fc0d276c5bac0feddb4c
 
-PODFILE CHECKSUM: bfa47be6d0a90b7f3091857e0ed58bc23163d5c6
+PODFILE CHECKSUM: aaf577a140f31b7d67715369c208e49e9a7f1672
 
 COCOAPODS: 1.11.2

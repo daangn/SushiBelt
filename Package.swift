@@ -3,24 +3,24 @@
 import PackageDescription
 
 let package = Package(
-  name: "ViewVisibleTracker",
+  name: "SushiBelt",
   platforms: [
     .iOS(.v11),
   ],
   products: [
     .library(
-      name: "ViewVisibleTracker",
-      targets: ["ViewVisibleTracker"]
+      name: "SushiBelt",
+      targets: ["SushiBelt"]
     ),
   ],
   targets: [
     .target(
-      name: "ViewVisibleTracker"
+      name: "SushiBelt"
     ),
     .testTarget(
-      name: "ViewVisibleTrackerTests",
+      name: "SushiBeltTests",
       dependencies: [
-        "ViewVisibleTracker"
+        "SushiBelt"
       ]
     ),
   ]

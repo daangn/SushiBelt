@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-               BuildableName = "ViewVisibleTracker_Example.app"
-               BlueprintName = "ViewVisibleTracker_Example"
-               ReferencedContainer = "container:ViewVisibleTracker.xcodeproj">
+               BuildableName = "SushiBelt_Example.app"
+               BlueprintName = "SushiBelt_Example"
+               ReferencedContainer = "container:SushiBelt.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "607FACE41AFB9204008FA782"
-               BuildableName = "ViewVisibleTracker_Tests.xctest"
-               BlueprintName = "ViewVisibleTracker_Tests"
-               ReferencedContainer = "container:ViewVisibleTracker.xcodeproj">
+               BuildableName = "SushiBelt_Tests.xctest"
+               BlueprintName = "SushiBelt_Tests"
+               ReferencedContainer = "container:SushiBelt.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "ViewVisibleTracker_Example.app"
-            BlueprintName = "ViewVisibleTracker_Example"
-            ReferencedContainer = "container:ViewVisibleTracker.xcodeproj">
+            BuildableName = "SushiBelt_Example.app"
+            BlueprintName = "SushiBelt_Example"
+            ReferencedContainer = "container:SushiBelt.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -56,9 +56,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "607FACE41AFB9204008FA782"
-               BuildableName = "ViewVisibleTracker_Tests.xctest"
-               BlueprintName = "ViewVisibleTracker_Tests"
-               ReferencedContainer = "container:ViewVisibleTracker.xcodeproj">
+               BuildableName = "SushiBelt_Tests.xctest"
+               BlueprintName = "SushiBelt_Tests"
+               ReferencedContainer = "container:SushiBelt.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -78,9 +78,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "ViewVisibleTracker_Example.app"
-            BlueprintName = "ViewVisibleTracker_Example"
-            ReferencedContainer = "container:ViewVisibleTracker.xcodeproj">
+            BuildableName = "SushiBelt_Example.app"
+            BlueprintName = "SushiBelt_Example"
+            ReferencedContainer = "container:SushiBelt.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -95,9 +95,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "ViewVisibleTracker_Example.app"
-            BlueprintName = "ViewVisibleTracker_Example"
-            ReferencedContainer = "container:ViewVisibleTracker.xcodeproj">
+            BuildableName = "SushiBelt_Example.app"
+            BlueprintName = "SushiBelt_Example"
+            ReferencedContainer = "container:SushiBelt.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

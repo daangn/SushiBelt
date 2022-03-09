@@ -1,6 +1,6 @@
 //
-//  ViewVisibleTracker.swift
-//  ViewVisibleTracker
+//  SushiBeltTracker.swift
+//  SushiBeltTracker
 //
 //  Created by david on 2022/03/07.
 //
@@ -8,18 +8,18 @@
 import Foundation
 import UIKit
 
-public final class ViewVisibleTracker {
+public final class SushiBeltTracker {
   
-  public weak var delegate: ViewVisibleTrackerDelegate?
-  public weak var dataSource: ViewVisibleTrackerDataSource?
+  public weak var delegate:  SushiBeltTrackerDelegate?
+  public weak var dataSource: SushiBeltTrackerDataSource?
   public weak var scrollView: UIScrollView?
   
   public var defaultVisibleRatio: CGFloat = 0.0
-  public var defaultScrollDirection: ViewVisibleTrackerScrollDirection = .up
-  private var prevScrollDirection: ViewVisibleTrackerScrollDirection?
+  public var defaultScrollDirection: SushiBeltTrackerScrollDirection = .up
+  private var prevScrollDirection: SushiBeltTrackerScrollDirection?
   
-  private var cachedItems: Set<ViewVisibleTrackingItem> = .init()
-  private var debugger: ViewVisibleTrackerDebuggerLogic?
+  private var cachedItems: Set<SushiBeltTrackerItem> = .init()
+  private var debugger: SushiBeltDebuggerLogic?
   
   public init() {
     
@@ -32,8 +32,8 @@ public final class ViewVisibleTracker {
   
   public convenience init(
     scrollView: UIScrollView,
-    dataSource: ViewVisibleTrackerDataSource,
-    delegate: ViewVisibleTrackerDelegate
+    dataSource: SushiBeltTrackerDataSource,
+    delegate:  SushiBeltTrackerDelegate
   ) {
     self.init()
     self.scrollView = scrollView
@@ -41,7 +41,7 @@ public final class ViewVisibleTracker {
     self.delegate = delegate
   }
   
-  public func calculateItemsIfNeeded(items: [ViewVisibleTrackingItem]) {
+  public func calculateItemsIfNeeded(items: [SushiBeltTrackerItem]) {
     self.updateCachedItemsIfNeeded(items: items)
     let endTrackingItems = self.cachedItems.subtracting(items)
     self.removeEndTrackingItemsOnCache(items: endTrackingItems)
@@ -52,11 +52,11 @@ public final class ViewVisibleTracker {
     self.prevScrollDirection = scrollDirection
   }
   
-  public func registerDebugger(debugger: ViewVisibleTrackerDebuggerLogic) {
+  public func registerDebugger(debugger: SushiBeltDebuggerLogic) {
     self.debugger = debugger
   }
   
-  private func removeEndTrackingItemsOnCache(items: Set<ViewVisibleTrackingItem>) {
+  private func removeEndTrackingItemsOnCache(items: Set<SushiBeltTrackerItem>) {
     items.forEach { item in
       self.cachedItems.remove(item)
     }
@@ -72,7 +72,7 @@ public final class ViewVisibleTracker {
     )
   }
   
-  private func updateCachedItemsIfNeeded(items: [ViewVisibleTrackingItem]) {
+  private func updateCachedItemsIfNeeded(items: [SushiBeltTrackerItem]) {
     items.forEach { item in
       if var cachedItem = self.cachedItems.first(where: { $0.hashValue == item.hashValue }) {
         cachedItem.frameInWindow = item.frameInWindow
@@ -83,7 +83,7 @@ public final class ViewVisibleTracker {
     }
   }
   
-  private func checkBeginTrackingItems(items: Set<ViewVisibleTrackingItem>) {
+  private func checkBeginTrackingItems(items: Set<SushiBeltTrackerItem>) {
     items.forEach { item in
       // early exit
       if !item.isTracked && self.debugger == nil {
@@ -116,16 +116,16 @@ public final class ViewVisibleTracker {
     }
   }
   
-  private func didEndTracking(items: Set<ViewVisibleTrackingItem>) {
+  private func didEndTracking(items: Set<SushiBeltTrackerItem>) {
     items.forEach {
       self.delegate?.didEndTracking(self, item: $0)
     }
   }
   
-  private func calculatedTrackingRect(item: ViewVisibleTrackingItem,
+  private func calculatedTrackingRect(item: SushiBeltTrackerItem,
                                       objectiveVisibleRatio: CGFloat) -> CGRect {
     guard let trackingRect = self.dataSource?.trackingRect(self) else {
-      assertionFailure("You must inherit ViewVisibleTrackerDataSource")
+      assertionFailure("You must inherit SushiBeltTrackerDataSource")
       return .zero
     }
     
@@ -169,7 +169,7 @@ public final class ViewVisibleTracker {
     }
   }
   
-  private func scrollDrection() -> ViewVisibleTrackerScrollDirection? {
+  private func scrollDrection() -> SushiBeltTrackerScrollDirection? {
     guard let velocity = self.scrollView?.panGestureRecognizer.velocity(in: nil)
     else {
       assertionFailure("scrollView must not be null")
@@ -193,7 +193,7 @@ public final class ViewVisibleTracker {
   }
   
   private func calculateVisibleRatio(
-    item: ViewVisibleTrackingItem
+    item: SushiBeltTrackerItem
   ) -> CGFloat? {
     guard let trackingRect = self.dataSource?.trackingRect(self)
     else {

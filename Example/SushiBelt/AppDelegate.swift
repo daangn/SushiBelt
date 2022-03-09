@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  ViewVisibleTracker
+//  SushiBelt
 //
 //  Created by david on 03/07/2022.
 //  Copyright (c) 2022 david. All rights reserved.

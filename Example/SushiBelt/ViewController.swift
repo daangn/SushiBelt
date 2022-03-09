@@ -1,13 +1,13 @@
 //
 //  ViewController.swift
-//  ViewVisibleTracker
+//  SushiBelt
 //
 //  Created by david on 03/07/2022.
 //  Copyright (c) 2022 david. All rights reserved.
 //
 
 import UIKit
-import ViewVisibleTracker
+import SushiBelt
 
 final class TestCell: UICollectionViewCell {
   
@@ -60,8 +60,8 @@ class ViewController: UIViewController {
     return view
   }()
   
-  private let viewVisibleTracker = ViewVisibleTracker()
-  private let viewVisibleTrackerDebugger = ViewVisibleTrackerDebugger.shared
+  private let tracker = SushiBeltTracker()
+  private let debugger = SushiBeltDebugger.shared
   
   override func loadView() {
     self.view = self.collectionView
@@ -69,11 +69,11 @@ class ViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.viewVisibleTracker.delegate = self
-    self.viewVisibleTracker.dataSource = self
-    self.viewVisibleTracker.scrollView = self.collectionView
-    self.viewVisibleTracker.registerDebugger(debugger: self.viewVisibleTrackerDebugger)
-    self.viewVisibleTrackerDebugger.show()
+    self.tracker.delegate = self
+    self.tracker.dataSource = self
+    self.tracker.scrollView = self.collectionView
+    self.tracker.registerDebugger(debugger: self.debugger)
+    self.debugger.show()
     self.collectionView.delegate = self
     self.collectionView.dataSource = self
   }
@@ -111,38 +111,38 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDelegateFlow
   }
   
   private func trackingVisibleCellsIfNeeded() {
-    let trackingItems = self.collectionView.visibleCells.compactMap { cell -> ViewVisibleTrackingItem? in
+    let trackingItems = self.collectionView.visibleCells.compactMap { cell -> SushiBeltTrackerItem? in
       guard let indexPath = self.collectionView.indexPath(for: cell) else { return nil }
-      return ViewVisibleTrackingItem(
+      return SushiBeltTrackerItem(
         id: .indexPath(indexPath),
         view: cell
       )
     }
-    self.viewVisibleTracker.calculateItemsIfNeeded(items: trackingItems)
+    self.tracker.calculateItemsIfNeeded(items: trackingItems)
   }
 
 }
 
 
-extension ViewController: ViewVisibleTrackerDataSource {
+extension ViewController: SushiBeltTrackerDataSource {
   
-  func trackingRect(_ tracker: ViewVisibleTracker) -> CGRect {
+  func trackingRect(_ tracker: SushiBeltTracker) -> CGRect {
     return self.collectionView.frame
   }
   
-  func visibleRatioForItem(_ tracker: ViewVisibleTracker, item: ViewVisibleTrackingItem) -> CGFloat {
+  func visibleRatioForItem(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) -> CGFloat {
     return 0.5
   }
 }
 
-extension ViewController: ViewVisibleTrackerDelegate {
+extension ViewController: SushiBeltTrackerDelegate {
   
-  func willBeginTracking(_ tracker: ViewVisibleTracker, item: ViewVisibleTrackingItem) {
+  func willBeginTracking(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {
     
     print("🚀 begin tracking: \(item.debugDescription)")
   }
   
-  func didEndTracking(_ tracker: ViewVisibleTracker, item: ViewVisibleTrackingItem) {
+  func didEndTracking(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {
     
     print("👋 end tracking: \(item.debugDescription)")
   }

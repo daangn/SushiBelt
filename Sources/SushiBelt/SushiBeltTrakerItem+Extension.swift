@@ -1,6 +1,6 @@
 //
-//  ViewVisibleTrackingItem+Extension.swift
-//  ViewVisibleTracker
+//  SushiBeltTrackerItem+Extension.swift
+//  SushiBelt
 //
 //  Created by david on 2022/03/08.
 //
@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - Debugging
 
-extension ViewVisibleTrackingItem {
+extension SushiBeltTrackerItem {
   
   func currentVisibleRatioPersentageString() -> String {
     return String(
