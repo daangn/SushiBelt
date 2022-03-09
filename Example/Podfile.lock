@@ -1,5 +1,5 @@
 PODS:
-  - SushiBelt (0.1.0)
+  - SushiBelt (1.0.0)
 
 DEPENDENCIES:
   - SushiBelt (from `../`)
