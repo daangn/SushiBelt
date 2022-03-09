@@ -61,6 +61,7 @@ class ViewController: UIViewController {
   }()
   
   private let viewVisibleTracker = ViewVisibleTracker()
+  private let viewVisibleTrackerDebugger = ViewVisibleTrackerDebugger.shared
   
   override func loadView() {
     self.view = self.collectionView
@@ -71,6 +72,8 @@ class ViewController: UIViewController {
     self.viewVisibleTracker.delegate = self
     self.viewVisibleTracker.dataSource = self
     self.viewVisibleTracker.scrollView = self.collectionView
+    self.viewVisibleTracker.registerDebugger(debugger: self.viewVisibleTrackerDebugger)
+    self.viewVisibleTrackerDebugger.show()
     self.collectionView.delegate = self
     self.collectionView.dataSource = self
   }

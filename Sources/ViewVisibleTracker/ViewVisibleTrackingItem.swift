@@ -12,7 +12,7 @@ public protocol ViewVisibleTrackingIdentifier {
   var trackingIdentifer: String { get }
 }
 
-public struct ViewVisibleTrackingItem: Hashable, Equatable, CustomDebugStringConvertible {
+public struct ViewVisibleTrackingItem {
   
   public enum Identifier: Equatable {
     case index(Int)
@@ -36,13 +36,27 @@ public struct ViewVisibleTrackingItem: Hashable, Equatable, CustomDebugStringCon
   }
   
   public let id: Identifier
+  public var status: ViewVisibleTrackingItemStatus {
+    return self.isTracked ? .tracked : .tracking
+  }
+  
   var frameInWindow: CGRect
   var isTracked: Bool = false
+  var currentVisibleRatio: CGFloat = 0.0
+  var objectiveVisibleRatio: CGFloat = 0.0
+  var timestamp: Date
   
   public init(id: Identifier, view: UIView) {
     self.id = id
     self.frameInWindow = view.convert(view.bounds, to: nil)
+    self.timestamp = Date()
   }
+  
+}
+
+// MARK: - CustomDebugStringConvertible
+
+extension ViewVisibleTrackingItem: CustomDebugStringConvertible {
   
   public var debugDescription: String {
     switch self.id {
@@ -54,6 +68,11 @@ public struct ViewVisibleTrackingItem: Hashable, Equatable, CustomDebugStringCon
       return "\(id.trackingIdentifer), frame: \(self.frameInWindow)"
     }
   }
+}
+
+// MARK: - Hashable
+
+extension ViewVisibleTrackingItem: Hashable {
   
   public func hash(into hasher: inout Hasher) {
     switch self.id {
@@ -65,6 +84,11 @@ public struct ViewVisibleTrackingItem: Hashable, Equatable, CustomDebugStringCon
       hasher.combine(id.trackingIdentifer)
     }
   }
+}
+
+// MARK: - Equatable
+
+extension ViewVisibleTrackingItem: Equatable {
   
   public static func == (lhs: Self, rhs: Self) -> Bool {
     return lhs.hashValue == rhs.hashValue
