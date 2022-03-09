@@ -35,6 +35,7 @@
 		6354B6D027D8B63E00567EFF /* SushiBeltTrackerItemDiffResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6354B6CF27D8B63E00567EFF /* SushiBeltTrackerItemDiffResult.swift */; };
 		6354B6D227D8B7E700567EFF /* SushiBeltTrackerItemDiffCheckerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6354B6D127D8B7E700567EFF /* SushiBeltTrackerItemDiffCheckerSpy.swift */; };
 		6354B6D427D8B82C00567EFF /* SushiBeltTrackerItemDiffCheckerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6354B6D327D8B82C00567EFF /* SushiBeltTrackerItemDiffCheckerTests.swift */; };
+		6354B6D827D8C76F00567EFF /* SushiBeltTrackerItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6354B6D727D8C76F00567EFF /* SushiBeltTrackerItem+Extension.swift */; };
 		OBJ_38 /* SushiBeltDebugItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* SushiBeltDebugItemView.swift */; };
 		OBJ_39 /* SushiBeltDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* SushiBeltDebugView.swift */; };
 		OBJ_40 /* SushiBeltDebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* SushiBeltDebugViewController.swift */; };
@@ -84,6 +85,7 @@
 		6354B6CF27D8B63E00567EFF /* SushiBeltTrackerItemDiffResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SushiBeltTrackerItemDiffResult.swift; sourceTree = "<group>"; };
 		6354B6D127D8B7E700567EFF /* SushiBeltTrackerItemDiffCheckerSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SushiBeltTrackerItemDiffCheckerSpy.swift; sourceTree = "<group>"; };
 		6354B6D327D8B82C00567EFF /* SushiBeltTrackerItemDiffCheckerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SushiBeltTrackerItemDiffCheckerTests.swift; sourceTree = "<group>"; };
+		6354B6D727D8C76F00567EFF /* SushiBeltTrackerItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SushiBeltTrackerItem+Extension.swift"; sourceTree = "<group>"; };
 		OBJ_10 /* SushiBeltDebugItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SushiBeltDebugItemView.swift; sourceTree = "<group>"; };
 		OBJ_11 /* SushiBeltDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SushiBeltDebugView.swift; sourceTree = "<group>"; };
 		OBJ_12 /* SushiBeltDebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SushiBeltDebugViewController.swift; sourceTree = "<group>"; };
@@ -160,6 +162,14 @@
 			path = Private;
 			sourceTree = "<group>";
 		};
+		6354B6D627D8C76700567EFF /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				6354B6D727D8C76F00567EFF /* SushiBeltTrackerItem+Extension.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		OBJ_22 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,6 +181,7 @@
 		OBJ_23 /* SushiBeltTests */ = {
 			isa = PBXGroup;
 			children = (
+				6354B6D627D8C76700567EFF /* Helper */,
 				6354B6C427D84DC200567EFF /* Private */,
 				6354B6B327D846D600567EFF /* TestDoubles */,
 				OBJ_24 /* SushiBeltTrackerTests.swift */,
@@ -359,6 +370,7 @@
 				OBJ_67 /* SushiBeltTrackerTests.swift in Sources */,
 				6354B6BA27D8476100567EFF /* SushiBeltTrackerDelegateSpy.swift in Sources */,
 				6354B6C827D8AD9300567EFF /* UIPanGestureRecognizerStub.swift in Sources */,
+				6354B6D827D8C76F00567EFF /* SushiBeltTrackerItem+Extension.swift in Sources */,
 				6354B6C627D84DCE00567EFF /* VisibleRatioCalculatorTests.swift in Sources */,
 				6354B6B727D8471500567EFF /* SushiBeltTrackerDataSourceStub.swift in Sources */,
 				6354B6C327D84D6600567EFF /* VisibleRatioCalculatorSpy.swift in Sources */,

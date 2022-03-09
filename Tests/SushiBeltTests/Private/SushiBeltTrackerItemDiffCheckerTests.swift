@@ -29,7 +29,7 @@ extension SushiBeltTrackerItemDiffCheckerTests {
       SushiBeltTrackerItem(
         id: .index(1),
         view: UIView(frame: .zero)
-      ).applyFrameInWindow(
+      ).frameInWindow(
         CGRect(
           origin: CGPoint(x: 0.0, y: 0.0),
           size: CGSize(width: 100, height: 100)
@@ -41,7 +41,7 @@ extension SushiBeltTrackerItemDiffCheckerTests {
       SushiBeltTrackerItem(
         id: .index(1),
         view: UIView(frame: .zero)
-      ).applyFrameInWindow(
+      ).frameInWindow(
         CGRect(
           origin: CGPoint(x: 0.0, y: 100.0),
           size: CGSize(width: 100, height: 100)
@@ -188,22 +188,4 @@ extension SushiBeltTrackerItemDiffCheckerTests {
       return index == 1
     }))
   }
-}
-
-// MARK: - SushiBeltTrackerItem extension
-
-fileprivate extension SushiBeltTrackerItem {
-  
-  func applyFrameInWindow(_ frame: CGRect) -> SushiBeltTrackerItem {
-    var mutableItem = self
-    mutableItem.frameInWindow = frame
-    return mutableItem
-  }
-  
-  func tracked() -> SushiBeltTrackerItem {
-    var mutableItem = self
-    mutableItem.isTracked = true
-    return mutableItem
-  }
-  
 }
