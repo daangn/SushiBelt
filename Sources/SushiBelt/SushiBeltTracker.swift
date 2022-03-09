@@ -14,6 +14,8 @@ public final class SushiBeltTracker {
   public weak var dataSource: SushiBeltTrackerDataSource?
   public weak var scrollView: UIScrollView?
   
+  private var visibleRatioCalculator: VisibleRatioCalculator = DefaultVisibleRatioCalculator()
+  
   public var defaultVisibleRatio: CGFloat = 0.0
   public var defaultScrollDirection: SushiBeltTrackerScrollDirection = .up
   private var prevScrollDirection: SushiBeltTrackerScrollDirection?
@@ -84,13 +86,21 @@ public final class SushiBeltTracker {
   }
   
   private func checkBeginTrackingItems(items: Set<SushiBeltTrackerItem>) {
+    guard let trackingRect = self.dataSource?.trackingRect(self) else {
+      return
+    }
+            
     items.forEach { item in
       // early exit
       if !item.isTracked && self.debugger == nil {
         return
       }
       
-      guard let currentVisibleRatio = self.calculateVisibleRatio(item: item) else {
+      guard let currentVisibleRatio = self.visibleRatioCalculator.visibleRatio(
+        item: item,
+        trackingRect: trackingRect,
+        scrollDirection: self.scrollDrection()
+      ) else {
         return
       }
       
@@ -192,23 +202,4 @@ public final class SushiBeltTracker {
     return nil
   }
   
-  private func calculateVisibleRatio(
-    item: SushiBeltTrackerItem
-  ) -> CGFloat? {
-    guard let trackingRect = self.dataSource?.trackingRect(self)
-    else {
-      return nil
-    }
-    
-    let visibleRect = trackingRect.intersection(item.frameInWindow)
-    
-    switch self.scrollDrection() {
-    case .up, .down:
-      return min(1.0, visibleRect.height / item.frameInWindow.height)
-    case .left, .right:
-      return min(1.0, visibleRect.width / item.frameInWindow.width)
-    default:
-      return nil
-    }
-  }
 }
