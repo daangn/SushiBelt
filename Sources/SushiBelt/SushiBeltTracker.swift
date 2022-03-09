@@ -15,6 +15,7 @@ public final class SushiBeltTracker {
   public weak var dataSource: SushiBeltTrackerDataSource?
   public weak var scrollView: UIScrollView?
   private let visibleRatioCalculator: VisibleRatioCalculator
+  private let trackerItemDiffChecker: SushiBeltTrackerItemDiffChecker
   private var debugger: SushiBeltDebuggerLogic?
   
   // MARK: - State
@@ -26,19 +27,31 @@ public final class SushiBeltTracker {
   // MARK: - Constructor
   
   public convenience init() {
-    self.init(visibleRatioCalculator: nil)
+    self.init(
+      visibleRatioCalculator: nil,
+      trackerItemDiffChecker: nil
+    )
   }
   
-  public init(visibleRatioCalculator: VisibleRatioCalculator? = nil) {
+  public init(
+    visibleRatioCalculator: VisibleRatioCalculator? = nil,
+    trackerItemDiffChecker: SushiBeltTrackerItemDiffChecker? = nil
+  ) {
     self.visibleRatioCalculator = visibleRatioCalculator ?? DefaultVisibleRatioCalculator()
+    self.trackerItemDiffChecker = trackerItemDiffChecker ?? DefaultSushiBeltTrackerItemDiffChecker()
   }
   
   public func calculateItemsIfNeeded(items: [SushiBeltTrackerItem]) {
-    self.updateCachedItemsIfNeeded(items: items)
-    let endTrackingItems = self.cachedItems.subtracting(items)
-    self.removeEndTrackingItemsOnCache(items: endTrackingItems)
+    let result = self.trackerItemDiffChecker.diff(
+      old: self.cachedItems,
+      new: Set<SushiBeltTrackerItem>(items)
+    )
+    
+    self.cachedItems = result.calculationTargetedItems
+    
     self.checkBeginTrackingItems(items: self.cachedItems)
-    self.didEndTracking(items: endTrackingItems)
+    self.didEndTracking(items: result.endedItems)
+    
     self.debuggingIfNeeded()
     guard let scrollDirection = self.scrollDrection() else { return }
     self.recentScrollDirection = scrollDirection
@@ -83,12 +96,6 @@ extension SushiBeltTracker {
 
 extension SushiBeltTracker {
   
-  private func removeEndTrackingItemsOnCache(items: Set<SushiBeltTrackerItem>) {
-    items.forEach { item in
-      self.cachedItems.remove(item)
-    }
-  }
-  
   private func debuggingIfNeeded() {
     guard let debugger = self.debugger else {
       return
@@ -97,17 +104,6 @@ extension SushiBeltTracker {
       items: self.cachedItems,
       scrollDirection: self.recentScrollDirection
     )
-  }
-  
-  private func updateCachedItemsIfNeeded(items: [SushiBeltTrackerItem]) {
-    items.forEach { item in
-      if var cachedItem = self.cachedItems.first(where: { $0.hashValue == item.hashValue }) {
-        cachedItem.frameInWindow = item.frameInWindow
-        self.cachedItems.update(with: cachedItem)
-      } else {
-        self.cachedItems.insert(item)
-      }
-    }
   }
   
   private func checkBeginTrackingItems(items: Set<SushiBeltTrackerItem>) {
