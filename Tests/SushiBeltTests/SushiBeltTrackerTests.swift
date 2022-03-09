@@ -7,6 +7,7 @@ final class SushiBeltTrackerTests: XCTestCase {
   private var panGestureRecognizer: UIPanGestureRecognizerStub!
   private var sushiBeltTrackerDataSource: SushiBeltTrackerDataSourceStub!
   private var sushiBeltTrackerDelegate: SushiBeltTrackerDelegateSpy!
+  private var debugger: SushiBeltDebuggerSpy!
   
   override func setUp() {
     super.setUp()
@@ -14,6 +15,7 @@ final class SushiBeltTrackerTests: XCTestCase {
     self.panGestureRecognizer = UIPanGestureRecognizerStub()
     self.sushiBeltTrackerDataSource = SushiBeltTrackerDataSourceStub()
     self.sushiBeltTrackerDelegate = SushiBeltTrackerDelegateSpy()
+    self.debugger = SushiBeltDebuggerSpy()
   }
   
   private func createTracker() -> SushiBeltTracker {
@@ -123,5 +125,51 @@ extension SushiBeltTrackerTests {
     
     // then
     XCTAssertNil(direction)
+  }
+}
+
+// MARK: - debug
+
+extension SushiBeltTrackerTests {
+  
+  func test_calculateItemsIfNeeded_should_call_debugger_on_debugger_registerd() {
+    // given
+    let tracker = self.createTracker()
+    tracker.recentScrollDirection = .down
+    tracker.registerDebugger(debugger: self.debugger)
+    
+    // when
+    tracker.calculateItemsIfNeeded(
+      items: [
+        SushiBeltTrackerItem(
+          id: .index(1),
+          view: UIView(frame: .zero)
+        )
+      ]
+    )
+    
+    // then
+    XCTAssertEqual(self.debugger.updateItems?.count, 1)
+    XCTAssertEqual(self.debugger.updateScrollDirection, .down)
+  }
+  
+  func test_calculateItemsIfNeeded_should_not_call_debugger_on_debugger_unregisterd() {
+    // given
+    let tracker = self.createTracker()
+    tracker.recentScrollDirection = .down
+    
+    // when
+    tracker.calculateItemsIfNeeded(
+      items: [
+        SushiBeltTrackerItem(
+          id: .index(1),
+          view: UIView(frame: .zero)
+        )
+      ]
+    )
+    
+    // then
+    XCTAssertNil(self.debugger.updateItems)
+    XCTAssertNil(self.debugger.updateScrollDirection)
   }
 }
