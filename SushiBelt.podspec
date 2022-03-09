@@ -13,10 +13,10 @@ Pod::Spec.new do |s|
 
   s.description      = 'The SushiBelt can be used to measure exposure according to the ratio for all views on the UIScrollView.'
 
-  s.homepage         = 'https://github.com/david/SushiBelt'
+  s.homepage         = 'https://github.com/daangn/SushiBelt'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Geektree0101' => 'h2s1880@gmail.com' }
-  s.source           = { :git => 'https://github.com/david/SushiBelt.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/daangn/SushiBelt.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '11.0'
   s.swift_version = "5.0"
