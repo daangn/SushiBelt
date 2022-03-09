@@ -18,7 +18,7 @@ public final class SushiBeltTracker {
   
   public var defaultVisibleRatio: CGFloat = 0.0
   public var defaultScrollDirection: SushiBeltTrackerScrollDirection = .up
-  private var prevScrollDirection: SushiBeltTrackerScrollDirection?
+  private var recentScrollDirection: SushiBeltTrackerScrollDirection?
   
   private var cachedItems: Set<SushiBeltTrackerItem> = .init()
   private var debugger: SushiBeltDebuggerLogic?
@@ -51,7 +51,7 @@ public final class SushiBeltTracker {
     self.didEndTracking(items: endTrackingItems)
     self.debuggingIfNeeded()
     guard let scrollDirection = self.scrollDrection() else { return }
-    self.prevScrollDirection = scrollDirection
+    self.recentScrollDirection = scrollDirection
   }
   
   public func registerDebugger(debugger: SushiBeltDebuggerLogic) {
@@ -70,7 +70,7 @@ public final class SushiBeltTracker {
     }
     debugger.update(
       items: self.cachedItems,
-      scrollDirection: self.prevScrollDirection
+      scrollDirection: self.recentScrollDirection
     )
   }
   
@@ -140,7 +140,7 @@ public final class SushiBeltTracker {
     }
     
     if velocity.x == 0.0 && velocity.y == 0.0 {
-      return self.prevScrollDirection ?? self.defaultScrollDirection
+      return self.recentScrollDirection ?? self.defaultScrollDirection
     } else if velocity.x == 0.0 && velocity.y < 0.0 {
       return .up
     } else if velocity.x == 0.0 && velocity.y > 0.0 {
