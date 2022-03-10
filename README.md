@@ -83,7 +83,7 @@ struct SomeData: SushiBeltTrackerIdentifier {
 
   let id: Int
 
-  var var trackingIdentifer: String { 
+  var trackingIdentifer: String { 
     return "SomeData-\(id)"
   }
 }
