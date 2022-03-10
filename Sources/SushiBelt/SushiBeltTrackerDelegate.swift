@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-public protocol  SushiBeltTrackerDelegate: AnyObject {
+public protocol SushiBeltTrackerDelegate: AnyObject {
   func willBeginTracking(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem)
   func didEndTracking(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem)
 }
