@@ -2,16 +2,22 @@ name-template: '🚀 $RESOLVED_VERSION'
 tag-template: '$RESOLVED_VERSION'
 categories:
   - title: '🚀 Features'
-    label: 'enhancement'
+    labels: 
+      - 'enhancement'
+      - 'feat'
     
   - title: '🐛 Bug Fixes'
-    label: 'bug'
+    labels: 
+      - 'bug'
+      - 'fix'
 
   - title: '🚀 Performance Improvements'
     label: 'perf'
 
   - title: '📚 Documentation'
-    label: 'documentation'
+    labels: 
+      - 'documentation'
+      - 'docs'
 
   - title: '🧰 Maintenance'
     labels: 
