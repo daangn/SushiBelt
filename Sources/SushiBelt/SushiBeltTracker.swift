@@ -11,7 +11,7 @@ import UIKit
 public final class SushiBeltTracker {
   
   // MARK: - Dependencies
-  public weak var delegate:  SushiBeltTrackerDelegate?
+  public weak var delegate: SushiBeltTrackerDelegate?
   public weak var dataSource: SushiBeltTrackerDataSource?
   public weak var scrollView: UIScrollView?
   private let visibleRatioCalculator: VisibleRatioCalculator
