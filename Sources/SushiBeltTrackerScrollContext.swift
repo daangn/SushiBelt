@@ -11,13 +11,13 @@ import Foundation
 
 import UIKit
 
-typealias PlatformScrollView = UIScrollView
+public typealias PlatformScrollView = UIScrollView
 
 #else
 
 import AppKit
 
-typealias PlatformScrollView = NSScrollView
+public typealias PlatformScrollView = NSScrollView
 
 #endif
 
@@ -25,9 +25,19 @@ public protocol SushiBeltTrackerScrollContext: AnyObject {
   func scrollDrection() -> SushiBeltTrackerScrollDirection?
 }
 
-extension PlatformScrollView: SushiBeltTrackerScrollContext {
+public final class SushiBeltTrackerUIScrollContext: SushiBeltTrackerScrollContext {
+  weak var scrollView: PlatformScrollView?
+
+  public init(scrollView: PlatformScrollView) {
+    self.scrollView = scrollView
+  }
+
   public func scrollDrection() -> SushiBeltTrackerScrollDirection? {
-    let velocity = self.panGestureRecognizer.velocity(in: nil)
+    guard let scrollView = self.scrollView else {
+      return nil
+    }
+
+    let velocity = scrollView.panGestureRecognizer.velocity(in: nil)
 
     if velocity.x == 0.0 && velocity.y == 0.0 {
       return nil

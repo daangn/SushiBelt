@@ -13,7 +13,7 @@ public final class SushiBeltTracker {
   // MARK: - Dependencies
   public weak var delegate: SushiBeltTrackerDelegate?
   public weak var dataSource: SushiBeltTrackerDataSource?
-  public weak var scrollContext: SushiBeltTrackerScrollContext?
+  public var scrollContext: SushiBeltTrackerScrollContext?
   private let visibleRatioCalculator: VisibleRatioCalculator
   private let trackerItemDiffChecker: SushiBeltTrackerItemDiffChecker
   private var debugger: SushiBeltDebuggerLogic?
