@@ -71,7 +71,7 @@ final class SushiBeltDebugItemView: UIView {
         x: self.bounds.width - self.labelMargin.right - self.label.frame.width,
         y: self.labelMargin.left
       )
-    case .none:
+    case .none, .diagonal:
       break
     }
   }

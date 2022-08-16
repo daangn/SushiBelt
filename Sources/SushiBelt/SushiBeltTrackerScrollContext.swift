@@ -50,7 +50,7 @@ public final class SushiBeltTrackerUIScrollContext: SushiBeltTrackerScrollContex
     } else if velocity.x > 0.0 && velocity.y == 0.0 {
       return .left
     } else {
-      return nil
+      return .diagonal
     }
   }
 }

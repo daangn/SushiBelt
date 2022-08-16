@@ -113,7 +113,8 @@ extension SushiBeltTracker {
     }
 
     if let scrollDrection = scrollContext.scrollDrection() {
-      return scrollDrection
+      // unsupported diagonal scroll tracking
+      return scrollDrection == .diagonal ? nil : scrollDrection
     } else {
       return self.recentScrollDirection ?? self.defaultScrollDirection
     }

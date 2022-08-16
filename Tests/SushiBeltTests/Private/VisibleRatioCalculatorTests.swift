@@ -28,7 +28,7 @@ extension VisibleRatioCalculatorTests {
     
     // when
     let ratio = calculator.visibleRatio(
-      item: SushiBeltTrackerItem(id: .index(1), view: UIView(frame: .zero)),
+      item: SushiBeltTrackerItem(id: .index(1), rect: .init(frame: .zero)),
       trackingRect: CGRect(origin: .zero, size: .zero),
       scrollDirection: nil
     )
@@ -51,8 +51,8 @@ extension VisibleRatioCalculatorTests {
     
     givenFrameInWindows.enumerated().forEach { index, frameInWindow in
       // when
-      var item = SushiBeltTrackerItem(id: .index(1), view: UIView(frame: .zero))
-      item.frameInWindow = frameInWindow
+      var item = SushiBeltTrackerItem(id: .index(1), rect: .init(frame: .zero))
+      item.rect = .init(frame: frameInWindow)
       
       let ratio = calculator.visibleRatio(
         item: item,
@@ -79,8 +79,8 @@ extension VisibleRatioCalculatorTests {
     
     givenFrameInWindows.enumerated().forEach { index, frameInWindow in
       // when
-      var item = SushiBeltTrackerItem(id: .index(1), view: UIView(frame: .zero))
-      item.frameInWindow = frameInWindow
+      var item = SushiBeltTrackerItem(id: .index(1), rect: .init(frame: .zero))
+      item.rect = .init(frame: frameInWindow)
       
       let ratio = calculator.visibleRatio(
         item: item,
@@ -107,8 +107,8 @@ extension VisibleRatioCalculatorTests {
     
     givenFrameInWindows.enumerated().forEach { index, frameInWindow in
       // when
-      var item = SushiBeltTrackerItem(id: .index(1), view: UIView(frame: .zero))
-      item.frameInWindow = frameInWindow
+      var item = SushiBeltTrackerItem(id: .index(1), rect: .init(frame: .zero))
+      item.rect = .init(frame: frameInWindow)
       
       let ratio = calculator.visibleRatio(
         item: item,
@@ -135,8 +135,8 @@ extension VisibleRatioCalculatorTests {
     
     givenFrameInWindows.enumerated().forEach { index, frameInWindow in
       // when
-      var item = SushiBeltTrackerItem(id: .index(1), view: UIView(frame: .zero))
-      item.frameInWindow = frameInWindow
+      var item = SushiBeltTrackerItem(id: .index(1), rect: .init(frame: .zero))
+      item.rect = .init(frame: frameInWindow)
       
       let ratio = calculator.visibleRatio(
         item: item,

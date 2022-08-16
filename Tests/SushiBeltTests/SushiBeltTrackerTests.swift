@@ -26,7 +26,7 @@ final class SushiBeltTrackerTests: XCTestCase {
       visibleRatioCalculator: visibleRatioCalculator,
       trackerItemDiffChecker: trackerItemDiffChecker
     )
-    tracker.scrollView = self.scrollView
+    tracker.scrollContext = SushiBeltTrackerUIScrollContext(scrollView: self.scrollView)
     tracker.delegate = self.sushiBeltTrackerDelegate
     tracker.dataSource = self.sushiBeltTrackerDataSource
     return tracker
@@ -149,7 +149,7 @@ extension SushiBeltTrackerTests {
       items: [
         SushiBeltTrackerItem(
           id: .index(1),
-          view: UIView(frame: .zero)
+          rect: .init(frame: .zero)
         )
       ]
     )
@@ -169,7 +169,7 @@ extension SushiBeltTrackerTests {
       items: [
         SushiBeltTrackerItem(
           id: .index(1),
-          view: UIView(frame: .zero)
+          rect: .init(frame: .zero)
         )
       ]
     )
@@ -190,15 +190,15 @@ extension SushiBeltTrackerTests {
     let items = [
       SushiBeltTrackerItem(
         id: .index(1),
-        view: UIView(frame: .zero)
+        rect: .init(frame: .zero)
       ).frameInWindow(CGRect(x: 0.0, y: -100.0, width: 100.0, height: 100.0)),
       SushiBeltTrackerItem(
         id: .index(2),
-        view: UIView(frame: .zero)
+        rect: .init(frame: .zero)
       ).frameInWindow(CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0)),
       SushiBeltTrackerItem(
         id: .index(3),
-        view: UIView(frame: .zero)
+        rect: .init(frame: .zero)
       ).frameInWindow(CGRect(x: 0.0, y: 100.0, width: 100.0, height: 100.0))
     ]
     
@@ -227,15 +227,15 @@ extension SushiBeltTrackerTests {
     let items = [
       SushiBeltTrackerItem(
         id: .index(1),
-        view: UIView(frame: .zero)
+        rect: .init(frame: .zero)
       ).frameInWindow(CGRect(x: 0.0, y: -100.0, width: 100.0, height: 100.0)),
       SushiBeltTrackerItem(
         id: .index(2),
-        view: UIView(frame: .zero)
+        rect: .init(frame: .zero)
       ).frameInWindow(CGRect(x: 0.0, y: -20.0, width: 100.0, height: 100.0)),
       SushiBeltTrackerItem(
         id: .index(3),
-        view: UIView(frame: .zero)
+        rect: .init(frame: .zero)
       ).frameInWindow(CGRect(x: 0.0, y: 100.0, width: 100.0, height: 100.0))
     ]
     
@@ -268,15 +268,15 @@ extension SushiBeltTrackerTests {
     let items = [
       SushiBeltTrackerItem(
         id: .index(1),
-        view: UIView(frame: .zero)
+        rect: .init(frame: .zero)
       ).frameInWindow(CGRect(x: 0.0, y: -100.0, width: 100.0, height: 100.0)),
       SushiBeltTrackerItem(
         id: .index(2),
-        view: UIView(frame: .zero)
+        rect: .init(frame: .zero)
       ).tracked().frameInWindow(CGRect(x: 0.0, y: -20.0, width: 100.0, height: 100.0)),
       SushiBeltTrackerItem(
         id: .index(3),
-        view: UIView(frame: .zero)
+        rect: .init(frame: .zero)
       ).frameInWindow(CGRect(x: 0.0, y: 100.0, width: 100.0, height: 100.0))
     ]
     

@@ -13,4 +13,5 @@ public enum SushiBeltTrackerScrollDirection {
   case down
   case left
   case right
+  case diagonal
 }

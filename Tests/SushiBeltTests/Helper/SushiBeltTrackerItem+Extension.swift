@@ -16,7 +16,7 @@ extension SushiBeltTrackerItem {
   
   func frameInWindow(_ frame: CGRect) -> SushiBeltTrackerItem {
     var mutableItem = self
-    mutableItem.frameInWindow = frame
+    mutableItem.rect = .init(frame: frame)
     return mutableItem
   }
   

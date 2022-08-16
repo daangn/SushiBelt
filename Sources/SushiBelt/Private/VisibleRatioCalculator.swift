@@ -36,6 +36,8 @@ public struct DefaultVisibleRatioCalculator: VisibleRatioCalculator {
       return min(1.0, visibleRect.height / item.rect.frameInWindow.height)
     case .left, .right:
       return min(1.0, visibleRect.width / item.rect.frameInWindow.width)
+    case .diagonal:
+      return nil
     }
   }
 }
