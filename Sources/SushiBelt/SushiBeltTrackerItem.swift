@@ -40,15 +40,15 @@ public struct SushiBeltTrackerItem {
     return self.isTracked ? .tracked : .tracking
   }
   
-  var frameInWindow: CGRect
+  var rect: SushiBeltTrackerItemRect
   var isTracked: Bool = false
   var currentVisibleRatio: CGFloat = 0.0
   var objectiveVisibleRatio: CGFloat = 0.0
   var timestamp: Date
   
-  public init(id: Identifier, view: UIView) {
+  public init(id: Identifier, rect: SushiBeltTrackerItemRect) {
     self.id = id
-    self.frameInWindow = view.convert(view.bounds, to: nil)
+    self.rect = rect
     self.timestamp = Date()
   }
   
@@ -61,11 +61,11 @@ extension SushiBeltTrackerItem: CustomDebugStringConvertible {
   public var debugDescription: String {
     switch self.id {
     case let .index(index):
-      return "\(index), frame: \(self.frameInWindow)"
+      return "\(index), frame: \(self.rect.frameInWindow)"
     case let .indexPath(indexPath):
-      return "\(indexPath.section)-\(indexPath.item), frame: \(self.frameInWindow)"
+      return "\(indexPath.section)-\(indexPath.item), frame: \(self.rect.frameInWindow)"
     case let .trackingIdentifier(id):
-      return "\(id.trackingIdentifer), frame: \(self.frameInWindow)"
+      return "\(id.trackingIdentifer), frame: \(self.rect.frameInWindow)"
     }
   }
 }

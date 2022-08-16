@@ -29,13 +29,13 @@ public struct DefaultVisibleRatioCalculator: VisibleRatioCalculator {
       return nil
     }
     
-    let visibleRect = trackingRect.intersection(item.frameInWindow)
+    let visibleRect = trackingRect.intersection(item.rect.frameInWindow)
     
     switch scrollDirection {
     case .up, .down:
-      return min(1.0, visibleRect.height / item.frameInWindow.height)
+      return min(1.0, visibleRect.height / item.rect.frameInWindow.height)
     case .left, .right:
-      return min(1.0, visibleRect.width / item.frameInWindow.width)
+      return min(1.0, visibleRect.width / item.rect.frameInWindow.width)
     }
   }
 }

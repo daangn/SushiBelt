@@ -39,7 +39,7 @@ public final class DefaultSushiBeltTrackerItemDiffChecker: SushiBeltTrackerItemD
     
     newItems.forEach { newItem in
       if var mutableItem = oldItems.first(where: { $0.hashValue == newItem.hashValue }) {
-        mutableItem.frameInWindow = newItem.frameInWindow
+        mutableItem.rect = newItem.rect
         updatedItems.update(with: mutableItem)
       } else {
         updatedItems.insert(newItem)

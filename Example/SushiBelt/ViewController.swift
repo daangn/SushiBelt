@@ -152,7 +152,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDelegateFlow
       guard let indexPath = self.collectionView.indexPath(for: cell) else { return nil }
       return SushiBeltTrackerItem(
         id: .indexPath(indexPath),
-        view: cell
+        rect: cell.sushiBeltTrackerItemRect()
       )
     }
     self.tracker.calculateItemsIfNeeded(items: trackingItems)
