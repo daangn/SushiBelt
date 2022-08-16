@@ -103,7 +103,7 @@ class ViewController: UIViewController {
     super.viewDidLoad()
     self.tracker.delegate = self
     self.tracker.dataSource = self
-    self.tracker.scrollView = self.collectionView
+    self.tracker.scrollContext = self.collectionView
     self.tracker.registerDebugger(debugger: self.debugger)
     self.debugger.show()
     self.collectionView.delegate = self
