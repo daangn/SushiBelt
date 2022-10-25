@@ -97,7 +97,7 @@ extension SushiBeltTracker {
       /// delegate willBeginTracking
       if shouldSendWillBeginTracking {
         mutableItem.isTracked = true
-        self.delegate?.willBeginTracking(self, item: mutableItem)
+        self.delegate?.didTrack(self, item: mutableItem)
       }
       
       /// update cached item

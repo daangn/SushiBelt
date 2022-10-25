@@ -15,6 +15,13 @@ final class SushiBeltTrackerDelegateSpy: SushiBeltTrackerDelegate {
   func willBeginTracking(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {
     self.willBeginTrackingItems.append(item)
   }
+
+  var didTrackItems: [SushiBeltTrackerItem] = []
+
+  func didTrack(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {
+    self.didTrackItems.append(item)
+  }
+
   var didEndTrackingItems: [SushiBeltTrackerItem] = []
   
   func didEndTracking(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {

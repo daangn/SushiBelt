@@ -10,5 +10,6 @@ import UIKit
 
 public protocol SushiBeltTrackerDelegate: AnyObject {
   func willBeginTracking(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem)
+  func didTrack(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem)
   func didEndTracking(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem)
 }
