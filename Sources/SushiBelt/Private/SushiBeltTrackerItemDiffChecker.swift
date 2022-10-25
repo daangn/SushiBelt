@@ -24,9 +24,11 @@ public final class DefaultSushiBeltTrackerItemDiffChecker: SushiBeltTrackerItemD
     )
     
     let endedItems = updatedItems.subtracting(newItems)
+    let newItems = updatedItems.subtracting(oldItems)
     
     return SushiBeltTrackerItemDiffResult(
       calculationTargetedItems: updatedItems.subtracting(endedItems),
+      newItems: newItems,
       endedItems: endedItems
     )
   }
