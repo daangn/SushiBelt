@@ -48,7 +48,7 @@ public final class SushiBeltTracker {
     )
     
     self.cachedItems = result.calculationTargetedItems
-    
+    self.willBeginTracking(items: result.newItems)
     self.checkBeginTrackingItems(items: self.cachedItems)
     self.didEndTracking(items: result.endedItems)
     
@@ -149,7 +149,13 @@ extension SushiBeltTracker {
       scrollDirection: self.recentScrollDirection
     )
   }
-  
+
+  private func willBeginTracking(items: Set<SushiBeltTrackerItem>) {
+    items.forEach {
+      self.delegate?.willBeginTracking(self, item: $0)
+    }
+  }
+
   private func didEndTracking(items: Set<SushiBeltTrackerItem>) {
     items.forEach {
       self.delegate?.didEndTracking(self, item: $0)

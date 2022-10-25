@@ -10,16 +10,15 @@ import Foundation
 
 final class SushiBeltTrackerDelegateSpy: SushiBeltTrackerDelegate {
   
-  var willBeginTrackingItem: SushiBeltTrackerItem?
+  var willBeginTrackingItems: [SushiBeltTrackerItem] = []
   
   func willBeginTracking(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {
-    self.willBeginTrackingItem = item
+    self.willBeginTrackingItems.append(item)
   }
-  
-  var didEndTrackingItem: SushiBeltTrackerItem?
+  var didEndTrackingItems: [SushiBeltTrackerItem] = []
   
   func didEndTracking(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {
-    self.didEndTrackingItem = item
+    self.didEndTrackingItems.append(item)
   }
   
 }

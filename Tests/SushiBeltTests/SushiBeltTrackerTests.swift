@@ -298,5 +298,54 @@ extension SushiBeltTrackerTests {
     let trackedItems = tracker.cachedItems.filter({ $0.isTracked })
     XCTAssertEqual(trackedItems.count, 1)
     XCTAssertEqual(self.sushiBeltTrackerDelegate.willBeginTrackingItem, nil)
+
+// MARK: - willBeginTracking
+
+extension SushiBeltTrackerTests {
+
+  func test_checkBeginTrackingItems_willBeginTracking() {
+    // given
+    let tracker = self.createTracker()
+    let items = [
+      SushiBeltTrackerItem(
+        id: .index(1),
+        view: UIView(frame: .zero)
+      ).frameInWindow(CGRect(x: 0.0, y: 100.0, width: 100.0, height: 100.0))
+    ]
+
+    tracker.cachedItems = .init()
+
+    // when
+    tracker.calculateItemsIfNeeded(items: items)
+
+    // then
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.willBeginTrackingItems.count, 1)
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didEndTrackingItems.count, 0)
+  }
+}
+
+
+// MARK: - didEndTracking
+
+extension SushiBeltTrackerTests {
+
+  func test_checkBeginTrackingItems_didEndTracking() {
+    // given
+    let tracker = self.createTracker()
+    let items: [SushiBeltTrackerItem] = []
+
+    tracker.cachedItems = .init([
+      SushiBeltTrackerItem(
+        id: .index(1),
+        view: UIView(frame: .zero)
+      ).frameInWindow(CGRect(x: 0.0, y: 100.0, width: 100.0, height: 100.0))
+    ])
+
+    // when
+    tracker.calculateItemsIfNeeded(items: items)
+
+    // then
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.willBeginTrackingItems.count, 0)
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didEndTrackingItems.count, 1)
   }
 }
