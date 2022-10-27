@@ -55,7 +55,7 @@ public final class SushiBeltDebugger: SushiBeltDebuggerLogic {
           return SushiBeltDebugItemView.ViewModel(
             status: item.status,
             description: self.description(item: item),
-            frameInWindow: item.frameInWindow,
+            frameInWindow: item.rect.frameInWindow,
             scrollDirection: scrollDirection
           )
         },

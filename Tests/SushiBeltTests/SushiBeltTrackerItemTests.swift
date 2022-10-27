@@ -14,11 +14,11 @@ final class SushiBeltTrackerItemTests: XCTestCase {
   
   private func createItem(
     id: SushiBeltTrackerItem.Identifier,
-    view: UIView
+    rect: SushiBeltTrackerItemRect
   ) -> SushiBeltTrackerItem {
     return SushiBeltTrackerItem(
       id: id,
-      view: view
+      rect: rect
     )
   }
 }
@@ -30,7 +30,7 @@ extension SushiBeltTrackerItemTests {
   func test_initialization_with_index() {
     let item = self.createItem(
       id: .index(100),
-      view: UIView(
+      rect: .init(
         frame: CGRect(
           origin: .zero,
           size: CGSize(
@@ -47,16 +47,16 @@ extension SushiBeltTrackerItemTests {
     XCTAssertEqual(item.currentVisibleRatio, 0.0)
     XCTAssertEqual(item.objectiveVisibleRatio, 0.0)
     
-    XCTAssertEqual(item.frameInWindow.origin.x, 0.0)
-    XCTAssertEqual(item.frameInWindow.origin.y, 0.0)
-    XCTAssertEqual(item.frameInWindow.size.width, 500.0)
-    XCTAssertEqual(item.frameInWindow.size.height, 500.0)
+    XCTAssertEqual(item.rect.frameInWindow.origin.x, 0.0)
+    XCTAssertEqual(item.rect.frameInWindow.origin.y, 0.0)
+    XCTAssertEqual(item.rect.frameInWindow.size.width, 500.0)
+    XCTAssertEqual(item.rect.frameInWindow.size.height, 500.0)
   }
   
   func test_initialization_with_indexPath() {
     let item = self.createItem(
       id: .indexPath(IndexPath(item: 0, section: 2)),
-      view: UIView(
+      rect: .init(
         frame: CGRect(
           origin: .zero,
           size: CGSize(
@@ -73,10 +73,10 @@ extension SushiBeltTrackerItemTests {
     XCTAssertEqual(item.currentVisibleRatio, 0.0)
     XCTAssertEqual(item.objectiveVisibleRatio, 0.0)
     
-    XCTAssertEqual(item.frameInWindow.origin.x, 0.0)
-    XCTAssertEqual(item.frameInWindow.origin.y, 0.0)
-    XCTAssertEqual(item.frameInWindow.size.width, 500.0)
-    XCTAssertEqual(item.frameInWindow.size.height, 500.0)
+    XCTAssertEqual(item.rect.frameInWindow.origin.x, 0.0)
+    XCTAssertEqual(item.rect.frameInWindow.origin.y, 0.0)
+    XCTAssertEqual(item.rect.frameInWindow.size.width, 500.0)
+    XCTAssertEqual(item.rect.frameInWindow.size.height, 500.0)
   }
   
   func test_initialization_with_custom() {
@@ -86,7 +86,7 @@ extension SushiBeltTrackerItemTests {
           trackingIdentifer: "test"
         )
       ),
-      view: UIView(
+      rect: .init(
         frame: CGRect(
           origin: .zero,
           size: CGSize(
@@ -107,10 +107,10 @@ extension SushiBeltTrackerItemTests {
     XCTAssertEqual(item.currentVisibleRatio, 0.0)
     XCTAssertEqual(item.objectiveVisibleRatio, 0.0)
     
-    XCTAssertEqual(item.frameInWindow.origin.x, 0.0)
-    XCTAssertEqual(item.frameInWindow.origin.y, 0.0)
-    XCTAssertEqual(item.frameInWindow.size.width, 500.0)
-    XCTAssertEqual(item.frameInWindow.size.height, 500.0)
+    XCTAssertEqual(item.rect.frameInWindow.origin.x, 0.0)
+    XCTAssertEqual(item.rect.frameInWindow.origin.y, 0.0)
+    XCTAssertEqual(item.rect.frameInWindow.size.width, 500.0)
+    XCTAssertEqual(item.rect.frameInWindow.size.height, 500.0)
   }
 }
 
@@ -122,7 +122,7 @@ extension SushiBeltTrackerItemTests {
     // given
     var item = self.createItem(
       id: .index(100),
-      view: UIView(
+      rect: .init(
         frame: CGRect(
           origin: .zero,
           size: CGSize(
@@ -144,7 +144,7 @@ extension SushiBeltTrackerItemTests {
     // given
     var item = self.createItem(
       id: .index(100),
-      view: UIView(
+      rect: .init(
         frame: CGRect(
           origin: .zero,
           size: CGSize(
@@ -171,8 +171,8 @@ extension SushiBeltTrackerItemTests {
   
   func test_equal_index() {
     // given
-    let lhs = self.createItem(id: .index(1), view: UIView(frame: .zero))
-    let rhs = self.createItem(id: .index(1), view: UIView(frame: .zero))
+    let lhs = self.createItem(id: .index(1), rect: .init(frame: .zero))
+    let rhs = self.createItem(id: .index(1), rect: .init(frame: .zero))
     
     // when
     let isEqual = lhs == rhs
@@ -183,8 +183,8 @@ extension SushiBeltTrackerItemTests {
   
   func test_not_equal_index() {
     // given
-    let lhs = self.createItem(id: .index(1), view: UIView(frame: .zero))
-    let rhs = self.createItem(id: .index(10), view: UIView(frame: .zero))
+    let lhs = self.createItem(id: .index(1), rect: .init(frame: .zero))
+    let rhs = self.createItem(id: .index(10), rect: .init(frame: .zero))
     
     // when
     let isEqual = lhs == rhs
@@ -199,11 +199,11 @@ extension SushiBeltTrackerItemTests {
     // given
     let lhs = self.createItem(
       id: .indexPath(IndexPath(item: 1, section: 1)),
-      view: UIView(frame: .zero)
+      rect: .init(frame: .zero)
     )
     let rhs = self.createItem(
       id: .indexPath(IndexPath(item: 1, section: 1)),
-      view: UIView(frame: .zero)
+      rect: .init(frame: .zero)
     )
     
     // when
@@ -217,11 +217,11 @@ extension SushiBeltTrackerItemTests {
     // given
     let lhs = self.createItem(
       id: .indexPath(IndexPath(item: 1, section: 1)),
-      view: UIView(frame: .zero)
+      rect: .init(frame: .zero)
     )
     let rhs = self.createItem(
       id: .indexPath(IndexPath(item: 1, section: 2)),
-      view: UIView(frame: .zero)
+      rect: .init(frame: .zero)
     )
     
     // when
@@ -237,11 +237,11 @@ extension SushiBeltTrackerItemTests {
     // given
     let lhs = self.createItem(
       id: .trackingIdentifier(SushiBeltTrackerIdentifierStub(trackingIdentifer: "1")),
-      view: UIView(frame: .zero)
+      rect: .init(frame: .zero)
     )
     let rhs = self.createItem(
       id: .trackingIdentifier(SushiBeltTrackerIdentifierStub(trackingIdentifer: "1")),
-      view: UIView(frame: .zero)
+      rect: .init(frame: .zero)
     )
     
     // when
@@ -255,11 +255,11 @@ extension SushiBeltTrackerItemTests {
     // given
     let lhs = self.createItem(
       id: .trackingIdentifier(SushiBeltTrackerIdentifierStub(trackingIdentifer: "1")),
-      view: UIView(frame: .zero)
+      rect: .init(frame: .zero)
     )
     let rhs = self.createItem(
       id: .trackingIdentifier(SushiBeltTrackerIdentifierStub(trackingIdentifer: "2")),
-      view: UIView(frame: .zero)
+      rect: .init(frame: .zero)
     )
     
     // when

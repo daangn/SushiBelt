@@ -28,7 +28,7 @@ extension SushiBeltTrackerItemDiffCheckerTests {
     let oldItems = Set<SushiBeltTrackerItem>([
       SushiBeltTrackerItem(
         id: .index(1),
-        view: UIView(frame: .zero)
+        rect: .init(frame: .zero)
       ).frameInWindow(
         CGRect(
           origin: CGPoint(x: 0.0, y: 0.0),
@@ -40,7 +40,7 @@ extension SushiBeltTrackerItemDiffCheckerTests {
     let newItems = Set<SushiBeltTrackerItem>([
       SushiBeltTrackerItem(
         id: .index(1),
-        view: UIView(frame: .zero)
+        rect: .init(frame: .zero)
       ).frameInWindow(
         CGRect(
           origin: CGPoint(x: 0.0, y: 100.0),
@@ -52,7 +52,7 @@ extension SushiBeltTrackerItemDiffCheckerTests {
     // when
     let result = checker.diff(old: oldItems, new: newItems)
     let resultItem = result.calculationTargetedItems.first
-    let frameInWindow = resultItem?.frameInWindow
+    let frameInWindow = resultItem?.rect.frameInWindow
     
     // then
     XCTAssertEqual(result.calculationTargetedItems.count, 1)
@@ -75,7 +75,7 @@ extension SushiBeltTrackerItemDiffCheckerTests {
     let newItems = Set<SushiBeltTrackerItem>([
       SushiBeltTrackerItem(
         id: .index(1),
-        view: UIView(frame: .zero)
+        rect: .init(frame: .zero)
       )
     ])
     
@@ -94,14 +94,14 @@ extension SushiBeltTrackerItemDiffCheckerTests {
     let oldItems = Set<SushiBeltTrackerItem>([
       SushiBeltTrackerItem(
         id: .index(1),
-        view: UIView(frame: .zero)
+        rect: .init(frame: .zero)
       )
     ])
     
     let newItems = Set<SushiBeltTrackerItem>([
       SushiBeltTrackerItem(
         id: .index(200),
-        view: UIView(frame: .zero)
+        rect: .init(frame: .zero)
       )
     ])
     
@@ -122,18 +122,18 @@ extension SushiBeltTrackerItemDiffCheckerTests {
     let oldItems = Set<SushiBeltTrackerItem>([
       SushiBeltTrackerItem(
         id: .index(1),
-        view: UIView(frame: .zero)
+        rect: .init(frame: .zero)
       )
     ])
     
     let newItems = Set<SushiBeltTrackerItem>([
       SushiBeltTrackerItem(
         id: .index(1),
-        view: UIView(frame: .zero)
+        rect: .init(frame: .zero)
       ),
       SushiBeltTrackerItem(
         id: .index(200),
-        view: UIView(frame: .zero)
+        rect: .init(frame: .zero)
       )
     ])
     
@@ -156,22 +156,22 @@ extension SushiBeltTrackerItemDiffCheckerTests {
     let oldItems = Set<SushiBeltTrackerItem>([
       SushiBeltTrackerItem(
         id: .index(1),
-        view: UIView(frame: .zero)
+        rect: .init(frame: .zero)
       ),
       SushiBeltTrackerItem(
         id: .index(100),
-        view: UIView(frame: .zero)
+        rect: .init(frame: .zero)
       )
     ])
     
     let newItems = Set<SushiBeltTrackerItem>([
       SushiBeltTrackerItem(
         id: .index(100),
-        view: UIView(frame: .zero)
+        rect: .init(frame: .zero)
       ),
       SushiBeltTrackerItem(
         id: .index(200),
-        view: UIView(frame: .zero)
+        rect: .init(frame: .zero)
       )
     ])
     

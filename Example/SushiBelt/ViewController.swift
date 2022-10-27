@@ -103,7 +103,7 @@ class ViewController: UIViewController {
     super.viewDidLoad()
     self.tracker.delegate = self
     self.tracker.dataSource = self
-    self.tracker.scrollView = self.collectionView
+    self.tracker.scrollContext = SushiBeltTrackerUIScrollContext(scrollView: self.collectionView)
     self.tracker.registerDebugger(debugger: self.debugger)
     self.debugger.show()
     self.collectionView.delegate = self
@@ -152,7 +152,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDelegateFlow
       guard let indexPath = self.collectionView.indexPath(for: cell) else { return nil }
       return SushiBeltTrackerItem(
         id: .indexPath(indexPath),
-        view: cell
+        rect: cell.sushiBeltTrackerItemRect()
       )
     }
     self.tracker.calculateItemsIfNeeded(items: trackingItems)
