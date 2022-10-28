@@ -15,6 +15,7 @@ final class SushiBeltTrackerItemDiffCheckerSpy: SushiBeltTrackerItemDiffChecker 
   var diffNewItems: Set<SushiBeltTrackerItem>?
   var diffStub: SushiBeltTrackerItemDiffResult = .init(
     calculationTargetedItems: .init(),
+    newItems: .init(),
     endedItems: .init()
   )
   

@@ -179,6 +179,11 @@ extension ViewController: SushiBeltTrackerDelegate {
     
     print("🚀 begin tracking: \(item.debugDescription)")
   }
+
+  func didTrack(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {
+
+    print("🎯 tracked: \(item.debugDescription)")
+  }
   
   func didEndTracking(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {
     

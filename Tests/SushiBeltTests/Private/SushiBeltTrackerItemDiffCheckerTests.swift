@@ -64,7 +64,7 @@ extension SushiBeltTrackerItemDiffCheckerTests {
   }
 }
 
-// MARK: - diff calculationTargeted & ended items
+// MARK: - diff calculationTargeted & new/ended items
 
 extension SushiBeltTrackerItemDiffCheckerTests {
   
@@ -84,7 +84,10 @@ extension SushiBeltTrackerItemDiffCheckerTests {
     
     // then
     XCTAssertEqual(result.calculationTargetedItems.count, 1)
-    
+
+    XCTAssertEqual(result.newItems.count, 1)
+    XCTAssertEqual(result.newItems.first?.id, .index(1))
+
     XCTAssertEqual(result.endedItems.count, 0)
   }
   
@@ -111,9 +114,12 @@ extension SushiBeltTrackerItemDiffCheckerTests {
     // then
     XCTAssertEqual(result.calculationTargetedItems.count, 1)
     XCTAssertEqual(result.calculationTargetedItems.first, newItems.first)
-    
+
+    XCTAssertEqual(result.newItems.count, 1)
+    XCTAssertEqual(result.newItems.first?.id, .index(200))
+
     XCTAssertEqual(result.endedItems.count, 1)
-    XCTAssertEqual(result.endedItems.first, oldItems.first)
+    XCTAssertEqual(result.endedItems.first?.id, .index(1))
   }
   
   func test_diff_overlaped_items_should_return_as_calculationTargetedItems() {
@@ -146,7 +152,10 @@ extension SushiBeltTrackerItemDiffCheckerTests {
       guard case let .index(index) = item.id else { return false }
       return index == 1
     }))
-    
+
+    XCTAssertEqual(result.newItems.count, 1)
+    XCTAssertEqual(result.newItems.first?.id, .index(200))
+
     XCTAssertEqual(result.endedItems.count, 0)
   }
   
@@ -181,11 +190,11 @@ extension SushiBeltTrackerItemDiffCheckerTests {
     // then
     XCTAssertEqual(result.calculationTargetedItems.count, 2)
     XCTAssertEqual(result.calculationTargetedItems, newItems)
-    
+
+    XCTAssertEqual(result.newItems.count, 1)
+    XCTAssertEqual(result.newItems.first?.id, .index(200))
+
     XCTAssertEqual(result.endedItems.count, 1)
-    XCTAssertTrue(result.endedItems.contains(where: { item in
-      guard case let .index(index) = item.id else { return false }
-      return index == 1
-    }))
+    XCTAssertEqual(result.endedItems.first?.id, .index(1))
   }
 }

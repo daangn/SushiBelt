@@ -180,7 +180,7 @@ extension SushiBeltTrackerTests {
   }
 }
 
-// MARK: - checkBeginTrackingItems
+// MARK: - tracked
 
 extension SushiBeltTrackerTests {
   
@@ -221,7 +221,7 @@ extension SushiBeltTrackerTests {
     XCTAssertEqual(trackedItems.count, 1)
   }
   
-  func test_checkBeginTrackingItems_should_call_willBeginTracking() {
+  func test_checkBeginTrackingItems_should_call_didTrack() {
     // given
     let tracker = self.createTracker()
     let items = [
@@ -256,13 +256,14 @@ extension SushiBeltTrackerTests {
     // then
     let trackedItems = tracker.cachedItems.filter({ $0.isTracked })
     XCTAssertEqual(trackedItems.count, 1)
-    XCTAssertEqual(self.sushiBeltTrackerDelegate.willBeginTrackingItem?.currentVisibleRatio, 0.8)
-    XCTAssertEqual(self.sushiBeltTrackerDelegate.willBeginTrackingItem?.objectiveVisibleRatio, 0.5)
-    XCTAssertEqual(self.sushiBeltTrackerDelegate.willBeginTrackingItem?.isTracked, true)
-    XCTAssertEqual(self.sushiBeltTrackerDelegate.willBeginTrackingItem?.id, .index(2))
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didTrackItems.count, 1)
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didTrackItems.first?.currentVisibleRatio, 0.8)
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didTrackItems.first?.objectiveVisibleRatio, 0.5)
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didTrackItems.first?.isTracked, true)
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didTrackItems.first?.id, .index(2))
   }
   
-  func test_checkBeginTrackingItems_should_not_call_willBeginTracking_on_already_tracked() {
+  func test_checkBeginTrackingItems_should_not_call_didTrack_on_already_tracked() {
     // given
     let tracker = self.createTracker()
     let items = [
@@ -297,6 +298,57 @@ extension SushiBeltTrackerTests {
     // then
     let trackedItems = tracker.cachedItems.filter({ $0.isTracked })
     XCTAssertEqual(trackedItems.count, 1)
-    XCTAssertEqual(self.sushiBeltTrackerDelegate.willBeginTrackingItem, nil)
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didTrackItems.isEmpty, true)
+  }
+}
+
+// MARK: - willBeginTracking
+
+extension SushiBeltTrackerTests {
+
+  func test_checkBeginTrackingItems_willBeginTracking() {
+    // given
+    let tracker = self.createTracker()
+    let items = [
+      SushiBeltTrackerItem(
+        id: .index(1),
+        view: UIView(frame: .zero)
+      ).frameInWindow(CGRect(x: 0.0, y: 100.0, width: 100.0, height: 100.0))
+    ]
+
+    tracker.cachedItems = .init()
+
+    // when
+    tracker.calculateItemsIfNeeded(items: items)
+
+    // then
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.willBeginTrackingItems.count, 1)
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didEndTrackingItems.count, 0)
+  }
+}
+
+
+// MARK: - didEndTracking
+
+extension SushiBeltTrackerTests {
+
+  func test_checkBeginTrackingItems_didEndTracking() {
+    // given
+    let tracker = self.createTracker()
+    let items: [SushiBeltTrackerItem] = []
+
+    tracker.cachedItems = .init([
+      SushiBeltTrackerItem(
+        id: .index(1),
+        view: UIView(frame: .zero)
+      ).frameInWindow(CGRect(x: 0.0, y: 100.0, width: 100.0, height: 100.0))
+    ])
+
+    // when
+    tracker.calculateItemsIfNeeded(items: items)
+
+    // then
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.willBeginTrackingItems.count, 0)
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didEndTrackingItems.count, 1)
   }
 }
