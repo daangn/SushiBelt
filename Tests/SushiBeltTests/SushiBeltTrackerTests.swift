@@ -312,8 +312,8 @@ extension SushiBeltTrackerTests {
     let items = [
       SushiBeltTrackerItem(
         id: .index(1),
-        view: UIView(frame: .zero)
-      ).frameInWindow(CGRect(x: 0.0, y: 100.0, width: 100.0, height: 100.0))
+        rect: .init(x: 0.0, y: 100.0, width: 100.0, height: 100.0)
+      )
     ]
 
     tracker.cachedItems = .init()
@@ -340,8 +340,8 @@ extension SushiBeltTrackerTests {
     tracker.cachedItems = .init([
       SushiBeltTrackerItem(
         id: .index(1),
-        view: UIView(frame: .zero)
-      ).frameInWindow(CGRect(x: 0.0, y: 100.0, width: 100.0, height: 100.0))
+        rect: .init(x: 0.0, y: 100.0, width: 100.0, height: 100.0)
+      )
     ])
 
     // when

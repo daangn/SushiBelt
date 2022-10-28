@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SushiBelt'
-  s.version          = ENV['LIB_VERSION'] || '1.0.0'
+  s.version          = ENV['LIB_VERSION'] || '1.0.2'
   s.summary          = 'Track visible views on the UIScrollView'
 
   s.description      = 'The SushiBelt can be used to measure exposure according to the ratio for all views on the UIScrollView.'
