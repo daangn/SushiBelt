@@ -153,6 +153,7 @@ dependencies: [
 - [Geektree0101](https://www.github.com/Geektree0101)
 - [ElonPark](https://www.github.com/ElonPark)
 - [jinsu3758](https://www.github.com/jinsu3758)
+- [jaxtynSong](https://github.com/jaxtynSong)
 
 ## License
 
