@@ -1,5 +1,5 @@
 PODS:
-  - SushiBelt (1.0.0)
+  - SushiBelt (1.0.2)
 
 DEPENDENCIES:
   - SushiBelt (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  SushiBelt: 369eb6d1dc1504bf0701b9ab7c2f70aaa82a88b3
+  SushiBelt: eba58a9bf3f6b6ecd2dde5ed3b4356b0030c8c2c
 
 PODFILE CHECKSUM: aaf577a140f31b7d67715369c208e49e9a7f1672
 
