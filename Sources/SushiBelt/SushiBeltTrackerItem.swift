@@ -40,11 +40,11 @@ public struct SushiBeltTrackerItem {
     return self.isTracked ? .tracked : .tracking
   }
   
-  var rect: SushiBeltTrackerItemRect
-  var isTracked: Bool = false
-  var currentVisibleRatio: CGFloat = 0.0
-  var objectiveVisibleRatio: CGFloat = 0.0
-  var timestamp: Date
+  public var rect: SushiBeltTrackerItemRect
+  public var isTracked: Bool = false
+  public var currentVisibleRatio: CGFloat = 0.0
+  public var objectiveVisibleRatio: CGFloat = 0.0
+  public var timestamp: Date
   
   public init(id: Identifier, rect: SushiBeltTrackerItemRect) {
     self.id = id
