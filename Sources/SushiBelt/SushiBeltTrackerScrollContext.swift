@@ -22,7 +22,7 @@ public typealias PlatformScrollView = NSScrollView
 #endif
 
 public protocol SushiBeltTrackerScrollContext: AnyObject {
-  func scrollDrection() -> SushiBeltTrackerScrollDirection?
+  func scrollDirection() -> SushiBeltTrackerScrollDirection?
 }
 
 public final class SushiBeltTrackerUIScrollContext: SushiBeltTrackerScrollContext {
@@ -32,7 +32,7 @@ public final class SushiBeltTrackerUIScrollContext: SushiBeltTrackerScrollContex
     self.scrollView = scrollView
   }
 
-  public func scrollDrection() -> SushiBeltTrackerScrollDirection? {
+  public func scrollDirection() -> SushiBeltTrackerScrollDirection? {
     guard let scrollView = self.scrollView else {
       return nil
     }
