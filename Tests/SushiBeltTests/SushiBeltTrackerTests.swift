@@ -46,7 +46,7 @@ extension SushiBeltTrackerTests {
     self.panGestureRecognizer.velocityStub = .zero
     
     // when
-    let direction = tracker.scrollDrection()
+    let direction = tracker.scrollDirection()
     
     // then
     XCTAssertEqual(direction, .left)
@@ -62,7 +62,7 @@ extension SushiBeltTrackerTests {
     self.panGestureRecognizer.velocityStub = .zero
     
     // when
-    let direction = tracker.scrollDrection()
+    let direction = tracker.scrollDirection()
     
     // then
     XCTAssertEqual(direction, .right)
@@ -75,7 +75,7 @@ extension SushiBeltTrackerTests {
     self.panGestureRecognizer.velocityStub = .init(x: 0.0, y: -100.0)
     
     // when
-    let direction = tracker.scrollDrection()
+    let direction = tracker.scrollDirection()
     
     // then
     XCTAssertEqual(direction, .up)
@@ -88,7 +88,7 @@ extension SushiBeltTrackerTests {
     self.panGestureRecognizer.velocityStub = .init(x: 0.0, y: 100.0)
     
     // when
-    let direction = tracker.scrollDrection()
+    let direction = tracker.scrollDirection()
     
     // then
     XCTAssertEqual(direction, .down)
@@ -101,7 +101,7 @@ extension SushiBeltTrackerTests {
     self.panGestureRecognizer.velocityStub = .init(x: 100.0, y: 0.0)
     
     // when
-    let direction = tracker.scrollDrection()
+    let direction = tracker.scrollDirection()
     
     // then
     XCTAssertEqual(direction, .left)
@@ -114,7 +114,7 @@ extension SushiBeltTrackerTests {
     self.panGestureRecognizer.velocityStub = .init(x: -100.0, y: 0.0)
     
     // when
-    let direction = tracker.scrollDrection()
+    let direction = tracker.scrollDirection()
     
     // then
     XCTAssertEqual(direction, .right)
@@ -127,7 +127,7 @@ extension SushiBeltTrackerTests {
     self.panGestureRecognizer.velocityStub = .init(x: 100.0, y: 100.0)
     
     // when
-    let direction = tracker.scrollDrection()
+    let direction = tracker.scrollDirection()
     
     // then
     XCTAssertNil(direction)

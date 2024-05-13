@@ -80,7 +80,7 @@ extension SushiBeltTracker {
       guard let currentVisibleRatio = self.visibleRatioCalculator.visibleRatio(
         item: item,
         trackingRect: trackingRect,
-        scrollDirection: self.scrollDrection()
+        scrollDirection: self.scrollDirection()
       ) else {
         return
       }
@@ -106,15 +106,15 @@ extension SushiBeltTracker {
     }
   }
   
-  internal func scrollDrection() -> SushiBeltTrackerScrollDirection? {
+  internal func scrollDirection() -> SushiBeltTrackerScrollDirection? {
     guard let scrollContext = self.scrollContext else {
       assertionFailure("scrollContext must not be null")
       return nil
     }
 
-    if let scrollDrection = scrollContext.scrollDrection() {
+    if let scrollDirection = scrollContext.scrollDirection() {
       // unsupported diagonal scroll tracking
-      return scrollDrection == .diagonal ? nil : scrollDrection
+      return scrollDirection == .diagonal ? nil : scrollDirection
     } else {
       return self.recentScrollDirection ?? self.defaultScrollDirection
     }
@@ -126,7 +126,7 @@ extension SushiBeltTracker {
 extension SushiBeltTracker {
   
   private func cachingRecentScrollDirectionIfNeeded() {
-    guard let scrollDirection = self.scrollDrection() else { return }
+    guard let scrollDirection = self.scrollDirection() else { return }
     self.recentScrollDirection = scrollDirection
   }
   
