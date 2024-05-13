@@ -41,10 +41,10 @@ public struct SushiBeltTrackerItem {
   }
   
   public private(set) var rect: SushiBeltTrackerItemRect
-  public private(set) var isTracked: Bool = false
-  public private(set) var currentVisibleRatio: CGFloat = 0.0
-  public private(set) var objectiveVisibleRatio: CGFloat = 0.0
   public private(set) var timestamp: Date
+  var isTracked: Bool = false
+  var currentVisibleRatio: CGFloat = 0.0
+  var objectiveVisibleRatio: CGFloat = 0.0
   
   public init(id: Identifier, rect: SushiBeltTrackerItemRect) {
     self.id = id
