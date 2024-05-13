@@ -7,12 +7,11 @@ on:
 jobs:
   build:
     name: Run PR-CI
-    runs-on: macOS-latest
+    runs-on: macos-14
     env:
       SCHEME: SushiBelt
       SDK: iphonesimulator
-      DESTINATION: platform=iOS Simulator,name=iPhone 13 Pro,OS=latest
-  
+      DESTINATION: platform=iOS Simulator,name=iPhone 15,OS=17.2
     steps:
     - name: Checkout the Git repository
       uses: actions/checkout@v2
