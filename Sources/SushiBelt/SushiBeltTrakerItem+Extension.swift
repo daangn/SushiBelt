@@ -11,14 +11,14 @@ import Foundation
 
 extension SushiBeltTrackerItem {
   
-  func currentVisibleRatioPersentageString() -> String {
+  func currentVisibleRatioPercentageString() -> String {
     return String(
       format: "%.2f",
       self.currentVisibleRatio * 100
     ) + "%"
   }
   
-  func objectiveVisibleRatioPersentageString() -> String {
+  func objectiveVisibleRatioPercentageString() -> String {
     return String(
       format: "%.2f",
       self.objectiveVisibleRatio * 100
@@ -26,7 +26,7 @@ extension SushiBeltTrackerItem {
   }
   
   func defaultDescirption() -> String {
-    return "\(self.currentVisibleRatioPersentageString())\nObjective: \(self.objectiveVisibleRatioPersentageString())"
+    return "\(self.currentVisibleRatioPercentageString())\nObjective: \(self.objectiveVisibleRatioPercentageString())"
   }
   
 }
