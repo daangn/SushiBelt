@@ -144,6 +144,12 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegate
         TileListViewController(),
         animated: true
       )
+
+    case .matrix:
+      self.navigationController?.pushViewController(
+        MatrixViewController(),
+        animated: true
+      )
     }
   }
 
