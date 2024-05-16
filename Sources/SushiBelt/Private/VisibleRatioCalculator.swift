@@ -24,20 +24,9 @@ public struct DefaultVisibleRatioCalculator: VisibleRatioCalculator {
     trackingRect: CGRect,
     scrollDirection: SushiBeltTrackerScrollDirection?
   ) -> CGFloat? {
-    
-    guard let scrollDirection = scrollDirection else {
-      return nil
-    }
-    
     let visibleRect = trackingRect.intersection(item.rect.frameInWindow)
-    
-    switch scrollDirection {
-    case .up, .down:
-      return min(1.0, visibleRect.height / item.rect.frameInWindow.height)
-    case .left, .right:
-      return min(1.0, visibleRect.width / item.rect.frameInWindow.width)
-    case .diagonal:
-      return nil
-    }
+    let itemRectPixels = item.rect.frameInWindow.height * item.rect.frameInWindow.width
+    let visiblePixels = visibleRect.height * visibleRect.width
+    return visiblePixels / itemRectPixels
   }
 }
