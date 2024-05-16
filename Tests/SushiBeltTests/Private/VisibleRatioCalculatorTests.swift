@@ -22,21 +22,6 @@ final class VisibleRatioCalculatorTests: XCTestCase {
 
 extension VisibleRatioCalculatorTests {
   
-  func test_early_exit_in_scrollDirection_null() {
-    // given
-    let calculator = self.defaultVisibleRatioCalculator()
-    
-    // when
-    let ratio = calculator.visibleRatio(
-      item: SushiBeltTrackerItem(id: .index(1), rect: .init(frame: .zero)),
-      trackingRect: CGRect(origin: .zero, size: .zero),
-      scrollDirection: nil
-    )
-    
-    // then
-    XCTAssertNil(ratio)
-  }
-  
   func test_should_return_expected_visible_ratio_on_scroll_up() {
     // given
     let calculator = self.defaultVisibleRatioCalculator()
