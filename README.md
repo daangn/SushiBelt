@@ -124,7 +124,8 @@ let tracker = SushiBeltTracker(
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## Requirements
-- iOS 11.0
+
+- iOS 12.0
 
 ## Installation
 

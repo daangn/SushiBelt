@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.author           = { 'Geektree0101' => 'h2s1880@gmail.com' }
   s.source           = { :git => 'https://github.com/daangn/SushiBelt.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '11.0'
+  s.ios.deployment_target = '12.0'
   s.swift_version = "5.0"
   s.source_files = 'Sources/SushiBelt/**/*'
   s.test_spec 'SushiBeltTests' do |test_spec|
