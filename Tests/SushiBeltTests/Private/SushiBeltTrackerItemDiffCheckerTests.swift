@@ -197,4 +197,32 @@ extension SushiBeltTrackerItemDiffCheckerTests {
     XCTAssertEqual(result.endedItems.count, 1)
     XCTAssertEqual(result.endedItems.first?.id, .index(1))
   }
+
+  func test_diff_overlapped_items_performance_test() {
+    measure {
+      // given
+      let tracker = self.createDefaultChecker()
+
+      let oldItems = Set<SushiBeltTrackerItem>(
+        (0..<10000).map {
+          SushiBeltTrackerItem(
+            id: .index($0),
+            rect: .init(frame: .zero)
+          )
+        }
+      )
+      
+      let newItems = Set<SushiBeltTrackerItem>(
+        (0..<10000).map {
+          SushiBeltTrackerItem(
+            id: .index($0),
+            rect: .init(frame: .zero)
+          )
+        }
+      )
+
+      // when
+      _ = tracker.diff(old: oldItems, new: newItems)
+    }
+  }
 }

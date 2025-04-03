@@ -37,18 +37,19 @@ public final class DefaultSushiBeltTrackerItemDiffChecker: SushiBeltTrackerItemD
     oldItems: Set<SushiBeltTrackerItem>,
     newItems: Set<SushiBeltTrackerItem>
   ) -> Set<SushiBeltTrackerItem> {
-    var updatedItems: Set<SushiBeltTrackerItem> = oldItems
-    
-    newItems.forEach { newItem in
-      if var mutableItem = oldItems.first(where: { $0.hashValue == newItem.hashValue }) {
-        mutableItem.rect = newItem.rect
-        updatedItems.update(with: mutableItem)
+    var updatedItems = [Int: SushiBeltTrackerItem]()
+    oldItems.forEach { updatedItems[$0.hashValue] = $0 }
+
+    for newItem in newItems {
+      if let existingItem = updatedItems[newItem.hashValue] {
+        var updatedItem = existingItem
+        updatedItem.rect = newItem.rect
+        updatedItems[newItem.hashValue] = updatedItem
       } else {
-        updatedItems.insert(newItem)
+        updatedItems[newItem.hashValue] = newItem
       }
     }
-    
-    return updatedItems
+
+    return Set(updatedItems.values)
   }
-  
 }
