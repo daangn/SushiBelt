@@ -13,15 +13,12 @@ public final class SushiBeltTracker {
   // MARK: - Dependencies
   public weak var delegate: SushiBeltTrackerDelegate?
   public weak var dataSource: SushiBeltTrackerDataSource?
-  public var scrollContext: SushiBeltTrackerScrollContext?
   private let visibleRatioCalculator: VisibleRatioCalculator
   private let trackerItemDiffChecker: SushiBeltTrackerItemDiffChecker
   private var debugger: SushiBeltDebuggerLogic?
   
   // MARK: - State
   public var defaultVisibleRatio: CGFloat = 0.0
-  public var defaultScrollDirection: SushiBeltTrackerScrollDirection = .up
-  internal var recentScrollDirection: SushiBeltTrackerScrollDirection?
   internal var cachedItems: Set<SushiBeltTrackerItem> = .init()
   
   // MARK: - Constructor
@@ -53,7 +50,6 @@ public final class SushiBeltTracker {
     self.didEndTracking(items: result.endedItems)
     
     self.debuggingIfNeeded()
-    self.cachingRecentScrollDirectionIfNeeded()
   }
   
   public func registerDebugger(debugger: SushiBeltDebuggerLogic) {
@@ -79,8 +75,7 @@ extension SushiBeltTracker {
       
       guard let currentVisibleRatio = self.visibleRatioCalculator.visibleRatio(
         item: item,
-        trackingRect: trackingRect,
-        scrollDirection: self.scrollDirection()
+        trackingRect: trackingRect
       ) else {
         return
       }
@@ -106,38 +101,17 @@ extension SushiBeltTracker {
     }
   }
   
-  internal func scrollDirection() -> SushiBeltTrackerScrollDirection? {
-    guard let scrollContext = self.scrollContext else {
-      assertionFailure("scrollContext must not be null")
-      return nil
-    }
-
-    if let scrollDirection = scrollContext.scrollDirection() {
-      // unsupported diagonal scroll tracking
-      return scrollDirection == .diagonal ? nil : scrollDirection
-    } else {
-      return self.recentScrollDirection ?? self.defaultScrollDirection
-    }
-  }
 }
 
 // MARK: - SushiBeltTracker Private Extension
 
 extension SushiBeltTracker {
   
-  private func cachingRecentScrollDirectionIfNeeded() {
-    guard let scrollDirection = self.scrollDirection() else { return }
-    self.recentScrollDirection = scrollDirection
-  }
-  
   private func debuggingIfNeeded() {
     guard let debugger = self.debugger else {
       return
     }
-    debugger.update(
-      items: self.cachedItems,
-      scrollDirection: self.recentScrollDirection
-    )
+    debugger.update(items: self.cachedItems)
   }
 
   private func willBeginTracking(items: Set<SushiBeltTrackerItem>) {

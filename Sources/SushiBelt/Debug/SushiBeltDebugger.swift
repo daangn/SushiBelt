@@ -12,7 +12,7 @@ public protocol SushiBeltDebuggerLogic: AnyObject {
   func show()
   func hide()
   func configure(_ configuration: SushiBeltDebuggerConfiguration)
-  func update(items: Set<SushiBeltTrackerItem>, scrollDirection: SushiBeltTrackerScrollDirection?)
+  func update(items: Set<SushiBeltTrackerItem>)
 }
 
 public final class SushiBeltDebugger: SushiBeltDebuggerLogic {
@@ -44,8 +44,7 @@ public final class SushiBeltDebugger: SushiBeltDebuggerLogic {
     self.configuration = configuration
   }
   
-  public func update(items: Set<SushiBeltTrackerItem>,
-                     scrollDirection: SushiBeltTrackerScrollDirection?) {
+  public func update(items: Set<SushiBeltTrackerItem>) {
     self.rootViewController?.reload(
       items: items
         .sorted(by: { lhs, rhs -> Bool in
@@ -55,8 +54,7 @@ public final class SushiBeltDebugger: SushiBeltDebuggerLogic {
           return SushiBeltDebugItemView.ViewModel(
             status: item.status,
             description: self.description(item: item),
-            frameInWindow: item.rect.frameInWindow,
-            scrollDirection: scrollDirection
+            frameInWindow: item.rect.frameInWindow
           )
         },
       configuration: self.configuration

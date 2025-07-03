@@ -12,8 +12,7 @@ public protocol VisibleRatioCalculator {
   
   func visibleRatio(
     item: SushiBeltTrackerItem,
-    trackingRect: CGRect,
-    scrollDirection: SushiBeltTrackerScrollDirection?
+    trackingRect: CGRect
   ) -> CGFloat?
 }
 
@@ -21,8 +20,7 @@ public struct DefaultVisibleRatioCalculator: VisibleRatioCalculator {
   
   public func visibleRatio(
     item: SushiBeltTrackerItem,
-    trackingRect: CGRect,
-    scrollDirection: SushiBeltTrackerScrollDirection?
+    trackingRect: CGRect
   ) -> CGFloat? {
     let visibleRect = trackingRect.intersection(item.rect.frameInWindow)
     let itemRectPixels = item.rect.frameInWindow.height * item.rect.frameInWindow.width
