@@ -107,10 +107,6 @@ extension SushiBeltTracker {
 
 extension SushiBeltTracker {
   
-  private func cachingRecentScrollDirectionIfNeeded() {
-    // No longer needed without scroll context
-  }
-  
   private func debuggingIfNeeded() {
     guard let debugger = self.debugger else {
       return
