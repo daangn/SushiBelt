@@ -15,16 +15,13 @@ final class VisibleRatioCalculatorSpy: VisibleRatioCalculator {
   var visibleRatioStub: CGFloat?
   var visibleRatioItem: SushiBeltTrackerItem?
   var visibleRatioTrackingRect: CGRect?
-  var visibleRatioScrollDirection: SushiBeltTrackerScrollDirection?
   
   func visibleRatio(
     item: SushiBeltTrackerItem,
-    trackingRect: CGRect,
-    scrollDirection: SushiBeltTrackerScrollDirection?
+    trackingRect: CGRect
   ) -> CGFloat? {
     self.visibleRatioItem = item
     self.visibleRatioTrackingRect = trackingRect
-    self.visibleRatioScrollDirection = scrollDirection
     return visibleRatioStub
   }
 }

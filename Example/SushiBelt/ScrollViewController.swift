@@ -70,7 +70,6 @@ final class ScrollViewController: UIViewController {
 
     self.tracker.delegate = self
     self.tracker.dataSource = self
-    self.tracker.scrollContext = SushiBeltTrackerUIScrollContext(scrollView: self.scrollView)
     self.tracker.registerDebugger(debugger: self.debugger)
     self.debugger.show()
 

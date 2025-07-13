@@ -31,13 +31,8 @@ final class SushiBeltDebuggerSpy: SushiBeltDebuggerLogic {
   }
   
   var updateItems: Set<SushiBeltTrackerItem>?
-  var updateScrollDirection: SushiBeltTrackerScrollDirection?
   
-  func update(
-    items: Set<SushiBeltTrackerItem>,
-    scrollDirection: SushiBeltTrackerScrollDirection?
-  ) {
+  func update(items: Set<SushiBeltTrackerItem>) {
     self.updateItems = items
-    self.updateScrollDirection = scrollDirection
   }
 }
