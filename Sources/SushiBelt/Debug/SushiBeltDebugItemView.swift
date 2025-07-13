@@ -14,7 +14,6 @@ final class SushiBeltDebugItemView: UIView {
     let status: SushiBeltTrackerItemStatus
     let description: String
     let frameInWindow: CGRect
-    let scrollDirection: SushiBeltTrackerScrollDirection?
   }
   
   // MARK: - UI
@@ -50,30 +49,11 @@ final class SushiBeltDebugItemView: UIView {
   override func layoutSubviews() {
     super.layoutSubviews()
     self.label.sizeToFit()
-    switch self.viewModel?.scrollDirection {
-    case .up:
-      self.label.frame.origin = CGPoint(
-        x: self.labelMargin.left,
-        y: self.labelMargin.top
-      )
-    case .down:
-      self.label.frame.origin = CGPoint(
-        x: self.labelMargin.left,
-        y: self.bounds.height - self.labelMargin.top - self.label.frame.height
-      )
-    case .left:
-      self.label.frame.origin = CGPoint(
-        x: self.labelMargin.left,
-        y: self.labelMargin.top
-      )
-    case .right:
-      self.label.frame.origin = CGPoint(
-        x: self.bounds.width - self.labelMargin.right - self.label.frame.width,
-        y: self.labelMargin.left
-      )
-    case .none, .diagonal:
-      break
-    }
+    // Use fixed top-left positioning for debug labels
+    self.label.frame.origin = CGPoint(
+      x: self.labelMargin.left,
+      y: self.labelMargin.top
+    )
   }
   
   func updateFrameIfNeeded() {
