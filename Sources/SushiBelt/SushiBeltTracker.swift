@@ -68,35 +68,41 @@ extension SushiBeltTracker {
     }
             
     items.forEach { item in
-      // early exit
-      if item.isTracked && self.debugger == nil {
+      // early exit — symmetric (tracksDismiss == true) items must be
+      // re-evaluated every tick to detect down-crossings of the threshold
+      if item.isTracked && !item.tracksDismiss && self.debugger == nil {
         return
       }
-      
+
       guard let currentVisibleRatio = self.visibleRatioCalculator.visibleRatio(
         item: item,
         trackingRect: trackingRect
       ) else {
         return
       }
-      
+
       let objectiveVisibleRatio = self.objectiveVisibleRatio(item: item)
-      
+
       let isTracked: Bool = currentVisibleRatio >= objectiveVisibleRatio
       let shouldSendWillBeginTracking: Bool = !item.isTracked && isTracked
-      
+      let shouldSendDidDismiss: Bool = item.tracksDismiss && item.isTracked && !isTracked
+
       var mutableItem = item
       mutableItem.currentVisibleRatio = currentVisibleRatio
       mutableItem.objectiveVisibleRatio = objectiveVisibleRatio
-      
-      /// delegate willBeginTracking
+
       if shouldSendWillBeginTracking {
         mutableItem.isTracked = true
         self.delegate?.didTrack(self, item: mutableItem)
+      } else if shouldSendDidDismiss {
+        mutableItem.isTracked = false
+        self.delegate?.didDismiss(self, item: mutableItem)
       }
-      
+
       /// update cached item
-      guard shouldSendWillBeginTracking || self.debugger != nil else { return }
+      guard shouldSendWillBeginTracking
+              || shouldSendDidDismiss
+              || self.debugger != nil else { return }
       self.cachedItems.update(with: mutableItem)
     }
   }

@@ -247,3 +247,126 @@ extension SushiBeltTrackerTests {
     XCTAssertEqual(self.sushiBeltTrackerDelegate.didEndTrackingItems.count, 1)
   }
 }
+
+// MARK: - tracksDismiss (symmetric tracking)
+
+extension SushiBeltTrackerTests {
+
+  /// Sticky items (tracksDismiss == false) keep the early-exit path even when
+  /// the live ratio drops below the threshold. didDismiss must never fire and
+  /// isTracked must stay true.
+  func test_sticky_no_didDismiss_after_down_cross() {
+    // given — tracked sticky item, now positioned below threshold
+    let tracker = self.createTracker()
+    self.sushiBeltTrackerDataSource.trackingRectStub = .init(x: 0.0, y: 0.0, width: 100.0, height: 100.0)
+    self.sushiBeltTrackerDataSource.visibleRatioForItemStub = 0.5
+
+    let item = SushiBeltTrackerItem(
+      id: .index(1),
+      rect: .init(frame: .zero)
+    )
+      .tracked()
+      .frameInWindow(.init(x: 0.0, y: 80.0, width: 100.0, height: 100.0))  // ratio 0.2 < 0.5
+
+    tracker.cachedItems = .init([item])
+
+    // when
+    tracker.checkBeginTrackingItems(items: .init([item]))
+
+    // then
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didTrackItems.count, 0)
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didDismissItems.count, 0)
+    XCTAssertEqual(tracker.cachedItems.first?.isTracked, true)
+  }
+
+  /// Symmetric item crosses the threshold up → didTrack fires and isTracked
+  /// is set to true. Mirrors the sticky up-cross path.
+  func test_symmetric_didTrack_on_up_cross() {
+    // given
+    let tracker = self.createTracker()
+    self.sushiBeltTrackerDataSource.trackingRectStub = .init(x: 0.0, y: 0.0, width: 100.0, height: 100.0)
+    self.sushiBeltTrackerDataSource.visibleRatioForItemStub = 0.5
+
+    let item = SushiBeltTrackerItem(
+      id: .index(1),
+      rect: .init(frame: .zero),
+      tracksDismiss: true
+    ).frameInWindow(.init(x: 0.0, y: 0.0, width: 100.0, height: 100.0))   // ratio 1.0
+
+    tracker.cachedItems = .init([item])
+
+    // when
+    tracker.checkBeginTrackingItems(items: .init([item]))
+
+    // then
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didTrackItems.count, 1)
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didDismissItems.count, 0)
+    XCTAssertEqual(tracker.cachedItems.first?.isTracked, true)
+  }
+
+  /// Tracked symmetric item drops below threshold while still in the set →
+  /// didDismiss fires and isTracked flips back to false.
+  func test_symmetric_didDismiss_on_down_cross_while_in_set() {
+    // given — tracked symmetric item, ratio now below threshold
+    let tracker = self.createTracker()
+    self.sushiBeltTrackerDataSource.trackingRectStub = .init(x: 0.0, y: 0.0, width: 100.0, height: 100.0)
+    self.sushiBeltTrackerDataSource.visibleRatioForItemStub = 0.5
+
+    let item = SushiBeltTrackerItem(
+      id: .index(1),
+      rect: .init(frame: .zero),
+      tracksDismiss: true
+    )
+      .tracked()
+      .frameInWindow(.init(x: 0.0, y: 80.0, width: 100.0, height: 100.0))  // ratio 0.2 < 0.5
+
+    tracker.cachedItems = .init([item])
+
+    // when
+    tracker.checkBeginTrackingItems(items: .init([item]))
+
+    // then
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didTrackItems.count, 0)
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didDismissItems.count, 1)
+    XCTAssertEqual(tracker.cachedItems.first?.isTracked, false)
+  }
+
+  /// Symmetric item that dipped below threshold (didDismiss fired) must
+  /// receive didTrack again when it returns above threshold — verifying that
+  /// isTracked is truly live (not sticky) under tracksDismiss == true.
+  func test_symmetric_didTrack_fires_again_on_reentry() {
+    // given
+    let tracker = self.createTracker()
+    self.sushiBeltTrackerDataSource.trackingRectStub = .init(x: 0.0, y: 0.0, width: 100.0, height: 100.0)
+    self.sushiBeltTrackerDataSource.visibleRatioForItemStub = 0.5
+
+    let aboveFrame = CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0)   // ratio 1.0
+    let belowFrame = CGRect(x: 0.0, y: 80.0, width: 100.0, height: 100.0)  // ratio 0.2
+
+    let baseItem = SushiBeltTrackerItem(
+      id: .index(1),
+      rect: .init(frame: .zero),
+      tracksDismiss: true
+    )
+
+    // tick 1 — above threshold → didTrack
+    let tick1 = baseItem.frameInWindow(aboveFrame)
+    tracker.cachedItems = .init([tick1])
+    tracker.checkBeginTrackingItems(items: .init([tick1]))
+
+    // tick 2 — dropped below threshold → didDismiss
+    let tick2 = tracker.cachedItems.first!.frameInWindow(belowFrame)
+    tracker.cachedItems = .init([tick2])
+    tracker.checkBeginTrackingItems(items: .init([tick2]))
+
+    // tick 3 — back above threshold → didTrack again
+    let tick3 = tracker.cachedItems.first!.frameInWindow(aboveFrame)
+    tracker.cachedItems = .init([tick3])
+    tracker.checkBeginTrackingItems(items: .init([tick3]))
+
+    // then
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didTrackItems.count, 2)
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didDismissItems.count, 1)
+    XCTAssertEqual(tracker.cachedItems.first?.isTracked, true)
+  }
+}
