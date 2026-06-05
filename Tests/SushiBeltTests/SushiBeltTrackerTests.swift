@@ -331,6 +331,108 @@ extension SushiBeltTrackerTests {
     XCTAssertEqual(tracker.cachedItems.first?.isTracked, false)
   }
 
+  /// Tracked symmetric item leaves the visible set entirely. `didDismiss`
+  /// must fire (surfacing the down transition) and `didEndTracking` must
+  /// still fire for the existing consumers — both for the same item.
+  func test_symmetric_setRemoval_fires_didDismiss_and_didEndTracking() {
+    // given — symmetric tracked item cached, then disappears from new tick
+    let tracker = self.createTracker()
+    let item = SushiBeltTrackerItem(
+      id: .index(1),
+      rect: .init(x: 0.0, y: 100.0, width: 100.0, height: 100.0),
+      tracksDismiss: true
+    ).tracked()
+
+    tracker.cachedItems = .init([item])
+
+    // when — empty input means this item is in endedItems
+    tracker.calculateItemsIfNeeded(items: [])
+
+    // then
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didDismissItems.count, 1)
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didDismissItems.first?.id, .index(1))
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didEndTrackingItems.count, 1)
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didEndTrackingItems.first?.id, .index(1))
+  }
+
+  /// Symmetric item that was never tracked (isTracked == false) leaves the
+  /// set. No didDismiss should fire — there is no down transition to surface.
+  func test_symmetric_setRemoval_no_didDismiss_when_not_tracked() {
+    // given
+    let tracker = self.createTracker()
+    let item = SushiBeltTrackerItem(
+      id: .index(1),
+      rect: .init(x: 0.0, y: 100.0, width: 100.0, height: 100.0),
+      tracksDismiss: true
+    )  // isTracked stays false
+
+    tracker.cachedItems = .init([item])
+
+    // when
+    tracker.calculateItemsIfNeeded(items: [])
+
+    // then
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didDismissItems.count, 0)
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didEndTrackingItems.count, 1)
+  }
+
+  /// Sticky item leaves the set while tracked. Only didEndTracking fires —
+  /// the new didDismiss path must never apply to sticky items.
+  func test_sticky_setRemoval_only_didEndTracking() {
+    // given
+    let tracker = self.createTracker()
+    let item = SushiBeltTrackerItem(
+      id: .index(1),
+      rect: .init(x: 0.0, y: 100.0, width: 100.0, height: 100.0)
+    ).tracked()
+
+    tracker.cachedItems = .init([item])
+
+    // when
+    tracker.calculateItemsIfNeeded(items: [])
+
+    // then
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didDismissItems.count, 0)
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didEndTrackingItems.count, 1)
+  }
+
+  /// Sticky and symmetric items in the same tracker — both currently tracked,
+  /// both drop below threshold in the same tick. Only the symmetric item
+  /// triggers didDismiss; the sticky item keeps its tracked state.
+  func test_mixed_mode_items_are_independent() {
+    // given
+    let tracker = self.createTracker()
+    self.sushiBeltTrackerDataSource.trackingRectStub = .init(x: 0.0, y: 0.0, width: 100.0, height: 100.0)
+    self.sushiBeltTrackerDataSource.visibleRatioForItemStub = 0.5
+
+    let belowFrame = CGRect(x: 0.0, y: 80.0, width: 100.0, height: 100.0)   // ratio 0.2
+
+    let sticky = SushiBeltTrackerItem(
+      id: .index(1),
+      rect: .init(frame: .zero)
+    ).tracked().frameInWindow(belowFrame)
+
+    let symmetric = SushiBeltTrackerItem(
+      id: .index(2),
+      rect: .init(frame: .zero),
+      tracksDismiss: true
+    ).tracked().frameInWindow(belowFrame)
+
+    tracker.cachedItems = .init([sticky, symmetric])
+
+    // when
+    tracker.checkBeginTrackingItems(items: .init([sticky, symmetric]))
+
+    // then — only the symmetric item fires didDismiss; sticky stays tracked
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didDismissItems.count, 1)
+    XCTAssertEqual(self.sushiBeltTrackerDelegate.didDismissItems.first?.id, .index(2))
+
+    let stickyAfter    = tracker.cachedItems.first(where: { $0.id == .index(1) })
+    let symmetricAfter = tracker.cachedItems.first(where: { $0.id == .index(2) })
+    XCTAssertEqual(stickyAfter?.isTracked, true)
+    XCTAssertEqual(symmetricAfter?.isTracked, false)
+  }
+
   /// Symmetric item that dipped below threshold (didDismiss fired) must
   /// receive didTrack again when it returns above threshold — verifying that
   /// isTracked is truly live (not sticky) under tracksDismiss == true.

@@ -47,8 +47,9 @@ public final class SushiBeltTracker {
     self.cachedItems = result.calculationTargetedItems
     self.willBeginTracking(items: result.newItems)
     self.checkBeginTrackingItems(items: self.cachedItems)
+    self.didDismissEndedItems(items: result.endedItems)
     self.didEndTracking(items: result.endedItems)
-    
+
     self.debuggingIfNeeded()
   }
   
@@ -130,6 +131,17 @@ extension SushiBeltTracker {
     items.forEach {
       self.delegate?.didEndTracking(self, item: $0)
     }
+  }
+
+  /// Fires `didDismiss` for tracksDismiss items that leave the tracked set
+  /// while still being tracked (isTracked == true). Invoked before
+  /// `didEndTracking` so that the consumer sees a dismiss → end pair in
+  /// natural order. Sticky items (tracksDismiss == false) are filtered out
+  /// and continue to follow the existing end-only behavior.
+  private func didDismissEndedItems(items: Set<SushiBeltTrackerItem>) {
+    items
+      .filter { $0.tracksDismiss && $0.isTracked }
+      .forEach { self.delegate?.didDismiss(self, item: $0) }
   }
   
   private func objectiveVisibleRatio(item: SushiBeltTrackerItem) -> CGFloat {
