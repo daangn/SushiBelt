@@ -149,6 +149,12 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegate
         MatrixViewController(),
         animated: true
       )
+
+    case .symmetric:
+      self.navigationController?.pushViewController(
+        SymmetricListViewController(),
+        animated: true
+      )
     }
   }
 
