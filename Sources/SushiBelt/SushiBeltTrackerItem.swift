@@ -44,12 +44,12 @@ public struct SushiBeltTrackerItem {
   public private(set) var timestamp: Date
 
   /// When `true`, the tracker re-evaluates this item's ratio on every tick
-  /// and fires `didDismiss(_:item:)` when ratio drops below the threshold
+  /// and fires `didExit(_:item:)` when ratio drops below the threshold
   /// (without the item leaving the tracked set). When `false` (default),
-  /// the item follows the sticky behavior: `didTrack` fires once on the
+  /// the item follows the sticky behavior: `didEnter` fires once on the
   /// first up-crossing and `isTracked` stays `true` until the item leaves
   /// the set.
-  public let tracksDismiss: Bool
+  public let tracksExit: Bool
 
   var isTracked: Bool = false
   var currentVisibleRatio: CGFloat = 0.0
@@ -58,11 +58,11 @@ public struct SushiBeltTrackerItem {
   public init(
     id: Identifier,
     rect: SushiBeltTrackerItemRect,
-    tracksDismiss: Bool = false
+    tracksExit: Bool = false
   ) {
     self.id = id
     self.rect = rect
-    self.tracksDismiss = tracksDismiss
+    self.tracksExit = tracksExit
     self.timestamp = Date()
   }
   

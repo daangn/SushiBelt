@@ -270,25 +270,25 @@ extension SushiBeltTrackerItemTests {
   }
 }
 
-// MARK: - tracksDismiss
+// MARK: - tracksExit
 
 extension SushiBeltTrackerItemTests {
 
-  func test_init_tracksDismiss_default_is_false() {
+  func test_init_tracksExit_default_is_false() {
     let item = SushiBeltTrackerItem(id: .index(1), rect: .init(frame: .zero))
-    XCTAssertFalse(item.tracksDismiss)
+    XCTAssertFalse(item.tracksExit)
   }
 
-  func test_init_tracksDismiss_explicit_true_is_preserved() {
+  func test_init_tracksExit_explicit_true_is_preserved() {
     let item = SushiBeltTrackerItem(
       id: .index(1),
       rect: .init(frame: .zero),
-      tracksDismiss: true
+      tracksExit: true
     )
-    XCTAssertTrue(item.tracksDismiss)
+    XCTAssertTrue(item.tracksExit)
   }
 
-  func test_equality_ignores_tracksDismiss() {
+  func test_equality_ignores_tracksExit() {
     let sticky = SushiBeltTrackerItem(
       id: .index(1),
       rect: .init(frame: .zero)
@@ -296,7 +296,7 @@ extension SushiBeltTrackerItemTests {
     let symmetric = SushiBeltTrackerItem(
       id: .index(1),
       rect: .init(frame: .zero),
-      tracksDismiss: true
+      tracksExit: true
     )
 
     XCTAssertEqual(sticky, symmetric)
