@@ -2,16 +2,16 @@
 //  SymmetricListViewController.swift
 //  SushiBelt_Example
 //
-//  Demonstrates symmetric threshold tracking via the `tracksDismiss` opt-in.
-//  Each item registers with `tracksDismiss: true`, so the tracker fires
-//  `didDismiss(_:item:)` when the item drops below the threshold while
-//  staying in the visible set, and re-fires `didTrack(_:item:)` when it
+//  Demonstrates symmetric threshold tracking via the `tracksExit` opt-in.
+//  Each item registers with `tracksExit: true`, so the tracker fires
+//  `didExit(_:item:)` when the item drops below the threshold while
+//  staying in the visible set, and re-fires `didEnter(_:item:)` when it
 //  crosses back up.
 //
 //  Scroll the list and watch the console for:
-//    🎯 tracked      — ratio crossed ≥ threshold (start of a visible session)
-//    💤 dismissed    — ratio dropped < threshold or item left the set
-//                      (end of the visible session, paired with the prior 🎯)
+//    🎯 enter       — ratio crossed ≥ threshold (start of a visible session)
+//    🚪 exit        — ratio dropped < threshold or item left the set
+//                     (end of the visible session, paired with the prior 🎯)
 //    🚀 begin / 👋 end  — existing set lifecycle callbacks
 //
 
@@ -139,7 +139,7 @@ extension SymmetricListViewController: UICollectionViewDelegate, UICollectionVie
       return SushiBeltTrackerItem(
         id: .indexPath(indexPath),
         rect: cell.sushiBeltTrackerItemRect(),
-        tracksDismiss: true
+        tracksExit: true
       )
     }
     self.tracker.calculateItemsIfNeeded(items: trackingItems)
@@ -164,12 +164,12 @@ extension SymmetricListViewController: SushiBeltTrackerDelegate {
     print("🚀 begin tracking: \(item.debugDescription)")
   }
 
-  func didTrack(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {
-    print("🎯 tracked: \(item.debugDescription)")
+  func didEnter(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {
+    print("🎯 enter: \(item.debugDescription)")
   }
 
-  func didDismiss(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {
-    print("💤 dismissed: \(item.debugDescription)")
+  func didExit(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {
+    print("🚪 exit: \(item.debugDescription)")
   }
 
   func didEndTracking(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {
