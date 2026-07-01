@@ -32,6 +32,7 @@ Also, SushiBelt calculates visible ratio as the scroll direction changes.
 - [x] Support a measurement of exposure ratio for each view.
 - [x] Support a various item identifiers such as integer index, IndexPath, and user-defined identifier.
 - [x] Visibility Debugger.
+- [x] Symmetric threshold tracking — opt-in per-item `didExit` callback for down-crossings, paired with `didEnter` for start/end signal modeling.
 
 ## Basic usages
 
@@ -66,6 +67,10 @@ extension SomeObject: SushiBeltTrackerDelegate {
   
   func willBeginTracking(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {
     // begin tracking
+  }
+
+  func didEnter(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {
+    // ratio crossed up to meet the threshold
   }
   
   func didEndTracking(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {
@@ -103,6 +108,39 @@ let tracker = SushiBeltTracker(
  trackerItemDiffChecker: CustomSushiBeltTrackerItemDiffChecker()
 )
 ```
+
+### Symmetric threshold tracking with `tracksExit`
+
+By default, items follow the sticky model: `didEnter` fires once when the ratio first crosses the threshold, and `isTracked` stays `true` until the item leaves the visible set.
+
+For symmetric "above/below" signaling (e.g. viewable impression start/end pairs, time-in-view), register items with `tracksExit: true`. The tracker then re-evaluates the ratio every tick and fires a `didExit` callback whenever the ratio drops below the threshold — pairing naturally with `didEnter` on subsequent up-crossings.
+
+```swift
+let item = SushiBeltTrackerItem(
+  id: .index(0),
+  rect: someRect,
+  tracksExit: true
+)
+
+extension SomeObject: SushiBeltTrackerDelegate {
+
+  func didEnter(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {
+    // ratio crossed up — start of a visible session
+  }
+
+  func didExit(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {
+    // ratio crossed down, OR the item left the set while above threshold
+    // — end of the visible session, paired with the prior didEnter
+  }
+}
+```
+
+`didExit` has a default no-op via protocol extension, so existing delegate conformances remain source-compatible. The flag is per-item, so a single tracker can mix sticky and symmetric items.
+
+## Migration
+
+Upgrading from 2.x to 3.0 renames one delegate method (`didTrack` → `didEnter`).
+See [MIGRATION.md](./MIGRATION.md) for the full guide.
 
 ### VisibleRatioCalculator
 Default visible ratio clculator will calculate with CGRect.intersection with scrollDirection. If you wanna make a custom visible ratio calculation logics. you can make a custom visible ratio calculator with SushiBeltTrackerItemDiffChecker interface. you just inherts it!

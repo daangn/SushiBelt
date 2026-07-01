@@ -47,8 +47,9 @@ public final class SushiBeltTracker {
     self.cachedItems = result.calculationTargetedItems
     self.willBeginTracking(items: result.newItems)
     self.checkBeginTrackingItems(items: self.cachedItems)
+    self.didExitEndedItems(items: result.endedItems)
     self.didEndTracking(items: result.endedItems)
-    
+
     self.debuggingIfNeeded()
   }
   
@@ -68,35 +69,41 @@ extension SushiBeltTracker {
     }
             
     items.forEach { item in
-      // early exit
-      if item.isTracked && self.debugger == nil {
+      // early exit — symmetric (tracksExit == true) items must be
+      // re-evaluated every tick to detect down-crossings of the threshold
+      if item.isTracked && !item.tracksExit && self.debugger == nil {
         return
       }
-      
+
       guard let currentVisibleRatio = self.visibleRatioCalculator.visibleRatio(
         item: item,
         trackingRect: trackingRect
       ) else {
         return
       }
-      
+
       let objectiveVisibleRatio = self.objectiveVisibleRatio(item: item)
-      
+
       let isTracked: Bool = currentVisibleRatio >= objectiveVisibleRatio
-      let shouldSendWillBeginTracking: Bool = !item.isTracked && isTracked
-      
+      let shouldSendDidEnter: Bool = !item.isTracked && isTracked
+      let shouldSendDidExit: Bool = item.tracksExit && item.isTracked && !isTracked
+
       var mutableItem = item
       mutableItem.currentVisibleRatio = currentVisibleRatio
       mutableItem.objectiveVisibleRatio = objectiveVisibleRatio
-      
-      /// delegate willBeginTracking
-      if shouldSendWillBeginTracking {
+
+      if shouldSendDidEnter {
         mutableItem.isTracked = true
-        self.delegate?.didTrack(self, item: mutableItem)
+        self.delegate?.didEnter(self, item: mutableItem)
+      } else if shouldSendDidExit {
+        mutableItem.isTracked = false
+        self.delegate?.didExit(self, item: mutableItem)
       }
-      
+
       /// update cached item
-      guard shouldSendWillBeginTracking || self.debugger != nil else { return }
+      guard shouldSendDidEnter
+              || shouldSendDidExit
+              || self.debugger != nil else { return }
       self.cachedItems.update(with: mutableItem)
     }
   }
@@ -124,6 +131,17 @@ extension SushiBeltTracker {
     items.forEach {
       self.delegate?.didEndTracking(self, item: $0)
     }
+  }
+
+  /// Fires `didExit` for tracksExit items that leave the tracked set
+  /// while still being tracked (isTracked == true). Invoked before
+  /// `didEndTracking` so that the consumer sees an exit → end pair in
+  /// natural order. Sticky items (tracksExit == false) are filtered out
+  /// and continue to follow the existing end-only behavior.
+  private func didExitEndedItems(items: Set<SushiBeltTrackerItem>) {
+    items
+      .filter { $0.tracksExit && $0.isTracked }
+      .forEach { self.delegate?.didExit(self, item: $0) }
   }
   
   private func objectiveVisibleRatio(item: SushiBeltTrackerItem) -> CGFloat {

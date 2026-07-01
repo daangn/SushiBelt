@@ -149,6 +149,12 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegate
         MatrixViewController(),
         animated: true
       )
+
+    case .symmetric:
+      self.navigationController?.pushViewController(
+        SymmetricListViewController(),
+        animated: true
+      )
     }
   }
 
@@ -196,7 +202,7 @@ extension MainViewController: SushiBeltTrackerDelegate {
     print("🚀 begin tracking: \(item.debugDescription)")
   }
 
-  func didTrack(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {
+  func didEnter(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {
 
     print("🎯 tracked: \(item.debugDescription)")
   }

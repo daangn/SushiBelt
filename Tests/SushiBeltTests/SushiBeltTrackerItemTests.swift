@@ -264,8 +264,42 @@ extension SushiBeltTrackerItemTests {
     
     // when
     let isEqual = lhs == rhs
-    
+
     // then
     XCTAssertFalse(isEqual)
+  }
+}
+
+// MARK: - tracksExit
+
+extension SushiBeltTrackerItemTests {
+
+  func test_init_tracksExit_default_is_false() {
+    let item = SushiBeltTrackerItem(id: .index(1), rect: .init(frame: .zero))
+    XCTAssertFalse(item.tracksExit)
+  }
+
+  func test_init_tracksExit_explicit_true_is_preserved() {
+    let item = SushiBeltTrackerItem(
+      id: .index(1),
+      rect: .init(frame: .zero),
+      tracksExit: true
+    )
+    XCTAssertTrue(item.tracksExit)
+  }
+
+  func test_equality_ignores_tracksExit() {
+    let sticky = SushiBeltTrackerItem(
+      id: .index(1),
+      rect: .init(frame: .zero)
+    )
+    let symmetric = SushiBeltTrackerItem(
+      id: .index(1),
+      rect: .init(frame: .zero),
+      tracksExit: true
+    )
+
+    XCTAssertEqual(sticky, symmetric)
+    XCTAssertEqual(sticky.hashValue, symmetric.hashValue)
   }
 }

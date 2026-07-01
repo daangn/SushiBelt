@@ -14,6 +14,7 @@ enum MainTestKind: Int, CaseIterable {
   case scroll
   case tile
   case matrix
+  case symmetric
 
   var image: UIImage? {
     switch self {
@@ -25,6 +26,8 @@ enum MainTestKind: Int, CaseIterable {
       return UIImage(named: "egg_sushi")
     case .matrix:
       return UIImage(named: "red_sushi")
+    case .symmetric:
+      return UIImage(named: "orange_sushi")
     }
   }
 
@@ -38,6 +41,8 @@ enum MainTestKind: Int, CaseIterable {
       return 0.8
     case .matrix:
       return 0.2
+    case .symmetric:
+      return 0.5
     }
   }
 
@@ -51,6 +56,8 @@ enum MainTestKind: Int, CaseIterable {
       return "Tile List"
     case .matrix:
       return "Matrix"
+    case .symmetric:
+      return "Symmetric"
     }
   }
 }
