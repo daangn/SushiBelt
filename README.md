@@ -183,7 +183,7 @@ Once you have your Swift package set up, adding SushiBelt as a dependency is as 
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/daangn/SushiBelt.git", .upToNextMajor(from: "1.0.5"))
+    .package(url: "https://github.com/daangn/SushiBelt.git", .upToNextMajor(from: "2.0.0"))
 ]
 ```
 
@@ -193,6 +193,7 @@ dependencies: [
 - [ElonPark](https://www.github.com/ElonPark)
 - [jinsu3758](https://www.github.com/jinsu3758)
 - [jaxtynSong](https://github.com/jaxtynSong)
+- [KYHyeon](https://github.com/KYHyeon)
 
 ## License
 
