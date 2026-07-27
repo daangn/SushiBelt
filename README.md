@@ -1,4 +1,4 @@
-<img src="https://github.com/daangn/SushiBelt/blob/master/screenshots/logo.png" />
+<img src="screenshots/logo.png" />
 
 [![Version](https://img.shields.io/cocoapods/v/SushiBelt.svg?style=flat)](https://cocoapods.org/pods/SushiBelt)
 [![License](https://img.shields.io/cocoapods/l/SushiBelt.svg?style=flat)](https://cocoapods.org/pods/SushiBelt)
@@ -11,13 +11,13 @@ There are many characteristics of SushiBelt.
 
 First of all, The impression ratio can be set differently for each UIView.
 
-<img src="https://github.com/daangn/SushiBelt/blob/master/screenshots/objective_ratio.png" />
+<img src="screenshots/objective_ratio.png" />
 
 In the context of online advertising, An impression is when an ad is fetched from its source, and is countable. Whether the ad is clicked is not taken into account. Each time an ad is fetched, it is counted as one impression. 
 
 In Summary, SushiBelt can measure the impression according to the objective visible ratio for each UIView.
 
-<img src="https://github.com/daangn/SushiBelt/blob/master/screenshots/ratio.png" />
+<img src="screenshots/ratio.png" />
 
 - Green Area means a measurable range.
 - Red line means a calculated visible ratio from SushiBelt.
@@ -25,7 +25,7 @@ In Summary, SushiBelt can measure the impression according to the objective visi
 
 Also, SushiBelt calculates visible ratio as the scroll direction changes.
 
-<img src="https://github.com/daangn/SushiBelt/blob/master/screenshots/scroll_direction.png" />
+<img src="screenshots/scroll_direction.png" />
 
 ## Features
 
