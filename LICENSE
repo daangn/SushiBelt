@@ -1,6 +1,9 @@
 The SushiBelt project was created by Karrot(Daangn Market.inc).
 
-All code in SushiBelt is covered by the Apache License, Version 2.0.
+Unless otherwise noted in individual files, code in this project is covered
+by the Apache License, Version 2.0. The RxViewController-derived implementation
+in Sources/KarrotImpression/Extension/Rx+UIViewController.swift retains its
+MIT license and original copyright notice in that file.
 
 Apache License
                            Version 2.0, January 2004
