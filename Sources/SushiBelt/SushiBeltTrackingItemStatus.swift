@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum SushiBeltTrackerItemStatus {
+enum SushiBeltTrackerItemStatus {
   case tracked
   case tracking
 }

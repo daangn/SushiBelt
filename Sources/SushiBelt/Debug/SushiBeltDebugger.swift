@@ -8,14 +8,14 @@
 import Foundation
 import UIKit
 
-public protocol SushiBeltDebuggerLogic: AnyObject {
+protocol SushiBeltDebuggerLogic: AnyObject {
   func show()
   func hide()
   func configure(_ configuration: SushiBeltDebuggerConfiguration)
   func update(items: Set<SushiBeltTrackerItem>)
 }
 
-public final class SushiBeltDebugger: SushiBeltDebuggerLogic {
+final class SushiBeltDebugger: SushiBeltDebuggerLogic {
   
   private lazy var window: UIWindow = {
     let window = UIWindow(frame: UIScreen.main.bounds)
@@ -30,21 +30,21 @@ public final class SushiBeltDebugger: SushiBeltDebuggerLogic {
   
   private var configuration: SushiBeltDebuggerConfiguration = .init()
   
-  public static let shared = SushiBeltDebugger()
+  static let shared = SushiBeltDebugger()
   
-  public func show() {
+  func show() {
     self.window.isHidden = false
   }
   
-  public func hide() {
+  func hide() {
     self.window.isHidden = true
   }
   
-  public func configure(_ configuration: SushiBeltDebuggerConfiguration) {
+  func configure(_ configuration: SushiBeltDebuggerConfiguration) {
     self.configuration = configuration
   }
   
-  public func update(items: Set<SushiBeltTrackerItem>) {
+  func update(items: Set<SushiBeltTrackerItem>) {
     self.rootViewController?.reload(
       items: items
         .sorted(by: { lhs, rhs -> Bool in

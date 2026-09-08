@@ -7,14 +7,14 @@
 
 import Foundation
 
-public protocol SushiBeltTrackerItemDiffChecker {
+protocol SushiBeltTrackerItemDiffChecker {
   
   func diff(old oldItems: Set<SushiBeltTrackerItem>, new newItems: Set<SushiBeltTrackerItem>) -> SushiBeltTrackerItemDiffResult
 }
 
-public final class DefaultSushiBeltTrackerItemDiffChecker: SushiBeltTrackerItemDiffChecker {
+final class DefaultSushiBeltTrackerItemDiffChecker: SushiBeltTrackerItemDiffChecker {
   
-  public func diff(
+  func diff(
     old oldItems: Set<SushiBeltTrackerItem>,
     new newItems: Set<SushiBeltTrackerItem>
   ) -> SushiBeltTrackerItemDiffResult {

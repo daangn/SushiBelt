@@ -8,29 +8,29 @@
 import Foundation
 import UIKit
 
-public final class SushiBeltTracker {
+final class SushiBeltTracker {
   
   // MARK: - Dependencies
-  public weak var delegate: SushiBeltTrackerDelegate?
-  public weak var dataSource: SushiBeltTrackerDataSource?
+  weak var delegate: SushiBeltTrackerDelegate?
+  weak var dataSource: SushiBeltTrackerDataSource?
   private let visibleRatioCalculator: VisibleRatioCalculator
   private let trackerItemDiffChecker: SushiBeltTrackerItemDiffChecker
   private var debugger: SushiBeltDebuggerLogic?
   
   // MARK: - State
-  public var defaultVisibleRatio: CGFloat = 0.0
+  var defaultVisibleRatio: CGFloat = 0.0
   internal var cachedItems: Set<SushiBeltTrackerItem> = .init()
   
   // MARK: - Constructor
   
-  public convenience init() {
+  convenience init() {
     self.init(
       visibleRatioCalculator: nil,
       trackerItemDiffChecker: nil
     )
   }
   
-  public init(
+  init(
     visibleRatioCalculator: VisibleRatioCalculator? = nil,
     trackerItemDiffChecker: SushiBeltTrackerItemDiffChecker? = nil
   ) {
@@ -38,7 +38,7 @@ public final class SushiBeltTracker {
     self.trackerItemDiffChecker = trackerItemDiffChecker ?? DefaultSushiBeltTrackerItemDiffChecker()
   }
   
-  public func calculateItemsIfNeeded(items: [SushiBeltTrackerItem]) {
+  func calculateItemsIfNeeded(items: [SushiBeltTrackerItem]) {
     let result = self.trackerItemDiffChecker.diff(
       old: self.cachedItems,
       new: Set<SushiBeltTrackerItem>(items)
@@ -53,7 +53,7 @@ public final class SushiBeltTracker {
     self.debuggingIfNeeded()
   }
   
-  public func registerDebugger(debugger: SushiBeltDebuggerLogic) {
+  func registerDebugger(debugger: SushiBeltDebuggerLogic) {
     self.debugger = debugger
   }
   

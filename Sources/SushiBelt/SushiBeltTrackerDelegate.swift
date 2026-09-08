@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-public protocol SushiBeltTrackerDelegate: AnyObject {
+protocol SushiBeltTrackerDelegate: AnyObject {
   func willBeginTracking(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem)
 
   /// Called when an item's visible ratio crosses up to meet the threshold
@@ -30,5 +30,5 @@ public protocol SushiBeltTrackerDelegate: AnyObject {
 }
 
 extension SushiBeltTrackerDelegate {
-  public func didExit(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {}
+  func didExit(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {}
 }

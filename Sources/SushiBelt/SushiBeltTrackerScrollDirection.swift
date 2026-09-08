@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-public enum SushiBeltTrackerScrollDirection {
+enum SushiBeltTrackerScrollDirection {
   case up
   case down
   case left

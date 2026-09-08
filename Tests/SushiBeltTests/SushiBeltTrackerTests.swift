@@ -1,5 +1,5 @@
 import XCTest
-@testable import SushiBelt
+@testable import KarrotImpression
 
 final class SushiBeltTrackerTests: XCTestCase {
   
