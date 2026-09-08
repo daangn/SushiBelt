@@ -1,3 +1,29 @@
+# KarrotImpression
+
+This repository remains `daangn/SushiBelt`. The Swift package, library product,
+and import name are now **KarrotImpression**. The standalone `SushiBelt`
+product is no longer provided.
+
+The unified library includes UIKit and SwiftUI impression tracking, cooltime
+caches, and debug overlays. It requires iOS 17 or later and Swift tools 6.1
+or later (Swift 5 language mode). RxSwift/RxCocoa are pinned to 6.8.0 to preserve
+the extraction baseline; no private package or Swinject dependency is required.
+
+```swift
+import KarrotImpression
+
+let builder = ImpressionEventTrackerBuilder()
+let tracker = builder.build()
+
+// Reuse one cache across trackers, or inject your own ImpressionCooltimeCache.
+let cache = InMemoryImpressionCooltimeCacheImpl(dateProvider: { Date() })
+let anotherTracker = builder.build(cooltimeCache: cache)
+```
+
+Complete UIKit/SwiftUI examples and the migration guide for this unreleased
+major update are still in preparation. The documentation below describes the
+previous low-level SushiBelt API, not the new high-level UIKit/SwiftUI API.
+
 <img src="screenshots/logo.png" />
 
 [![Version](https://img.shields.io/cocoapods/v/SushiBelt.svg?style=flat)](https://cocoapods.org/pods/SushiBelt)
@@ -197,4 +223,6 @@ dependencies: [
 
 ## License
 
-SushiBelt is available under the MIT license. See the LICENSE file for more info.
+KarrotImpression is distributed under the Apache License, Version 2.0, except
+for third-party code with its own license notices. The RxViewController-derived
+lifecycle extensions retain their MIT license. See [LICENSE](LICENSE).
