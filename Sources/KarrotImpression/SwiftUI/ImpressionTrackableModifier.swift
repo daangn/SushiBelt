@@ -5,12 +5,12 @@
 
 import SwiftUI
 
-/// 개별 아이템의 가시 비율을 계산하고, `ImpressionVisibilityPreferenceKey`를 통해 컨테이너에 보고하는 자식 modifier.
+/// Measures an item's visible fraction and reports it to the tracking container.
 ///
-/// `onGeometryChange`로 자신의 프레임과 컨테이너 `impressionContainerFrame`의 교차 면적 비율을 계산하여,
-/// `visibilityThreshold` 이상이면 가시 상태로 판정합니다.
-/// `onAppear`/`onDisappear`로 뷰의 활성 상태를 관리하며, 비활성 시 가시성을 `false`로 보고합니다.
-/// 가시성 판정과 보고만 담당하며, 임프레션 발생 여부는 컨테이너가 결정합니다.
+/// An active item is visible when its intersection with `impressionContainerFrame`
+/// has positive area and its visible fraction meets `visibilityThreshold`.
+/// `onAppear` and `onDisappear` control the item's active state. Reports travel
+/// through `ImpressionVisibilityPreferenceKey`; the container decides whether to fire callbacks.
 struct ImpressionTrackableModifier: ViewModifier {
 
   let item: ImpressionItem
@@ -60,7 +60,7 @@ struct ImpressionTrackableModifier: ViewModifier {
     #endif
   }
 
-  /// 아이템 프레임과 컨테이너 가시 영역의 교차 면적 비율을 계산합니다.
+  /// Returns the fraction of the item's area inside the container's visible bounds.
   private func visibleRatio(frame: CGRect, containerFrame: CGRect) -> CGFloat {
     let itemArea = frame.width * frame.height
     if itemArea == .zero {

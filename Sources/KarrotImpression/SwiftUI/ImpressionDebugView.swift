@@ -7,11 +7,14 @@ import SwiftUI
 
 public extension View {
 
-  /// 하위의 `.impressionTrackable()` 아이템들에 가시 상태를 나타내는 색상 오버레이를 표시합니다.
+  /// Shows colored overlays for descendant `.impressionTrackable()` items.
   ///
-  /// DEBUG 빌드에서만 동작하며, 릴리즈 빌드에서는 완전히 제거됩니다.
-  /// - 가시 상태: 초록색 반투명 오버레이 + border
-  /// - 비가시 상태: 빨간색 반투명 오버레이 + border
+  /// Available in `DEBUG` builds; this modifier is a no-op in release builds.
+  /// - Green: The item's ID is in the container's last processed visible snapshot.
+  /// - Red: The item's ID is absent from that snapshot.
+  ///
+  /// The snapshot includes policy-suppressed items, so green does not confirm
+  /// that an impression callback fired.
   ///
   /// ```swift
   /// List { ... }
@@ -29,7 +32,7 @@ public extension View {
 
 extension View {
 
-  /// 개별 아이템에 가시 상태 오버레이를 적용합니다. (내부 전용)
+  /// Applies a debug overlay using the item's presence in the processed snapshot.
   func showsImpressionRect(isVisible: Bool) -> some View {
 #if DEBUG
     modifier(ShowsImpressionRectModifier(isVisible: isVisible))
@@ -44,7 +47,7 @@ extension EnvironmentValues {
   @Entry var showsImpressionRect: Bool = false
 }
 
-/// 가시 상태에 따라 색상 오버레이를 표시하는 디버그용 modifier.
+/// Draws a colored overlay for the supplied debug state.
 private struct ShowsImpressionRectModifier: ViewModifier {
   let isVisible: Bool
   @Environment(\.showsImpressionRect) private var showsImpressionRect

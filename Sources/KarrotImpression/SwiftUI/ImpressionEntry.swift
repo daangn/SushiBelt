@@ -7,9 +7,9 @@ import SwiftUI
 
 // MARK: - ImpressionEntry
 
-/// 자식 뷰가 컨테이너에 가시성 상태를 보고하기 위한 엔트리.
+/// A child view's visibility report to its tracking container.
 ///
-/// `Hashable` 및 `Equatable` 비교에서 `onImpressionEnter`·`onImpressionExit` 클로저는 제외됩니다.
+/// Equality and hashing exclude the enter and exit closures.
 struct ImpressionEntry: Hashable {
   let item: ImpressionItem
   let isVisible: Bool
@@ -27,7 +27,7 @@ struct ImpressionEntry: Hashable {
 
 // MARK: - ImpressionVisibilityPreferenceKey
 
-/// 자식 뷰들의 가시성 상태를 컨테이너로 전달하는 PreferenceKey.
+/// Collects child visibility reports for the tracking container.
 struct ImpressionVisibilityPreferenceKey: PreferenceKey {
   static let defaultValue: Set<ImpressionEntry> = []
 

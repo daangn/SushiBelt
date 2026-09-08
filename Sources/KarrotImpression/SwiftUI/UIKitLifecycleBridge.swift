@@ -6,14 +6,13 @@
 import SwiftUI
 import UIKit
 
-/// UIKit의 뷰 라이프사이클 이벤트를 SwiftUI에서 사용하기 위한 브릿지.
+/// Exposes UIKit view lifecycle callbacks to SwiftUI.
 ///
-/// SwiftUI의 `onAppear`는 UIKit의 `viewDidAppear`와 호출 시점이 다릅니다.
-/// 특히 NavigationStack에서 back swipe(인터랙티브 팝 제스처) 시,
-/// 이전 화면이 살짝만 보여도 `onAppear`가 호출되는 문제가 있습니다.
+/// Uses `viewDidAppear` to avoid starting tracking from an early SwiftUI `onAppear`
+/// during an interactive navigation transition. `viewWillDisappear` signals when
+/// the container should stop accepting geometry and visibility updates.
 ///
-/// 이 브릿지는 `UIViewControllerRepresentable`을 통해 UIKit의 정확한
-/// `viewDidAppear` 타이밍과 인터랙티브 전환 상태를 감지합니다.
+/// The bridge forwards lifecycle callbacks; it does not inspect transition progress.
 struct UIKitLifecycleBridge: UIViewControllerRepresentable {
   var onDidAppear: (() -> Void)?
   var onDisappearing: (() -> Void)?
@@ -60,11 +59,11 @@ struct UIKitLifecycleBridge: UIViewControllerRepresentable {
 
 extension View {
 
-  /// UIKit의 `viewDidAppear` 타이밍에 맞춰 액션을 실행합니다.
+  /// Runs an action when the embedded UIKit controller receives `viewDidAppear`.
   ///
   /// - Parameters:
-  ///   - action: `viewDidAppear` 시점에 실행할 콜백
-  ///   - onDisappearing: 뷰가 사라지기 시작할 때 실행할 콜백
+  ///   - action: The callback for `viewDidAppear`.
+  ///   - onDisappearing: The callback for `viewWillDisappear`.
   func onDidAppear(
     _ action: @escaping () -> Void,
     onDisappearing: (() -> Void)? = nil
