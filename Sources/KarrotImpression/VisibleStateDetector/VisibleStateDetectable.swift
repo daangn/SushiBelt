@@ -9,25 +9,23 @@
 import UIKit
 
 /// @mockable
-/// `UIScrollView` 서브뷰들의 Visible 상태를 감지하는 프로토콜
+/// Detects when scroll view items meet their visibility thresholds.
 protocol VisibleStateDetectable: AnyObject {
 
   var delegate: VisibleStateDetectorDelegate? { get set }
 
-  /// 주어진 `items`의 Visible 상태 감지를 요청해요.
+  /// Evaluates the supplied items against the tracking area.
   ///
-  /// - Note: `VisibleStateDetectorDelegate`의 `onDetect(visibleItem: VisibleStateDetectorItem)`
-  /// 함수를 통해 감지된 `items`를 콜백받을 수 있어요.
+  /// - Note: Reports detected items through the delegate's `onDetect(visibleItem:)` method.
   ///
   /// - Parameters:
-  ///   - items: 감지할 `VisibleStateDetectorItem`의 배열
-  ///   - trackingRect: 감지 영역을 반환하는 클로저
+  ///   - items: The items to evaluate.
+  ///   - trackingRect: Returns the tracking area in window coordinates.
   func detect(items: [VisibleStateDetectorItem], trackingRect: @escaping () -> CGRect)
 
-  /// 감지된 아이템을 초기화해요.
+  /// Clears tracked-item state.
   func clear()
 
-  /// 디버거를 노출해요.
+  /// Shows the item debugger.
   func showDebugger()
 }
-

@@ -5,13 +5,13 @@
 
 import Foundation
 
-/// 아이템에 적용할 임프레션 쿨타임 정보예요.
+/// Configures the cooldown for a UIKit impression item.
 public struct ImpressionCooltime: Hashable {
 
-  /// 쿨타임 캐시를 판정할 키예요.
+  /// The cache key used to suppress repeated impressions.
   public let key: String
 
-  /// 이 아이템에 적용할 쿨타임(초)이에요.
+  /// The cooldown duration, in seconds.
   public let coolingTime: TimeInterval
 
   public init(
@@ -22,4 +22,3 @@ public struct ImpressionCooltime: Hashable {
     self.coolingTime = coolingTime
   }
 }
-

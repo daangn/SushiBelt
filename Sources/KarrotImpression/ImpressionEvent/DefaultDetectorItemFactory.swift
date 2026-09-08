@@ -1,6 +1,6 @@
 //
 //  DefaultDetectorItemFactory.swift
-//  KarrotImpressionInterface
+//  KarrotImpression
 //
 //  Created by Jaxtyn on 2023/07/20.
 //  Copyright © 2023 Danggeun Market Inc. All rights reserved.
@@ -8,10 +8,11 @@
 
 import UIKit
 
-/// UICollectionView / UITableView를 지원하는 기본적인 Factory 구현체
+/// Maps visible cells in a table or collection view to tracking items.
+/// Other scroll view types produce no items; use a custom `DetectorItemFactory` for them.
 public final class DefaultDetectorItemFactory: DetectorItemFactory {
 
-  /// Cell to ImpressionItem를 만들어주는 mapper 클로저
+  /// Maps a visible cell to an item, or returns `nil` to exclude it.
   private let mapper: (UIView) -> VisibleStateDetectorItem?
 
   public init(mapper: @escaping (UIView) -> VisibleStateDetectorItem?) {
@@ -35,4 +36,3 @@ public final class DefaultDetectorItemFactory: DetectorItemFactory {
     }
   }
 }
-

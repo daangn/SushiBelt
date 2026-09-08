@@ -1,6 +1,6 @@
 //
 //  VisibleStateDetectorItem.swift
-//  KarrotImpressionInterface
+//  KarrotImpression
 //
 //  Created by Ben on 2023/06/02.
 //  Copyright © 2023 Danggeun Market Inc. All rights reserved.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// 추적에 필요한 정보를 담고 있는 구조체
+/// Describes a UIKit impression target. Equality and hashing use only `id`.
 public struct VisibleStateDetectorItem: Identifiable, Hashable {
 
   public let id: String
@@ -16,10 +16,10 @@ public struct VisibleStateDetectorItem: Identifiable, Hashable {
   public let ratio: CGFloat
   public let userInfo: [AnyHashable: Any]?
 
-  /// 이 아이템에 적용할 쿨타임 정보예요.
+  /// The cooldown applied to this item.
   ///
-  /// `nil`이면 이 아이템은 쿨타임을 적용받지 않아요 (`id` 폴백이 아니라 명시적으로 미적용).
-  /// 한 화면에 쿨타임 대상과 비대상이 섞여 있을 수 있어요.
+  /// `nil` disables cooldown checking; it does not fall back to the item's `id`.
+  /// Items with and without cooldowns can share a tracker.
   public let cooltime: ImpressionCooltime?
 
   public init(
@@ -44,4 +44,3 @@ public struct VisibleStateDetectorItem: Identifiable, Hashable {
     lhs.id == rhs.id
   }
 }
-

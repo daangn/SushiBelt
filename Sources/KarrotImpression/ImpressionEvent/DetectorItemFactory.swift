@@ -1,6 +1,6 @@
 //
 //  DetectorItemFactory.swift
-//  KarrotImpressionInterface
+//  KarrotImpression
 //
 //  Created by Jaxtyn on 2023/07/20.
 //  Copyright © 2023 Danggeun Market Inc. All rights reserved.
@@ -9,14 +9,12 @@
 import UIKit
 
 /// @mockable
-/// 추적하려는 아이템들을 만드는 팩토리 타입
+/// Creates the items to evaluate during an impression detection pass.
 public protocol DetectorItemFactory {
 
-  ///
-  ///   주어진 `UIScrollView`로 추적하려는 아이템들을 만드는 팩토리 메소드
+  /// Returns tracking items for the supplied scroll view.
   ///
   /// - Parameters:
-  ///   - view: Visible Views를 포함하는 컨테이너 뷰
+  ///   - view: The scroll view containing the target views.
   func makeVisibleDetectorItems(view: UIScrollView) -> [VisibleStateDetectorItem]
 }
-

@@ -24,21 +24,17 @@ final class ImpressionEventTracker: ImpressionEventTrackable {
 
   private var scrollView: UIScrollView?
 
-  /// 트래커에 등록된 뷰컨트롤러가 화면에 보이고 있는지 여부.
+  /// Gates manual tracking while the registered view controller is offscreen.
   ///
-  /// `viewWillAppear()`에서 `true`로 `viewDidDisappear()`에서 `false`로 설정합니다.\
-  /// `trackManually` 함수가 화면이 보이지 않는 경우에 호출될 경우 (ex. 자동 refresh),
-  /// Impression 이벤트가 콜백되지 않도록 분기하는 용도로 사용됩니다.\
-  /// `false`로 전송되지 않은 이벤트는 `viewDidAppear` 시점에 콜백 받을 수 있습니다.
-  ///
-  /// - NOTE: `register`시 `viewController`를 주입하지 않는 경우 해당 변수는 true로 사용됩니다.\
-  /// 이는, 사이드이펙트를 발생할 수 있기에, 별도의 구조 리팩토링이 필요합니다.
+  /// Set to `true` on `viewWillAppear` and `false` on `viewDidDisappear`.
+  /// Items are reevaluated on `viewDidAppear`; suppressed manual checks are not queued.
+  /// Without a registered view controller, this remains `true`.
   private var isViewControllerVisible = true
   private var sourceIdentifier: String?
 
   #if DEBUG
-  /// 디버깅 오버레이의 rect 보고와 제거를 짝지어 주는 트래커 고유 key예요.
-  /// `ObjectIdentifier`는 트래커 해제 후 같은 주소가 재사용되면 다른 트래커의 rect를 지울 수 있어서 쓰지 않아요.
+  /// Pairs overlay reports with cleanup for this tracker.
+  /// A UUID avoids clearing another tracker's rect if a deallocated object's address is reused.
   private let debugOverlayKey: UUID = .init()
   #endif
 
@@ -58,7 +54,7 @@ final class ImpressionEventTracker: ImpressionEventTrackable {
 
   #if DEBUG
   deinit {
-    // 화면 재구성 등으로 `viewDidDisappear` 없이 트래커만 해제될 때도 오버레이에 rect가 남지 않게 해요.
+    // A tracker can be released without a preceding viewDidDisappear callback.
     ImpressionDebugOverlay.shared.clearTrackingRect(key: debugOverlayKey)
   }
   #endif
@@ -188,13 +184,11 @@ final class ImpressionEventTracker: ImpressionEventTrackable {
   }
 
   #if DEBUG
-  /// 디버깅 오버레이가 노출 판정에 실제로 사용하는 rect 원본을 그리도록,
-  /// `detector.detect(items:trackingRect:)`에 넘기는 것과 같은 `trackingRectangle` 값을 보고해요.
+  /// Reports the tracking area using the same provider passed to the detector.
   ///
-  /// `trackManually`처럼 판정이 백그라운드에서 트리거될 수 있어서, main 전용인 오버레이 표시 여부 읽기와
-  /// `trackingRectangle()`의 UIKit 지오메트리 평가가 모두 main에서 일어나도록 먼저 main으로 수렴해요.
-  /// main 도착 시점에 화면이 이미 사라졌다면 건너뛰어, `viewDidDisappear`에서 지운 rect가
-  /// 늦게 도착한 보고로 되살아나지 않게 해요. 오버레이가 꺼져 있으면 클로저 평가 비용 없이 반환해요.
+  /// Overlay state and UIKit geometry are read on the main thread. Recheck
+  /// visibility after dispatching so a delayed report cannot restore a cleared rect.
+  /// Skip geometry evaluation when the overlay is disabled.
   private func reportTrackingRectToDebugOverlayIfNeeded() {
     guard Thread.isMainThread else {
       DispatchQueue.main.async { [weak self] in
@@ -240,11 +234,11 @@ extension ImpressionEventTracker: VisibleStateDetectorDelegate {
     callback?(visibleItem)
   }
 
-  /// 아이템의 쿨타임 정보로 발화 가능 여부를 판정해요.
+  /// Checks whether the item's cooldown permits an impression.
   ///
-  /// 아이템의 ``VisibleStateDetectorItem/cooltime``이 `nil`이면 쿨타임을 적용하지 않아요.
+  /// A `nil` ``VisibleStateDetectorItem/cooltime`` bypasses the cooldown check.
   ///
-  /// 판정 과정에서 쿨타임 캐시에 만료 시각이 기록되므로, 필터를 통과해 실제로 발화할 아이템에만 호출해요.
+  /// This check can record an expiration, so call it only after the item passes the filter.
   private func passesCooltime(_ item: VisibleStateDetectorItem) -> Bool {
     guard let cooltime = item.cooltime else {
       return true
@@ -255,4 +249,3 @@ extension ImpressionEventTracker: VisibleStateDetectorDelegate {
     )
   }
 }
-

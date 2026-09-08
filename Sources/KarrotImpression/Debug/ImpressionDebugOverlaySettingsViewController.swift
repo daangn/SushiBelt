@@ -7,8 +7,8 @@
 import SwiftUI
 import UIKit
 
-/// 노출 추적 영역과 최상위 화면의 safe area 표시를 켜고 끄는 디버그 설정 화면이에요.
-/// `DEBUG` 빌드에서 생성해 navigation stack에 push하거나 present할 수 있어요.
+/// Toggles overlays for UIKit tracking areas and the topmost screen's safe area.
+/// Push or present this view controller from your app's debug menu in `DEBUG` builds.
 public final class ImpressionDebugOverlaySettingsViewController: UIViewController {
 
   public init() {
@@ -33,8 +33,7 @@ public final class ImpressionDebugOverlaySettingsViewController: UIViewControlle
   }
 }
 
-/// 오버레이 토글을 영역별 섹션으로 나눠 보여주는 설정 화면 본문이에요.
-/// 각 행은 오버레이가 실제로 그리는 스타일을 미리 보여주는 legend, 제목과 설명, 토글로 구성해요.
+/// Groups overlay toggles by region, with a legend matching each drawing style.
 private struct ImpressionDebugOverlaySettingsView: View {
 
   @State private var showsTrackingRect = ImpressionDebugOverlay.shared.showsTrackingRect
@@ -124,7 +123,7 @@ private struct OverlayToggleRow: View {
   }
 }
 
-/// 오버레이가 그리는 스타일(주황 solid fill, 시안 dashed border)을 축소해서 보여주는 미리보기예요.
+/// Previews the orange tracking fill and cyan dashed safe-area border.
 private struct LegendSwatch: View {
 
   let legend: OverlayToggleRow.Legend

@@ -17,8 +17,8 @@ final class Mutex<Value> {
     self.value = value
   }
 
-  /// - Warning: 동일 Mutex의 withLock 블록 안에서 이 메서드를 다시 호출하면
-  ///            (UnfairLock이 재진입 불가 특성이라) 교착상태가 발생할 수 있어요.
+  /// - Warning: Do not call this method from another `withLock` block on the same
+  /// mutex. `UnfairLock` is not recursive, so reentry can deadlock.
   @discardableResult
   func withLock<U>(_ mutation: (inout Value) throws -> U) rethrows -> U {
     try lock.around {
@@ -29,23 +29,23 @@ final class Mutex<Value> {
 
 extension Mutex {
 
-  /// 특정 프로퍼티의 값만 반환이 필요한 경우에 사용해요.
-  /// - Note: 반환 타입이 reference type이면 반환 이후 변경은 Thread-Safe 하지 않아요.
+  /// Reads the stored value under the lock.
+  /// - Note: If the value is a reference type, later mutations are not protected by this lock.
   func withLock() -> Value {
     lock.around { value }
   }
 
-  /// 특정 프로퍼티의 값만 반환이 필요한 경우에 사용해요.
+  /// Reads a property under the lock.
   func withLock<U>(_ keyPath: KeyPath<Value, U>) -> U {
     lock.around {
       value[keyPath: keyPath]
     }
   }
 
-  /// 특정 프로퍼티의 값만 업데이트가 필요한 경우에 사용해요.
-  /// - Note: `mutation`이 throw를 던질 수 있고 결과를 반환할 수 있어요.
-  /// - Warning: 동일 Mutex의 withLock 블록 안에서 이 메서드를 다시 호출하면
-  ///            (UnfairLock이 재진입 불가 특성이라) 교착상태가 발생할 수 있어요.
+  /// Updates a property under the lock.
+  /// - Note: The mutation can throw and return a result.
+  /// - Warning: Do not call this method from another `withLock` block on the same
+  /// mutex. `UnfairLock` is not recursive, so reentry can deadlock.
   func withLock<U, R>(
     _ keyPath: WritableKeyPath<Value, U>,
     mutation: (inout U) throws -> R,
@@ -55,4 +55,3 @@ extension Mutex {
     }
   }
 }
-

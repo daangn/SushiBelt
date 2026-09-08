@@ -1,6 +1,6 @@
 //
 //  ImpressionEventTrackable.swift
-//  KarrotImpressionInterface
+//  KarrotImpression
 //
 //  Created by Ben on 2023/06/02.
 //  Copyright © 2023 Danggeun Market Inc. All rights reserved.
@@ -8,26 +8,26 @@
 
 import UIKit
 
-/// VisibleStateDetectorItem를 필터링하는 클로저
+/// Returns whether a detected item is eligible for an impression callback.
 public typealias ImpressionItemFilter = (VisibleStateDetectorItem) -> Bool
 
-/// ImpressionEvent가 발생하여 콜백된 VisibleStateDetectorItem을 처리하는 클로저
+/// Handles an item that has met the impression criteria.
 public typealias ImpressionEventCallback = (VisibleStateDetectorItem) -> Void
 
 /// @mockable
-/// 주어진 `UIScrollView`의 SubViews의 Visible 상태 이벤트를 추적하고 감지하는 타입
+/// Tracks impressions for items in a scroll view.
 public protocol ImpressionEventTrackable {
 
-  /// `UIScrollView`의 Visible Subviews의 Impression Event를 구독 받기 위해 등록해요.
+  /// Registers a scroll view and observes its owning view controller's lifecycle.
   ///
   /// - Parameters:
-  ///   - viewController: `UIScrollView`를 소유하고 있는 `UIViewController` 타입
-  ///   - scrollView: Subviews의 Impression Event를 추적할 `UIScrollView`
-  ///   - detectorItemFactory: 추적할 아이템을 만들기 위한 Factory
-  ///   - trackingRect: 추적하려는 범위
+  ///   - viewController: The view controller that owns the scroll view.
+  ///   - scrollView: The scroll view containing the tracked items.
+  ///   - detectorItemFactory: Creates the items to evaluate on each detection pass.
+  ///   - trackingRect: Returns the tracking area in window coordinates.
   ///
-  /// - Note: `UIScrollView`를 포함하고 있는 최상위 `UIViewController`에서 등록시 사용해요.
-  /// `UIApplication`, `UIViewController`의 생명주기에 따라 Scene이 다시 노출될때 Impression Event를 갱신해요.
+  /// - Note: Use this overload for a screen-level scroll view. The tracker
+  /// reevaluates items when the view appears or the app becomes active.
   func register(
     viewController: UIViewController,
     scrollView: UIScrollView,
@@ -35,44 +35,46 @@ public protocol ImpressionEventTrackable {
     trackingRect: @escaping (() -> CGRect),
   )
 
-  /// `UIScrollView`의 Visible Subviews의 Impression Event를 구독 받기 위해 등록해요.
+  /// Registers a scroll view without observing a view controller's lifecycle.
   ///
   /// - Parameters:
-  ///   - scrollView: Subviews의 Impression Event를 추적할 `UIScrollView`
-  ///   - detectorItemFactory: 추적할 아이템을 만들기 위한 Factory
-  ///   - trackingRect: 추적하려는 범위
+  ///   - scrollView: The scroll view containing the tracked items.
+  ///   - detectorItemFactory: Creates the items to evaluate on each detection pass.
+  ///   - trackingRect: Returns the tracking area in window coordinates.
   ///
-  /// - Note: `UIScrollView`를 포함하고 있는 Cell (`UITableViewCell`, `UICollectionViewCell`)에서 등록시 사용해요.
-  /// Cell이 `ImpressionInnerScrollable` protocol을 conform하면 상위로 부터 보여지거나 사라졌을때 콜밷 받을 수 있어요.
+  /// - Note: Use this overload for nested scroll views, such as a carousel inside
+  /// a cell. A parent target can implement `ImpressionInnerScrollable` to forward
+  /// tracking and clearing requests to its nested tracker.
   func register(
     scrollView: UIScrollView,
     detectorItemFactory: DetectorItemFactory,
     trackingRect: @escaping (() -> CGRect),
   )
 
-  /// `ImpressionItem`을 필터링하기 위한 필터 클로저를 설정해요.
+  /// Sets a filter that runs before the cooldown check and impression callback.
   ///
-  /// - Parameter filter: `ImpressionItem`을 필터링하는 클로저 (클로저가 `false`를 반환하면 해당 아이템은 무시)
+  /// - Parameter filter: Return `false` to suppress the item's callback.
   func setFilter(_ filter: @escaping ImpressionItemFilter)
 
-  /// `ImpressionEventCallback`을 구현하여 `ImpressionEvent`를 구독해요.
+  /// Sets the callback for detected impressions, replacing any previous callback.
   ///
-  /// - Parameter callback: `ImpressionEvent`를 처리하는 클로저
+  /// - Parameter callback: Handles an item that passes the filter and cooldown check.
   func subscribe(callback: @escaping ImpressionEventCallback)
 
-  /// 수동으로 등록된 `UIScroll` 서브뷰들의 Impression 상태 탐지를 요청해요.
+  /// Evaluates the registered scroll view's items without waiting for a scroll event.
   ///
-  /// - Note: `UITableView`, `UICollectionView` reloadData() 호출 직후에 Visible 상태의 Item을 콜백받을 수 없어요.
-  /// 이러한 경우 `reloadData()` completion handler 등 위치에서 수동으로 탐지를 하기 위해 사용해요.
-  /// - Parameter shouldResetCache: 현재 추적중인 DetectorItem들을 제거 여부 값
+  /// - Note: After reloading a table or collection view, call this once layout
+  /// has updated the visible cells and their frames.
+  /// - Parameter shouldResetCache: Whether to clear tracked-item state first.
+  /// This does not clear the cooldown cache.
   func trackManually(shouldResetCache: Bool)
 
-  /// 노출 중인 아이템을 저장하고 있는 캐시를 모두 제거해요.
+  /// Clears tracked-item state without clearing the cooldown cache.
   ///
-  /// 리스트에서 Pull To Refresh 등 전체 갱신하는 경우, 기존의 캐시를 제거해야 갱신 이후 동일한 아이템에 대해 노출 콜백을 받을 수 있어요.
+  /// Use this before reevaluating a refreshed list to let the same items produce
+  /// new callbacks, subject to their cooldowns.
   func clearCache()
 
-  /// 디버깅 모드를 활성화 해요.
+  /// Shows the UIKit item debugger. Call only from debug-only application code.
   func enableDebugging()
 }
-

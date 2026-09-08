@@ -1,6 +1,6 @@
 //
 //  ImpressionDetectorTarget.swift
-//  KarrotImpressionInterface
+//  KarrotImpression
 //
 //  Created by Jaxtyn on 2023/07/21.
 //  Copyright © 2023 Danggeun Market Inc. All rights reserved.
@@ -9,10 +9,10 @@
 import UIKit
 
 /// @mockable
-/// 추적하려는 타겟 (e.g. View, Cell, Node, ...)
+/// A view or other object whose visible frame can be tracked.
 public protocol ImpressionDetectorTarget {
 
-  /// 윈도우에서 현재 위치 및 크기 정보를 표현하는 값
+  /// The target's current frame in window coordinates.
   var frameInWindow: CGRect { get }
 }
 
@@ -23,4 +23,3 @@ extension ImpressionDetectorTarget where Self: UIView {
 }
 
 extension UIView: ImpressionDetectorTarget {}
-
