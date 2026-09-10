@@ -8,18 +8,18 @@
 import Foundation
 import UIKit
 
-public protocol SushiBeltTrackerIdentifier {
+protocol SushiBeltTrackerIdentifier {
   var trackingIdentifer: String { get }
 }
 
-public struct SushiBeltTrackerItem {
+struct SushiBeltTrackerItem {
   
-  public enum Identifier: Equatable {
+  enum Identifier: Equatable {
     case index(Int)
     case indexPath(IndexPath)
     case trackingIdentifier(SushiBeltTrackerIdentifier)
     
-    public static func == (lhs: SushiBeltTrackerItem.Identifier,
+    static func == (lhs: SushiBeltTrackerItem.Identifier,
                            rhs: SushiBeltTrackerItem.Identifier) -> Bool {
       switch (lhs, rhs) {
       case let (.index(lhsIndex), .index(rhsIndex)):
@@ -35,13 +35,13 @@ public struct SushiBeltTrackerItem {
     }
   }
   
-  public let id: Identifier
-  public var status: SushiBeltTrackerItemStatus {
+  let id: Identifier
+  var status: SushiBeltTrackerItemStatus {
     return self.isTracked ? .tracked : .tracking
   }
 
-  public var rect: SushiBeltTrackerItemRect
-  public private(set) var timestamp: Date
+  var rect: SushiBeltTrackerItemRect
+  private(set) var timestamp: Date
 
   /// When `true`, the tracker re-evaluates this item's ratio on every tick
   /// and fires `didExit(_:item:)` when ratio drops below the threshold
@@ -49,13 +49,13 @@ public struct SushiBeltTrackerItem {
   /// the item follows the sticky behavior: `didEnter` fires once on the
   /// first up-crossing and `isTracked` stays `true` until the item leaves
   /// the set.
-  public let tracksExit: Bool
+  let tracksExit: Bool
 
   var isTracked: Bool = false
   var currentVisibleRatio: CGFloat = 0.0
   var objectiveVisibleRatio: CGFloat = 0.0
 
-  public init(
+  init(
     id: Identifier,
     rect: SushiBeltTrackerItemRect,
     tracksExit: Bool = false
@@ -72,7 +72,7 @@ public struct SushiBeltTrackerItem {
 
 extension SushiBeltTrackerItem: CustomDebugStringConvertible {
   
-  public var debugDescription: String {
+  var debugDescription: String {
     switch self.id {
     case let .index(index):
       return "\(index), frame: \(self.rect.frameInWindow)"
@@ -88,7 +88,7 @@ extension SushiBeltTrackerItem: CustomDebugStringConvertible {
 
 extension SushiBeltTrackerItem: Hashable {
   
-  public func hash(into hasher: inout Hasher) {
+  func hash(into hasher: inout Hasher) {
     switch self.id {
     case let .index(index):
       hasher.combine(index)
@@ -104,7 +104,7 @@ extension SushiBeltTrackerItem: Hashable {
 
 extension SushiBeltTrackerItem: Equatable {
   
-  public static func == (lhs: Self, rhs: Self) -> Bool {
+  static func == (lhs: Self, rhs: Self) -> Bool {
     return lhs.hashValue == rhs.hashValue
   }
 }

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-public struct SushiBeltDebuggerConfiguration {
+struct SushiBeltDebuggerConfiguration {
   
   let font: UIFont
   let textColor: UIColor
@@ -17,7 +17,7 @@ public struct SushiBeltDebuggerConfiguration {
   let description: ((SushiBeltTrackerItem) -> String)?
   let labelMargin: UIEdgeInsets
   
-  public init(
+  init(
     font: UIFont = UIFont.boldSystemFont(ofSize: 16.0),
     textColor: UIColor = .white,
     numberOfLine: Int = 0,

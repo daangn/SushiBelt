@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-public protocol VisibleRatioCalculator {
+protocol VisibleRatioCalculator {
   
   func visibleRatio(
     item: SushiBeltTrackerItem,
@@ -16,9 +16,9 @@ public protocol VisibleRatioCalculator {
   ) -> CGFloat?
 }
 
-public struct DefaultVisibleRatioCalculator: VisibleRatioCalculator {
+struct DefaultVisibleRatioCalculator: VisibleRatioCalculator {
   
-  public func visibleRatio(
+  func visibleRatio(
     item: SushiBeltTrackerItem,
     trackingRect: CGRect
   ) -> CGFloat? {

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-public protocol SushiBeltTrackerDataSource: AnyObject {
+protocol SushiBeltTrackerDataSource: AnyObject {
   func trackingRect(_ tracker: SushiBeltTracker) -> CGRect
   func visibleRatioForItem(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) -> CGFloat
 }

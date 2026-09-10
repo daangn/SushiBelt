@@ -8,7 +8,7 @@
 import Foundation
 import XCTest
 
-@testable import SushiBelt
+@testable import KarrotImpression
 
 final class SushiBeltTrackerItemDiffCheckerTests: XCTestCase {
   

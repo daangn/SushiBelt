@@ -7,7 +7,7 @@
 
 import Foundation
 
-@testable import SushiBelt
+@testable import KarrotImpression
 
 final class SushiBeltTrackerIdentifierStub: SushiBeltTrackerIdentifier {
   

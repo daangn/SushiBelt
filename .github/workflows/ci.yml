@@ -6,24 +6,66 @@ on:
 
 jobs:
   build:
-    name: Run PR-CI
-    runs-on: macos-14
+    name: Xcode ${{ matrix.xcode }} / iOS ${{ matrix.ios }}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - xcode: '16.4'
+            ios: '18.5'
+            device: iPhone 16
+            runner: macos-15
+          - xcode: '26.0.1'
+            ios: '26.0.1'
+            device: iPhone 17
+            runner: macos-15
+          - xcode: '26.1.1'
+            ios: '26.1'
+            device: iPhone 17
+            runner: macos-15
+          - xcode: '26.2'
+            ios: '26.2'
+            device: iPhone 17
+            runner: macos-26
+          - xcode: '26.3'
+            ios: '26.2'
+            device: iPhone 17
+            runner: macos-26
+          - xcode: '26.4.1'
+            ios: '26.4.1'
+            device: iPhone 17
+            runner: macos-26
+          - xcode: '26.5'
+            ios: '26.5'
+            device: iPhone 17
+            runner: macos-26
+          - xcode: '26.6'
+            ios: '26.5'
+            device: iPhone 17
+            runner: macos-26
     env:
-      SCHEME: SushiBelt
+      DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode }}.app/Contents/Developer
+      SCHEME: KarrotImpression
       SDK: iphonesimulator
-      DESTINATION: platform=iOS Simulator,name=iPhone 15,OS=17.2
+      DESTINATION: platform=iOS Simulator,name=${{ matrix.device }},OS=${{ matrix.ios }}
     steps:
     - name: Checkout the Git repository
       uses: actions/checkout@v4
 
     - name: Build and Test
       run: |
-        set -o pipefail && xcodebuild clean build test \
+        set -euo pipefail
+        xcodebuild -version
+        xcrun swiftc --version
+        xcodebuild clean build test \
           -scheme "$SCHEME" \
           -sdk "$SDK" \
           -destination "$DESTINATION" \
           -configuration Debug \
           -enableCodeCoverage YES \
-          CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty -c;
+          CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO 2>&1 | xcbeautify
     - name: Codecov
+      if: matrix.xcode == '26.6'
       uses: codecov/codecov-action@v2.1.0

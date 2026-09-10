@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import XCTest
 
-@testable import SushiBelt
+@testable import KarrotImpression
 
 final class VisibleRatioCalculatorTests: XCTestCase {
   

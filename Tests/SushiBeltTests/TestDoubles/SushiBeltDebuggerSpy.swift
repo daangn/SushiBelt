@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-@testable import SushiBelt
+@testable import KarrotImpression
 
 final class SushiBeltDebuggerSpy: SushiBeltDebuggerLogic {
   

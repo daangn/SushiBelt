@@ -7,12 +7,12 @@
 
 import Foundation
 
-public struct SushiBeltTrackerItemDiffResult {
-  public let calculationTargetedItems: Set<SushiBeltTrackerItem>
-  public let newItems: Set<SushiBeltTrackerItem>
-  public let endedItems: Set<SushiBeltTrackerItem>
+struct SushiBeltTrackerItemDiffResult {
+  let calculationTargetedItems: Set<SushiBeltTrackerItem>
+  let newItems: Set<SushiBeltTrackerItem>
+  let endedItems: Set<SushiBeltTrackerItem>
   
-  public init(
+  init(
     calculationTargetedItems: Set<SushiBeltTrackerItem>,
     newItems: Set<SushiBeltTrackerItem>,
     endedItems: Set<SushiBeltTrackerItem>
