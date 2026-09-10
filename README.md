@@ -1,29 +1,23 @@
 # KarrotImpression
 
-Impression tracking for UIKit and SwiftUI. Choose how much of an item must be
-visible, control repeated impressions, and handle callbacks in your own analytics
-code. KarrotImpression detects visibility; it does not send analytics events.
+Impression tracking for UIKit and SwiftUI, with configurable visibility
+thresholds and cooldowns. Receive callbacks and connect them to your analytics.
 
-The repository is named **SushiBelt**. The package, library product, and Swift
-module are named **KarrotImpression**. The original SushiBelt engine is an
-implementation detail, not a separate public product.
+- **UIKit:** Track table and collection view cells, or provide custom targets.
+- **SwiftUI:** Track views with modifiers and optional exit callbacks.
 
 ## Requirements
 
 - iOS 17 or later
-- Swift tools 6.1 or later; the package uses Swift 5 language mode
-- RxSwift and RxCocoa 6.8.0, resolved by Swift Package Manager
+- Swift tools 6.1 or later (Swift 5 language mode)
 
-No private Karrot packages or dependency-injection framework are required.
+Swift Package Manager resolves RxSwift and RxCocoa 6.8.0 automatically.
 
 ## Installation
 
-This version is unreleased. Existing SushiBelt release tags and the CocoaPods
-spec do not provide the API described here.
-
-To try this branch in Xcode, check it out locally, choose **File → Add Package
-Dependencies → Add Local**, and select the repository directory. Add the
-**KarrotImpression** product to your app target.
+Add the package using Swift Package Manager. For a local checkout, choose
+**File → Add Package Dependencies → Add Local** in Xcode and select the repository
+directory. Add the **KarrotImpression** product to your app target.
 
 ```swift
 import KarrotImpression
@@ -31,12 +25,8 @@ import KarrotImpression
 
 ## UIKit
 
-Keep one tracker for each scroll view. Register it once, supply the items to
-measure, and subscribe to impression callbacks. Use stable model IDs rather than
-cell instances or index paths that change when the list is reordered.
-
-This example wires an existing collection view to the tracker. Configure
-`ProductCell.impressionID` from your model whenever a cell is reused.
+Keep one tracker per scroll view, register it once, and subscribe to impressions.
+Use stable model IDs and update `ProductCell.impressionID` when configuring a cell.
 
 ```swift
 import UIKit
@@ -94,32 +84,35 @@ does not infer occlusion by other views.
 `UIScrollView` subviews. Implement `DetectorItemFactory` for those cases; any
 `UIView` already conforms to `ImpressionDetectorTarget`.
 
-### Lifecycle and refreshes
+### Refreshing and filtering
 
 The view-controller registration observes appearance, app activation, and user
 scrolling. For programmatic scrolling or data reloads, call
 `trackManually(shouldResetCache:)` after layout has updated the visible cells and
 their frames.
 
-- `trackManually(shouldResetCache: false)` evaluates items with existing tracking state.
-- `trackManually(shouldResetCache: true)` clears tracked-item state before evaluating.
-- `clearCache()` clears tracked-item state without starting a new evaluation.
-- `setFilter(_:)` suppresses callbacks for items where the closure returns `false`.
+| Method | Behavior |
+| --- | --- |
+| `trackManually(shouldResetCache: false)` | Evaluate items with existing tracking state. |
+| `trackManually(shouldResetCache: true)` | Clear tracking state, then evaluate items. |
+| `clearCache()` | Clear tracking state without evaluating items. |
+| `setFilter(_:)` | Suppress callbacks when the filter returns `false`. |
 
 A callback fires when an eligible item first meets its threshold. It can fire
 again after the item leaves the tracked set or tracking state is cleared,
 subject to its cooldown. UIKit's public API provides entry callbacks only.
+
+### Nested scroll views
 
 For a nested scroll view, use the `register` overload without a view controller.
 It does not observe screen or app lifecycle events. A parent tracking target can
 conform to `ImpressionInnerScrollable` and forward its tracking and clearing
 requests to the nested tracker.
 
-### Cooldowns and cache ownership
+### Cooldowns
 
-The example sets a 30-second cooldown using `ImpressionCooltime`. Omitting
-`cooltime` disables cooldown checking for that item; it does not use the item ID
-as an implicit cache key.
+Set `ImpressionCooltime` to limit repeated impressions, as in the 30-second
+example above. Omit `cooltime` to disable cooldown checking for an item.
 
 Each `build()` call creates a separate in-memory cooldown cache. To share a
 cooldown across trackers, inject the same cache and use the same cooldown keys:
@@ -134,10 +127,8 @@ let secondTracker = builder.build(cooltimeCache: cache)
 The tracker applies its filter before checking the cooldown. The default cache
 records an expiration when a check allows an impression.
 
-**Tracking state and cooldown state are separate.** `tracker.clearCache()` and
-`shouldResetCache: true` do not clear cooldowns. Call `cache.clear()` explicitly
-if your refresh or session policy requires that. You can provide custom storage
-by implementing `ImpressionCooltimeCache`.
+`tracker.clearCache()` and `shouldResetCache: true` preserve cooldowns. Use
+`cache.clear()` to reset them. Implement `ImpressionCooltimeCache` for custom storage.
 
 ## SwiftUI
 
@@ -170,7 +161,6 @@ struct ProductList: View {
     }
     .impressionTrackableContainer(visibleArea: .safeArea)
     .impressionPolicy(.cooldown(interval: 30))
-    .showsChildrenImpressionRect()
   }
 }
 ```
@@ -180,12 +170,10 @@ and its visible-area ratio is at least `visibilityThreshold`. The default
 threshold is `0.0`, meaning any positive intersection. IDs must be unique within
 the container and remain stable across view updates.
 
-Without `tracksExit: true`, only entry callbacks are delivered. With exit
-tracking enabled, an accepted entry is paired with an exit when the item falls
-below its threshold or leaves the visible set. Exits are also attempted when
-the container becomes inactive or disappears; crashes and forced termination
-cannot guarantee a final callback. A policy-blocked entry does not produce an
-exit callback.
+Set `tracksExit: true` to pair accepted entries with exits when an item falls
+below its threshold or leaves the visible set. Lifecycle exits are best-effort
+when the container becomes inactive or disappears. Entries blocked by a policy
+do not produce exits. By default, only entry callbacks are delivered.
 
 ### Visible area and policies
 
@@ -206,9 +194,9 @@ independent of UIKit's `ImpressionCooltimeCache`.
 
 ## Debugging
 
-All debug views use UIKit or SwiftUI; no app-specific debug menu is required.
+### UIKit
 
-For UIKit item diagnostics, call `tracker.enableDebugging()` from a
+For item diagnostics, call `tracker.enableDebugging()` from a
 `#if DEBUG` block. For tracking-area and safe-area overlays, present the settings
 controller from your own debug menu:
 
@@ -224,20 +212,22 @@ show reported UIKit tracking areas; the cyan dashed outline shows the topmost
 screen's safe area. Enable the toggle, then scroll or reenter the screen to
 refresh tracking-area reports.
 
-In SwiftUI, `showsChildrenImpressionRect()` adds red and green item overlays in
-debug builds and does nothing in release builds. Green means the item is in the
-container's last processed visible snapshot, which includes items blocked by a
-policy. It is **not** confirmation that an impression callback was delivered.
+### SwiftUI
+
+Add `.showsChildrenImpressionRect()` after `.impressionTrackableContainer()` to
+show item overlays in debug builds. It has no effect in release builds.
+
+Green outlines indicate items in the last processed visible snapshot, including
+items blocked by a policy; they do not confirm callback delivery.
 
 ## Migrating from SushiBelt
 
-This is not an import-only rename. `SushiBeltTracker`, its delegate/data-source
-protocols, and engine customization types are now internal. Use the UIKit
-builder and factory API or the SwiftUI modifiers instead.
+The repository remains named SushiBelt; the package and import are
+`KarrotImpression`. Replace the previous tracker and delegate APIs with the UIKit
+builder and factory API or SwiftUI modifiers.
 
-See [MIGRATION.md](MIGRATION.md) for the public API changes and the older
-SushiBelt 2.x-to-3.0 guide. The `Example/` CocoaPods project still targets the
-older SushiBelt API; it is not a runnable KarrotImpression sample.
+See the [migration guide](MIGRATION.md) for API mappings and behavior changes.
+The `Example/` project uses the previous SushiBelt API.
 
 ## Authors
 
