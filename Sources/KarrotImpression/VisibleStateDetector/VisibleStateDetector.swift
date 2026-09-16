@@ -32,7 +32,7 @@ final class VisibleStateDetector: VisibleStateDetectable {
     trackingRectProvider = trackingRect
 
     let sushiBeltTrackerItems = self.items.compactMap {
-      if trackingRect().intersection($0.target.frameInWindow).height > 0 {
+      if !trackingRect().intersection($0.target.frameInWindow).isEmpty {
         SushiBeltTrackerItem(
           id: .trackingIdentifier($0),
           rect: .init(frame: $0.target.frameInWindow),
