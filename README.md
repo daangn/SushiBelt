@@ -102,6 +102,18 @@ A callback fires when an eligible item first meets its threshold. It can fire
 again after the item leaves the tracked set or tracking state is cleared,
 subject to its cooldown. UIKit's public API provides entry callbacks only.
 
+### Registering while onscreen
+
+A tracker registered while its view controller is already onscreen reports no
+impression until that view controller appears again, and it stays silent when the
+app returns from the background. Pass `usesInitialVisibility: true` to the builder
+to take the visibility at registration time from the window attachment of the
+view.
+
+```swift
+let tracker = ImpressionEventTrackerBuilder(usesInitialVisibility: true).build()
+```
+
 ### Nested scroll views
 
 For a nested scroll view, use the `register` overload without a view controller.
