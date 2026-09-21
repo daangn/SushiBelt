@@ -10,7 +10,15 @@ import UIKit
 
 public final class ImpressionEventTrackerBuilder: ImpressionEventTrackerBuildable {
 
-  public init() {}
+  private let usesInitialVisibility: Bool
+
+  /// - Parameters:
+  ///   - usesInitialVisibility: Seeds the visibility of a registered view controller from the
+  ///   window attachment of its view. Turn this on to keep tracking a screen that was already
+  ///   onscreen when it registered. Defaults to `false`.
+  public init(usesInitialVisibility: Bool = false) {
+    self.usesInitialVisibility = usesInitialVisibility
+  }
 
   public func build() -> any ImpressionEventTrackable {
     build(cooltimeCache: InMemoryImpressionCooltimeCacheImpl(dateProvider: { Date() }))
@@ -24,6 +32,7 @@ public final class ImpressionEventTrackerBuilder: ImpressionEventTrackerBuildabl
       ),
       application: UIApplication.self,
       cooltimeCache: cooltimeCache,
+      usesInitialVisibility: usesInitialVisibility,
     )
   }
 }

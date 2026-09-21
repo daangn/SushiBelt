@@ -17,6 +17,7 @@ final class ImpressionEventTracker: ImpressionEventTrackable {
   private let detector: VisibleStateDetectable
   private let application: UIApplication.Type
   private let cooltimeCache: ImpressionCooltimeCache
+  private let usesInitialVisibility: Bool
   private var trackingRectangle: (() -> CGRect)?
   private var detectorItemFactory: DetectorItemFactory?
   private var filter: ImpressionItemFilter?
@@ -24,11 +25,16 @@ final class ImpressionEventTracker: ImpressionEventTrackable {
 
   private var scrollView: UIScrollView?
 
-  /// Gates manual tracking while the registered view controller is offscreen.
+  /// Gates manual tracking and application activation while the registered view controller
+  /// is offscreen.
   ///
   /// Set to `true` on `viewWillAppear` and `false` on `viewDidDisappear`.
   /// Items are reevaluated on `viewDidAppear`; suppressed manual checks are not queued.
   /// Without a registered view controller, this remains `true`.
+  ///
+  /// With `usesInitialVisibility` enabled, registration seeds this from the window attachment
+  /// of the view. `rx.isVisible` carries no initial value, so a screen registered while it is
+  /// already onscreen keeps an empty stream until the next `viewWillAppear`.
   private var isViewControllerVisible = true
   private var sourceIdentifier: String?
 
@@ -45,10 +51,12 @@ final class ImpressionEventTracker: ImpressionEventTrackable {
     detector: VisibleStateDetectable,
     application: UIApplication.Type,
     cooltimeCache: ImpressionCooltimeCache,
+    usesInitialVisibility: Bool,
   ) {
     self.detector = detector
     self.application = application
     self.cooltimeCache = cooltimeCache
+    self.usesInitialVisibility = usesInitialVisibility
     detector.delegate = self
   }
 
@@ -69,8 +77,13 @@ final class ImpressionEventTracker: ImpressionEventTrackable {
     self.scrollView = scrollView
     self.detectorItemFactory = detectorItemFactory
     trackingRectangle = trackingRect
-    observeApplicationLifeCycleEvent(viewController: viewController)
-    observeViewControllerLifeCycleEvent(viewController: viewController)
+    if usesInitialVisibility {
+      observeApplicationLifeCycleEventUsingInitialVisibility()
+      observeViewControllerLifeCycleEventUsingInitialVisibility(viewController: viewController)
+    } else {
+      observeApplicationLifeCycleEvent(viewController: viewController)
+      observeViewControllerLifeCycleEvent(viewController: viewController)
+    }
     observeScrollViewEvent(scrollView: scrollView)
   }
 
@@ -110,6 +123,57 @@ final class ImpressionEventTracker: ImpressionEventTrackable {
 
   func enableDebugging() {
     detector.showDebugger()
+  }
+
+  /// Replaces `observeApplicationLifeCycleEvent` while `usesInitialVisibility` is enabled.
+  ///
+  /// Reads the stored visibility instead of `rx.isVisible`, whose first value only arrives on
+  /// the next `viewWillAppear`.
+  private func observeApplicationLifeCycleEventUsingInitialVisibility() {
+    application.rx.didBecomeActive
+      .filter { [weak self] _ in self?.isViewControllerVisible == true }
+      .bind(onNext: { [weak self] _ in
+        self?.detectVisibleItemsIfNeeded(source: "didBecomeActive")
+      })
+      .disposed(by: disposeBag)
+
+    application.rx.willResignActive
+      .filter { [weak self] _ in self?.isViewControllerVisible == true }
+      .bind(onNext: { [weak self] _ in
+        self?.clearCache()
+      })
+      .disposed(by: disposeBag)
+  }
+
+  /// Replaces `observeViewControllerLifeCycleEvent` while `usesInitialVisibility` is enabled.
+  ///
+  /// Seeds the visibility from the window attachment of the view, then keeps it in sync through
+  /// a single `rx.isVisible` subscription.
+  private func observeViewControllerLifeCycleEventUsingInitialVisibility(viewController: UIViewController) {
+    isViewControllerVisible = viewController.viewIfLoaded?.window != nil
+
+    viewController.rx.isVisible
+      .bind(onNext: { [weak self] isVisible in
+        self?.isViewControllerVisible = isVisible
+      })
+      .disposed(by: disposeBag)
+
+    viewController.rx.viewDidAppear
+      .bind(onNext: { [weak self] _ in
+        self?.detectVisibleItemsIfNeeded(source: "viewDidAppear")
+      })
+      .disposed(by: disposeBag)
+
+    viewController.rx.viewDidDisappear
+      .bind(onNext: { [weak self] _ in
+        self?.clearCache()
+        #if DEBUG
+        if let self {
+          ImpressionDebugOverlay.shared.clearTrackingRect(key: debugOverlayKey)
+        }
+        #endif
+      })
+      .disposed(by: disposeBag)
   }
 
   private func observeApplicationLifeCycleEvent(viewController: UIViewController) {
