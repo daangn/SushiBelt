@@ -1,14 +1,14 @@
 import UIKit
 
-final class ViewabilityHandler {
-  private var registrations: [String: ViewabilityTrackingItem] = [:]
+final class ViewableImpressionHandler {
+  private var registrations: [String: ViewableImpressionTrackingItem] = [:]
   private var activeSessions: [String: ViewabilityItem] = [:]
 
   func update(items: [ViewabilityItem]) {
-    var next: [String: ViewabilityTrackingItem] = [:]
+    var next: [String: ViewableImpressionTrackingItem] = [:]
     for registration in items where next[registration.id] == nil {
       let trackingItem = registrations[registration.id]
-        ?? ViewabilityTrackingItem(item: registration, handler: self)
+        ?? ViewableImpressionTrackingItem(item: registration, handler: self)
       trackingItem.registration = registration
       next[registration.id] = trackingItem
     }

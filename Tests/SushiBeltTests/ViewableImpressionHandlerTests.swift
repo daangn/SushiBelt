@@ -4,7 +4,7 @@ import UIKit
 @testable import KarrotImpression
 
 @MainActor
-struct ViewabilityHandlerTests {
+struct ViewableImpressionHandlerTests {
   private final class TableView: UITableView {
     var cells: [UITableViewCell] = []
     override var visibleCells: [UITableViewCell] { cells }
