@@ -15,6 +15,7 @@ final class VisibleStateDetector: VisibleStateDetectable {
   private let sushiBeltTracker: SushiBeltTrackerProtocol
   private let sushiBeltDebugger: SushiBeltDebuggerLogic
   private let impressionHandler = ImpressionHandler()
+  private let viewabilityHandler = ViewabilityHandler()
   private var trackingRectProvider: (() -> CGRect)?
 
   init(
@@ -29,19 +30,23 @@ final class VisibleStateDetector: VisibleStateDetectable {
 
   func detect(
     items: [VisibleStateDetectorItem],
+    viewabilityItems: [ViewabilityItem],
     trackingRect: @escaping () -> CGRect
   ) {
     trackingRectProvider = trackingRect
     impressionHandler.update(items: items)
+    viewabilityHandler.update(items: viewabilityItems)
 
     let viewport = trackingRect()
     let sushiBeltTrackerItems = impressionHandler.makeTrackerItems(viewport: viewport)
+      + viewabilityHandler.makeTrackerItems(viewport: viewport)
     sushiBeltTracker.calculateItemsIfNeeded(items: sushiBeltTrackerItems)
     impressionHandler.evaluate(delegate: delegate)
   }
 
   func clear() {
     impressionHandler.clear(delegate: delegate)
+    viewabilityHandler.clear()
     sushiBeltTracker.calculateItemsIfNeeded(items: [])
   }
 

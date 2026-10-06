@@ -17,4 +17,11 @@ public protocol DetectorItemFactory {
   /// - Parameters:
   ///   - view: The scroll view containing the target views.
   func makeVisibleDetectorItems(view: UIScrollView) -> [VisibleStateDetectorItem]
+
+  /// Returns targets for enter/exit tracking, independently of impression items.
+  func makeViewabilityItems(view: UIScrollView) -> [ViewabilityItem]
+}
+
+extension DetectorItemFactory {
+  public func makeViewabilityItems(view: UIScrollView) -> [ViewabilityItem] { [] }
 }

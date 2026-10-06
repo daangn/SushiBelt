@@ -19,7 +19,7 @@ final class VisibleStateDetectorSpy: VisibleStateDetectable {
   var onDetect: (() -> Void)?
   var onClear: (() -> Void)?
 
-  func detect(items: [VisibleStateDetectorItem], trackingRect: @escaping () -> CGRect) {
+  func detect(items: [VisibleStateDetectorItem], viewabilityItems: [ViewabilityItem], trackingRect: @escaping () -> CGRect) {
     self.detectCallCount += 1
     self.onDetect?()
   }

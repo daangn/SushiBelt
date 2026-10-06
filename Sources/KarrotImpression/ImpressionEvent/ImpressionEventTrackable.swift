@@ -14,6 +14,11 @@ public typealias ImpressionItemFilter = (VisibleStateDetectorItem) -> Bool
 /// Handles an item that has met the impression criteria.
 public typealias ImpressionEventCallback = (VisibleStateDetectorItem) -> Void
 
+public enum ViewabilityEvent {
+  case entered(ViewabilityItem)
+  case exited(ViewabilityItem)
+}
+
 /// @mockable
 /// Tracks impressions for items in a scroll view.
 public protocol ImpressionEventTrackable {
@@ -60,6 +65,9 @@ public protocol ImpressionEventTrackable {
   ///
   /// - Parameter callback: Handles an item that passes the filter and cooldown check.
   func subscribe(callback: @escaping ImpressionEventCallback)
+
+  /// Replaces the viewability callback, independently of impression filters and cooldowns.
+  func subscribeViewability(callback: @escaping (ViewabilityEvent) -> Void)
 
   /// Evaluates the registered scroll view's items without waiting for a scroll event.
   ///
