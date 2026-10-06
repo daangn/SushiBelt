@@ -31,15 +31,14 @@ final class VisibleStateDetector: VisibleStateDetectable {
     self.items = Set(items)
     trackingRectProvider = trackingRect
 
-    let sushiBeltTrackerItems = self.items.compactMap {
-      if trackingRect().intersection($0.target.frameInWindow).height > 0 {
-        SushiBeltTrackerItem(
-          id: .trackingIdentifier($0),
-          rect: .init(frame: $0.target.frameInWindow),
-        )
-      } else {
-        nil
-      }
+    let sushiBeltTrackerItems = self.items.compactMap { item -> SushiBeltTrackerItem? in
+      let frame = item.target.frameInWindow
+      let intersection = trackingRect().intersection(frame)
+      guard intersection.width > 0, intersection.height > 0 else { return nil }
+      return SushiBeltTrackerItem(
+        id: .trackingIdentifier(item),
+        rect: .init(frame: frame),
+      )
     }
     sushiBeltTracker.calculateItemsIfNeeded(items: sushiBeltTrackerItems)
 
@@ -112,4 +111,3 @@ extension VisibleStateDetector: SushiBeltTrackerDelegate {
     item.clearImpressionEvent()
   }
 }
-
