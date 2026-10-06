@@ -14,7 +14,7 @@ final class VisibleStateDetector: VisibleStateDetectable {
 
   private let sushiBeltTracker: SushiBeltTrackerProtocol
   private let sushiBeltDebugger: SushiBeltDebuggerLogic
-  private var items = Set<VisibleStateDetectorItem>()
+  private let impressionHandler = ImpressionHandler()
   private var trackingRectProvider: (() -> CGRect)?
 
   init(
@@ -27,30 +27,21 @@ final class VisibleStateDetector: VisibleStateDetectable {
     sushiBeltTracker.delegate = self
   }
 
-  func detect(items: [VisibleStateDetectorItem], trackingRect: @escaping () -> CGRect) {
-    self.items = Set(items)
+  func detect(
+    items: [VisibleStateDetectorItem],
+    trackingRect: @escaping () -> CGRect
+  ) {
     trackingRectProvider = trackingRect
+    impressionHandler.update(items: items)
 
-    let sushiBeltTrackerItems = self.items.compactMap {
-      if trackingRect().intersection($0.target.frameInWindow).height > 0 {
-        SushiBeltTrackerItem(
-          id: .trackingIdentifier($0),
-          rect: .init(frame: $0.target.frameInWindow),
-        )
-      } else {
-        nil
-      }
-    }
+    let viewport = trackingRect()
+    let sushiBeltTrackerItems = impressionHandler.makeTrackerItems(viewport: viewport)
     sushiBeltTracker.calculateItemsIfNeeded(items: sushiBeltTrackerItems)
-
-    detectInnerScrollable()
+    impressionHandler.evaluate(delegate: delegate)
   }
 
   func clear() {
-    for item in items {
-      (item.target as? ImpressionInnerScrollable)?.clearImpressionEvent()
-    }
-    items = []
+    impressionHandler.clear(delegate: delegate)
     sushiBeltTracker.calculateItemsIfNeeded(items: [])
   }
 
@@ -59,10 +50,9 @@ final class VisibleStateDetector: VisibleStateDetectable {
     sushiBeltDebugger.show()
   }
 
-  private func detectInnerScrollable() {
-    for item in items {
-      (item.target as? ImpressionInnerScrollable)?.trackImpressionEvent()
-    }
+  private func trackingItem(for item: SushiBeltTrackerItem) -> (any TrackingItem)? {
+    guard case .trackingIdentifier(let identifier) = item.id else { return nil }
+    return identifier as? any TrackingItem
   }
 }
 
@@ -73,13 +63,7 @@ extension VisibleStateDetector: SushiBeltTrackerDataSource {
   }
 
   func visibleRatioForItem(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) -> CGFloat {
-    guard
-      case .trackingIdentifier(let id) = item.id,
-      let item = items.first(where: { $0.trackingIdentifer == id.trackingIdentifer })
-    else {
-      return .zero
-    }
-    return item.ratio
+    trackingItem(for: item)?.ratio ?? .zero
   }
 }
 
@@ -90,26 +74,14 @@ extension VisibleStateDetector: SushiBeltTrackerDelegate {
   }
 
   func didEnter(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {
-    guard
-      case .trackingIdentifier(let id) = item.id,
-      let item = items.first(where: { $0.trackingIdentifer == id.trackingIdentifer })
-    else {
-      return
-    }
-    delegate?.onDetect(visibleItem: item)
-    (item.target as? ImpressionInnerScrollable)?.trackImpressionEvent()
+    trackingItem(for: item)?.receive(.entered, delegate: delegate)
   }
 
   func didEndTracking(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {
-    guard
-      case .trackingIdentifier(let id) = item.id,
-      let item = items.first(where: { $0.trackingIdentifer == id.trackingIdentifer })?
-        .target as? ImpressionInnerScrollable
-    else {
-      return
-    }
+    trackingItem(for: item)?.receive(.ended, delegate: delegate)
+  }
 
-    item.clearImpressionEvent()
+  func didExit(_ tracker: SushiBeltTracker, item: SushiBeltTrackerItem) {
+    trackingItem(for: item)?.receive(.exited, delegate: delegate)
   }
 }
-
