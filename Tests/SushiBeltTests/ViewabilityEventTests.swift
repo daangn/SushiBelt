@@ -5,6 +5,10 @@ import UIKit
 
 @MainActor
 struct ViewabilityEventTests {
+  private struct FrameTarget: ImpressionDetectorTarget {
+    let frameInWindow: CGRect
+  }
+
   private final class NestedTarget: ImpressionDetectorTarget, ImpressionInnerScrollable {
     let frameInWindow = CGRect(x: 0, y: 0, width: 100, height: 100)
     var operations: [String] = []
@@ -40,6 +44,27 @@ struct ViewabilityEventTests {
       target: UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100)),
       ratio: 0.1
     )
+  }
+
+  @Test
+  func test_a_viewability_only_subscription_should_not_consume_the_impression_cooldown() {
+    let (detector, tracker) = makeSUT()
+    let viewport = CGRect(x: 0, y: 0, width: 100, height: 100)
+    let impression = VisibleStateDetectorItem(
+      id: "item", target: FrameTarget(frameInWindow: viewport), ratio: 0.1,
+      cooltime: .init(key: "item", coolingTime: 60)
+    )
+    var impressions = 0
+    var entries = 0
+    tracker.subscribeViewability { if case .entered = $0 { entries += 1 } }
+    detector.detect(items: [impression], viewabilityItems: [makeItem()]) { viewport }
+
+    tracker.subscribe { _ in impressions += 1 }
+    tracker.clearCache()
+    detector.detect(items: [impression], viewabilityItems: [makeItem()]) { viewport }
+
+    #expect(impressions == 1)
+    #expect(entries == 2)
   }
 
   @Test

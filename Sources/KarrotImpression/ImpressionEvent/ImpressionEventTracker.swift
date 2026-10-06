@@ -300,13 +300,14 @@ extension ImpressionEventTracker: VisibleStateDetectorDelegate {
   }
 
   func onDetect(visibleItem: VisibleStateDetectorItem) {
+    guard let callback else { return }
     if let filter, filter(visibleItem) == false {
       return
     }
     guard passesCooltime(visibleItem) else {
       return
     }
-    callback?(visibleItem)
+    callback(visibleItem)
   }
 
   /// Checks whether the item's cooldown permits an impression.
