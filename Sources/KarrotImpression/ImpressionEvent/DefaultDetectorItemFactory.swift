@@ -12,24 +12,37 @@ import UIKit
 /// Other scroll view types produce no items; use a custom `DetectorItemFactory` for them.
 public final class DefaultDetectorItemFactory: DetectorItemFactory {
 
-  /// Maps a visible cell to an item, or returns `nil` to exclude it.
   private let mapper: (UIView) -> VisibleStateDetectorItem?
+  private let viewabilityMapper: (UIView) -> ViewabilityItem?
 
-  public init(mapper: @escaping (UIView) -> VisibleStateDetectorItem?) {
+  public convenience init(mapper: @escaping (UIView) -> VisibleStateDetectorItem?) {
+    self.init(mapper: mapper, viewabilityMapper: { _ in nil })
+  }
+
+  /// Maps each visible cell to independent impression and viewability registrations.
+  public init(
+    mapper: @escaping (UIView) -> VisibleStateDetectorItem?,
+    viewabilityMapper: @escaping (UIView) -> ViewabilityItem?
+  ) {
     self.mapper = mapper
+    self.viewabilityMapper = viewabilityMapper
   }
 
   public func makeVisibleDetectorItems(view: UIScrollView) -> [VisibleStateDetectorItem] {
+    visibleCells(in: view).compactMap(mapper)
+  }
+
+  public func makeViewabilityItems(view: UIScrollView) -> [ViewabilityItem] {
+    visibleCells(in: view).compactMap(viewabilityMapper)
+  }
+
+  private func visibleCells(in view: UIScrollView) -> [UIView] {
     switch view {
     case let tableView as UITableView:
-      tableView.visibleCells.compactMap { cell in
-        mapper(cell)
-      }
+      tableView.visibleCells
 
     case let collectionView as UICollectionView:
-      collectionView.visibleCells.compactMap { cell in
-        mapper(cell)
-      }
+      collectionView.visibleCells
 
     default:
       []

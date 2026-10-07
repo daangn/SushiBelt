@@ -20,12 +20,19 @@ protocol VisibleStateDetectable: AnyObject {
   ///
   /// - Parameters:
   ///   - items: The items to evaluate.
+  ///   - viewabilityItems: The targets to evaluate for enter/exit events.
   ///   - trackingRect: Returns the tracking area in window coordinates.
-  func detect(items: [VisibleStateDetectorItem], trackingRect: @escaping () -> CGRect)
+  func detect(items: [VisibleStateDetectorItem], viewabilityItems: [ViewabilityItem], trackingRect: @escaping () -> CGRect)
 
   /// Clears tracked-item state.
   func clear()
 
   /// Shows the item debugger.
   func showDebugger()
+}
+
+extension VisibleStateDetectable {
+  func detect(items: [VisibleStateDetectorItem], trackingRect: @escaping () -> CGRect) {
+    detect(items: items, viewabilityItems: [], trackingRect: trackingRect)
+  }
 }

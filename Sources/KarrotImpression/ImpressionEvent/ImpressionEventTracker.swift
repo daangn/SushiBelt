@@ -22,6 +22,7 @@ final class ImpressionEventTracker: ImpressionEventTrackable {
   private var detectorItemFactory: DetectorItemFactory?
   private var filter: ImpressionItemFilter?
   private var callback: ImpressionEventCallback?
+  private var viewabilityCallback: ((ViewabilityEvent) -> Void)?
 
   private var scrollView: UIScrollView?
 
@@ -106,6 +107,10 @@ final class ImpressionEventTracker: ImpressionEventTrackable {
     self.callback = callback
   }
 
+  func subscribeViewability(callback: @escaping (ViewabilityEvent) -> Void) {
+    viewabilityCallback = callback
+  }
+
   func trackManually(shouldResetCache: Bool) {
     guard isViewControllerVisible else {
       return
@@ -117,7 +122,7 @@ final class ImpressionEventTracker: ImpressionEventTrackable {
   }
 
   func clearCache() {
-    guard callback != nil else { return }
+    guard callback != nil || viewabilityCallback != nil else { return }
     detector.clear()
   }
 
@@ -231,7 +236,8 @@ final class ImpressionEventTracker: ImpressionEventTrackable {
   }
 
   private func detectVisibleItemsIfNeeded(source: String) {
-    guard let scrollView, let detectorItemFactory, let trackingRectangle, callback != nil else {
+    guard let scrollView, let detectorItemFactory, let trackingRectangle,
+      callback != nil || viewabilityCallback != nil else {
       return
     }
 
@@ -243,6 +249,7 @@ final class ImpressionEventTracker: ImpressionEventTrackable {
 
     detector.detect(
       items: items,
+      viewabilityItems: detectorItemFactory.makeViewabilityItems(view: scrollView),
       trackingRect: trackingRectangle,
     )
   }
@@ -288,14 +295,19 @@ final class ImpressionEventTracker: ImpressionEventTrackable {
 
 extension ImpressionEventTracker: VisibleStateDetectorDelegate {
 
+  func onViewabilityChanged(_ event: ViewabilityEvent) {
+    viewabilityCallback?(event)
+  }
+
   func onDetect(visibleItem: VisibleStateDetectorItem) {
+    guard let callback else { return }
     if let filter, filter(visibleItem) == false {
       return
     }
     guard passesCooltime(visibleItem) else {
       return
     }
-    callback?(visibleItem)
+    callback(visibleItem)
   }
 
   /// Checks whether the item's cooldown permits an impression.

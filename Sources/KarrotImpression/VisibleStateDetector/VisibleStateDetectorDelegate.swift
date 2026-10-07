@@ -12,5 +12,9 @@ import Foundation
 protocol VisibleStateDetectorDelegate: AnyObject {
 
   func onDetect(visibleItem: VisibleStateDetectorItem)
+  func onViewabilityChanged(_ event: ViewabilityEvent)
 }
 
+extension VisibleStateDetectorDelegate {
+  func onViewabilityChanged(_ event: ViewabilityEvent) {}
+}

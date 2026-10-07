@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// Describes a UIKit impression target. Equality and hashing use only `id`.
+/// Describes a UIKit impression target. Equality and hashing use `id`.
 public struct VisibleStateDetectorItem: Identifiable, Hashable {
 
   public let id: String
