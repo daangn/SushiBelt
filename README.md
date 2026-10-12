@@ -11,7 +11,8 @@ thresholds and cooldowns. Receive callbacks and connect them to your analytics.
 - iOS 17 or later
 - Swift tools 6.1 or later (Swift 5 language mode)
 
-Swift Package Manager resolves RxSwift and RxCocoa 6.8.0 automatically.
+Swift Package Manager resolves RxSwift and RxCocoa automatically, from 6.8.0 up
+to the next major version.
 
 ## Installation
 
