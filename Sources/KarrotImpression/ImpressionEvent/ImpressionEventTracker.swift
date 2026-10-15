@@ -226,6 +226,21 @@ final class ImpressionEventTracker: ImpressionEventTrackable {
   }
 
   private func observeScrollViewEvent(scrollView: UIScrollView) {
+    // Install method interception before KVO changes the scroll view's runtime class.
+    scrollView.rx.methodInvoked(#selector(UIView.layoutSubviews))
+      .compactMap { [weak scrollView] _ in scrollView?.bounds.size }
+      .startWith(scrollView.bounds.size)
+      .distinctUntilChanged()
+      .skip(1)
+      .bind(onNext: { [weak self, weak scrollView] _ in
+        guard let self, let scrollView,
+          self.scrollView === scrollView, scrollView.window != nil else {
+          return
+        }
+        self.trackManually(shouldResetCache: false)
+      })
+      .disposed(by: disposeBag)
+
     scrollView.publisher(for: \.contentOffset)
       .didChange()
       .filter(isValidScrolling())
