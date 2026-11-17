@@ -80,6 +80,13 @@ coordinates**. The closure above uses the scroll view's bounds; adjust it if a
 fixed header or another overlay should reduce the tracking area. The library
 does not infer occlusion by other views.
 
+For an item inside a clipped carousel, pass
+`trackingRectInWindow: carousel.convert(carousel.bounds, to: nil)` when creating
+its `VisibleStateDetectorItem` in the factory. The visible area is the overlap of
+the target, the list viewport, and the carousel. For a 100 pt wide card with
+its full height visible, 49 pt inside that overlap falls short of a 50% threshold.
+Supply the current rectangle each time the factory creates the item.
+
 `DefaultDetectorItemFactory` maps visible cells in `UITableView` and
 `UICollectionView`. It does not include supplementary views or arbitrary
 `UIScrollView` subviews. Implement `DetectorItemFactory` for those cases; any

@@ -6,6 +6,7 @@ final class ImpressionTrackingItem: TrackingItem {
   private weak var handler: ImpressionHandler?
   var target: ImpressionDetectorTarget { registration.target }
   var ratio: CGFloat { registration.ratio }
+  var trackingRectInWindow: CGRect? { registration.trackingRectInWindow }
   let tracksExit = false
   let isValid = true
 

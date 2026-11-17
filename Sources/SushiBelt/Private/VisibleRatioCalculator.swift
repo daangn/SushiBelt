@@ -22,7 +22,7 @@ struct DefaultVisibleRatioCalculator: VisibleRatioCalculator {
     item: SushiBeltTrackerItem,
     trackingRect: CGRect
   ) -> CGFloat? {
-    let visibleRect = trackingRect.intersection(item.rect.frameInWindow)
+    let visibleRect = item.rect.visibleRect(in: trackingRect)
     let itemRectPixels = item.rect.frameInWindow.height * item.rect.frameInWindow.width
     let visiblePixels = visibleRect.height * visibleRect.width
     return visiblePixels / itemRectPixels

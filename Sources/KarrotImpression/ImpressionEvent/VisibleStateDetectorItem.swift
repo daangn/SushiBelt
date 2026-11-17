@@ -16,6 +16,10 @@ public struct VisibleStateDetectorItem: Identifiable, Hashable {
   public let ratio: CGFloat
   public let userInfo: [AnyHashable: Any]?
 
+  /// An optional window-coordinate rectangle that further limits where this item can be seen.
+  /// The visibility ratio is still measured against the target's full area.
+  public let trackingRectInWindow: CGRect?
+
   /// The cooldown applied to this item.
   ///
   /// `nil` disables cooldown checking; it does not fall back to the item's `id`.
@@ -26,12 +30,14 @@ public struct VisibleStateDetectorItem: Identifiable, Hashable {
     id: String,
     target: ImpressionDetectorTarget,
     ratio: CGFloat,
+    trackingRectInWindow: CGRect? = nil,
     userInfo: [AnyHashable: Any]? = nil,
     cooltime: ImpressionCooltime? = nil,
   ) {
     self.id = id
     self.target = target
     self.ratio = ratio
+    self.trackingRectInWindow = trackingRectInWindow
     self.userInfo = userInfo
     self.cooltime = cooltime
   }

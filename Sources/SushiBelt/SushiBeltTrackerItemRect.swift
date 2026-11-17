@@ -24,24 +24,33 @@ typealias PlatformView = NSView
 struct SushiBeltTrackerItemRect {
   let frameInWindow: CGRect
 
-  init(frame: CGRect) {
+  let trackingRectInWindow: CGRect?
+
+  init(frame: CGRect, trackingRectInWindow: CGRect? = nil) {
     self.frameInWindow = frame
+    self.trackingRectInWindow = trackingRectInWindow
+  }
+
+  func visibleRect(in viewport: CGRect) -> CGRect {
+    let visibleRect = viewport.intersection(frameInWindow)
+    guard let trackingRectInWindow else { return visibleRect }
+    return visibleRect.intersection(trackingRectInWindow)
   }
 
   init(origin: CGPoint, size: CGSize) {
-    self.frameInWindow = .init(origin: origin, size: size)
+    self.init(frame: CGRect(origin: origin, size: size))
   }
 
   init(x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat) {
-    self.frameInWindow = .init(x: x, y: y, width: width, height: height)
+    self.init(frame: CGRect(x: x, y: y, width: width, height: height))
   }
 
   init(x: Double, y: Double, width: Double, height: Double) {
-    self.frameInWindow = .init(x: x, y: y, width: width, height: height)
+    self.init(frame: CGRect(x: x, y: y, width: width, height: height))
   }
 
   init(x: Int, y: Int, width: Int, height: Int) {
-    self.frameInWindow = .init(x: x, y: y, width: width, height: height)
+    self.init(frame: CGRect(x: x, y: y, width: width, height: height))
   }
 }
 
